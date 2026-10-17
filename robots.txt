@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_src/
+Disallow: /checkout/
+Sitemap: https://vlora.ae/sitemap.xml
