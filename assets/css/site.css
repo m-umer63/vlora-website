@@ -422,3 +422,26 @@ p{margin:0 0 1em}
 .hero2-copy{max-width:640px}
 @media (max-width:860px){.hero2-shade{background:linear-gradient(0deg,rgba(12,25,59,.92) 0%,rgba(12,25,59,.7) 55%,rgba(12,25,59,.55) 100%)}.hero2-poster,.hero2-video{object-position:50% 40%}}
 @media (prefers-reduced-motion:reduce){.hero2-video{display:none}}
+
+/* hero v2: text 60 / video 40, light monotone */
+.hero2-poster,.hero2-video{filter:grayscale(.9) contrast(1.04);object-position:70% 50%}
+.hero2-shade{background:linear-gradient(90deg,var(--navy) 0%,var(--navy) 46%,rgba(12,25,59,.72) 56%,rgba(12,25,59,.18) 72%,rgba(12,25,59,.08) 100%),linear-gradient(0deg,rgba(12,25,59,.45),transparent 30%)}
+.hero2-in{padding-top:72px;padding-bottom:110px}
+.hero2-copy{max-width:min(720px,56%)}
+.hero2 .h-hero{font-size:clamp(2.6rem,5.6vw,5.2rem);line-height:1.04}
+@media (max-width:860px){.hero2-copy{max-width:none}.hero2-shade{background:linear-gradient(0deg,var(--navy) 0%,var(--navy) 42%,rgba(12,25,59,.55) 66%,rgba(12,25,59,.12) 100%)}.hero2-in{align-self:end;padding-top:40vh;padding-bottom:72px}.hero2 .h-hero{font-size:clamp(2.3rem,10vw,3.2rem)}.hero2-poster,.hero2-video{object-position:50% 30%}}
+
+/* hero v3: text ~60% / film ~40%, light monotone */
+.hero2-poster,.hero2-video{object-position:70% 50%;filter:grayscale(1) contrast(1.04) brightness(.95)}
+.hero2-shade{background:linear-gradient(90deg,rgba(12,25,59,.97) 0%,rgba(12,25,59,.95) 50%,rgba(12,25,59,.55) 60%,rgba(12,25,59,.14) 70%,rgba(12,25,59,.1) 100%),linear-gradient(0deg,rgba(12,25,59,.35),transparent 30%)}
+.hero2{min-height:max(620px,calc(100svh - 112px))}
+.hero2-copy{max-width:min(58%,760px)}
+.h-hero{font-size:clamp(2.6rem,5.6vw,5.2rem);line-height:1.06;margin-bottom:1.6rem}
+.hero2 .lede{font-size:1.2rem;max-width:36ch;color:#dfe3f2}
+@media (max-width:860px){
+  .hero2-copy{max-width:none}
+  .h-hero{font-size:clamp(2.3rem,10vw,3.4rem)}
+  .hero2-shade{background:linear-gradient(0deg,rgba(12,25,59,.96) 0%,rgba(12,25,59,.9) 52%,rgba(12,25,59,.25) 80%,rgba(12,25,59,.1) 100%)}
+  .hero2-in{align-content:end;padding-bottom:72px}
+  .hero2-poster,.hero2-video{object-position:50% 30%}
+}
