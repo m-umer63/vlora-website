@@ -222,8 +222,8 @@ def shell(path, title, desc, body, extra_head='', body_class='', noindex=False, 
 <meta property="og:url" content="{esc(canon)}"><meta property="og:site_name" content="VLORÁ">
 <meta name="theme-color" content="#0c193b">
 <link rel="icon" type="image/svg+xml" href="{asset(d, "assets/img/favicon.svg")}">
-<link rel="preload" href="{asset(d, "assets/fonts/cinzel-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{asset(d, "assets/fonts/eb-garamond-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{asset(d, "assets/fonts/bodoni-moda-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{asset(d, "assets/fonts/manrope-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{asset(d, "assets/css/site.css")}">
 {extra_head}
 </head>
@@ -294,7 +294,7 @@ def page_home():
   <figure class="quote">
     <span class="qmark" aria-hidden="true">&ldquo;</span>
     <blockquote><p class="words" data-words>Create what reflects you, not what resembles the world.</p></blockquote>
-    <figcaption class="sig"><span class="sig-line" aria-hidden="true"></span><span class="sig-name">A. Khan</span><span class="sig-role">Founder</span></figcaption>
+    <figcaption class="sig"><span class="sig-line" aria-hidden="true"></span><span class="sig-name">A. Khan</span><span class="sig-role">Founder &amp; Chairman</span></figcaption>
   </figure>
 </div></section>
 
