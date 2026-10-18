@@ -274,7 +274,11 @@ def page_home():
     ticks = ''.join(f'<span class="tick{" is-on" if i == 0 else ""}"></span>' for i in range(len(chapters)))
     body = f'''
 <section class="hero2" data-hero2>
-  <div class="hero2-bg" aria-hidden="true"><span class="glow g1"></span><span class="glow g2"></span><span class="glow g3"></span></div>
+  <div class="hero2-bg" aria-hidden="true">
+    <img class="hero2-poster" src="{asset(d, "assets/video/hero-poster.jpg")}" alt="" width="1280" height="720">
+    <video class="hero2-video" muted loop playsinline preload="auto" poster="{asset(d, "assets/video/hero-poster.jpg")}" data-src="{asset(d, "assets/video/hero.mp4")}" data-src-m="{asset(d, "assets/video/hero-m.mp4")}" disablepictureinpicture tabindex="-1"></video>
+    <span class="hero2-shade"></span>
+  </div>
   <div class="hero2-in">
     <div class="hero2-copy">
       <p class="eyebrow-gold mask"><span>Dubai &middot; Since {SITE["since"]}</span></p>
@@ -282,7 +286,6 @@ def page_home():
       <p class="lede rise" style="--i:4">Fine jewelry and watches from a family house, chosen to be worn often and passed on.</p>
       <div class="cta-row rise" style="--i:5"><a class="btn btn-gold" href="{link(d, "collections/all/")}">Shop all jewelry</a><a class="link-light" href="{link(d, "pages/about/")}">Our story</a></div>
     </div>
-    <div class="hero2-art" aria-hidden="true">{gem_svg("hero2-gem")}</div>
   </div>
   <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
 </section>

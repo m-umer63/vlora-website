@@ -301,7 +301,22 @@
     window.addEventListener('resize', onScroll); onScroll();
   }
 
-  /* ---------- init ---------- */
+  /* ---------- hero video ---------- */
+function heroVideo(){
+  var v=document.querySelector('.hero2-video'); if(!v) return;
+  try{
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var c=navigator.connection; if(c&&(c.saveData||/2g/.test(c.effectiveType||''))) return;
+    var m=window.matchMedia('(max-width: 860px)').matches;
+    var mp4=v.canPlayType('video/mp4; codecs="avc1.640028"');
+    v.src=!mp4&&v.canPlayType('video/webm; codecs="vp9"')?v.dataset.src.replace('.mp4','.webm'):((m&&v.dataset.srcM)||v.dataset.src);
+    v.addEventListener('playing',function(){v.classList.add('is-playing')});
+    var p=v.play(); if(p&&p.catch) p.catch(function(){});
+    document.addEventListener('visibilitychange',function(){ if(document.hidden) v.pause(); else v.play().catch(function(){}); });
+  }catch(e){}
+}
+
+/* ---------- init ---------- */
   if ($('#wish-grid')) renderWishPage();
-  markWish(); updateCounts(); renderBag();
+  markWish(); updateCounts(); renderBag(); heroVideo();
 })();
