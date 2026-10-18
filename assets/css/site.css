@@ -506,5 +506,5 @@ p{margin:0 0 1em}
 .quote .words{font-size:clamp(2rem,5vw,3.8rem);line-height:1.18}
 .hero2 .h-hero{font-size:clamp(2.1rem,4.2vw,3.7rem);line-height:1.08}
 .sig-name{font-family:var(--display);font-style:italic}
-.js-words .w.lit.hl{color:var(--gold)}
+.js-words .w.lit.hl{color:#6b5223}
 .quote{padding-top:clamp(3.4rem,7vw,5rem)}.qmark{top:0;left:-.04em;line-height:.8}
