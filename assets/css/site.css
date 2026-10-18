@@ -445,3 +445,20 @@ p{margin:0 0 1em}
   .hero2-in{align-content:end;padding-bottom:72px}
   .hero2-poster,.hero2-video{object-position:50% 30%}
 }
+
+/* hero v2: video and copy share the stage */
+.hero2{align-items:end;min-height:max(600px,calc(100svh - 112px))}
+.hero2-poster,.hero2-video{filter:grayscale(.88) contrast(1.03) brightness(.96);object-position:50% 50%}
+.hero2-shade{background:linear-gradient(0deg,rgba(12,25,59,.9) 0%,rgba(12,25,59,.62) 22%,rgba(12,25,59,0) 52%),linear-gradient(90deg,rgba(12,25,59,.55) 0%,rgba(12,25,59,0) 55%),rgba(12,25,59,.14)}
+.hero2-in{padding:56px var(--gut) 64px;align-items:end}
+.hero2-copy{max-width:560px}
+.hero2 .h-hero{font-size:clamp(2rem,4.2vw,3.5rem);line-height:1.08;margin-bottom:1rem}
+.hero2 .lede{font-size:1.1rem;margin-bottom:1.5rem;max-width:36ch}
+.hero2 .eyebrow-gold{margin-bottom:.9rem}
+.scroll-cue{left:auto;right:var(--gut);transform:none}
+@media (max-width:860px){
+  .hero2{min-height:max(560px,calc(100svh - 98px))}
+  .hero2-shade{background:linear-gradient(0deg,rgba(12,25,59,.92) 0%,rgba(12,25,59,.6) 38%,rgba(12,25,59,0) 66%),rgba(12,25,59,.12)}
+  .hero2-in{padding-bottom:40px}
+  .hero2 .h-hero{font-size:2.1rem}
+}
