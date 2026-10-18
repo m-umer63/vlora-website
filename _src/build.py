@@ -133,25 +133,16 @@ def header(d, current=''):
     cats = ''.join(f'<li><a href="{link(d, "collections/" + CAT_SLUG[c] + "/")}">{c}</a></li>' for c in CATEGORIES if c != 'Watches')
     mobcats = ''.join(f'<a href="{link(d, "collections/" + CAT_SLUG[c] + "/")}">{c}</a>' for c in CATEGORIES)
     return f'''<a class="skip" href="#main">Skip to content</a>
-<div class="announce"><span>Fine jewelry &amp; watches &middot; Dubai &middot; Since {SITE["since"]}</span></div>
+<div class="announce"><span>Expert Craftsmanship since {SITE["since"]} &middot; Dubai</span></div>
 <header class="site-header" id="top">
   <div class="hdr">
     <div class="hdr-left"><button class="icon-btn menu-btn" data-open="menu" aria-label="Open menu">{ICON["menu"]}</button>
     <nav class="nav nav-left" aria-label="Main">
-      <div class="has-mega">
-        <a href="{link(d, "collections/all/")}" aria-haspopup="true">Jewelry</a>
-        <div class="mega"><div class="mega-in">
-          <ul class="mega-col"><li class="mega-h">Shop by category</li><li><a href="{link(d, "collections/all/")}">All jewelry &amp; watches</a></li>{cats}</ul>
-          <ul class="mega-col"><li class="mega-h">Discover</li><li><a href="{link(d, "collections/new-arrivals/")}">New arrivals</a></li>
-            <li><a href="{link(d, "collections/watches/")}">Watches</a></li><li><a href="{link(d, "pages/care-guide/")}">Care guide</a></li></ul>
-          <a class="mega-art" href="{link(d, "collections/rings/")}" aria-label="Shop rings"><span>The ring edit</span>
-            <img src="{asset(d, "assets/img/vlora-symbol-cream.svg")}" alt="" width="120" height="148"></a>
-        </div></div>
-      </div>
-      <a href="{link(d, "collections/watches/")}">Watches</a>
-      <a href="{link(d, "collections/new-arrivals/")}">New arrivals</a>
+      <a href="{link(d, "collections/gold/")}">Gold</a>
+      <a href="{link(d, "collections/diamond/")}">Diamond</a>
+      <a href="{link(d, "pages/bespoke/")}">Bespoke</a>
     </nav></div>
-    <a class="brand" href="{link(d)}" aria-label="VLORÁ home"><img src="{asset(d, "assets/img/vlora-logo-navy.svg")}" alt="VLORÁ" width="176" height="56"></a>
+    <a class="brand" href="{link(d)}" aria-label="VLORÁ home"><img src="{asset(d, "assets/img/vlora-logo-navy.svg")}" alt="VLORÁ" width="176" height="56"><span class="brand-year">{SITE["since"]}</span></a>
     <div class="hdr-right"><nav class="nav nav-right" aria-label="Secondary">
       <a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/contact/")}">Contact</a>
     </nav>
@@ -165,7 +156,7 @@ def header(d, current=''):
 <div class="scrim" data-close></div>
 <aside class="drawer drawer-left" id="menu-drawer" aria-label="Menu" aria-hidden="true">
   <div class="drawer-head"><span class="eyebrow">Menu</span><button class="icon-btn" data-close aria-label="Close">{ICON["close"]}</button></div>
-  <nav class="mob-nav"><a href="{link(d, "collections/all/")}">All jewelry</a>{mobcats}
+  <nav class="mob-nav"><a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/diamond/")}">Diamond</a><a href="{link(d, "pages/bespoke/")}">Bespoke</a><hr><a href="{link(d, "collections/all/")}">All jewelry</a>{mobcats}
   <a href="{link(d, "collections/new-arrivals/")}">New arrivals</a><hr>
   <a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/care-guide/")}">Care guide</a><a href="{link(d, "pages/faq/")}">FAQ</a><a href="{link(d, "pages/contact/")}">Contact</a><a href="{link(d, "wishlist/")}">Wishlist</a></nav>
 </aside>
@@ -451,6 +442,15 @@ def page_faq():
     simple_page('faq', 'FAQ', 'Answers to common questions about ordering from VLORÁ.', inner)
 
 
+def page_bespoke():
+    simple_page('bespoke', 'Bespoke', 'Have a piece made for you, from first sketch to final polish.', f'''
+<p class="lede">Your idea, made by our own hands in Dubai.</p>
+<h2>How it works</h2><p>Tell us what you have in mind: a sketch, a photo, a stone you already own. We discuss design, metal and budget, then agree a final drawing before anything is made.</p>
+<h2>Making and finishing</h2><p>Your piece is crafted, set and polished in our workshop, and checked before it reaches you.</p>
+<h2>Start a conversation</h2><p><a href="{link(2, "pages/contact/")}">Contact us</a> to arrange a consultation.</p>
+<p class="draft">Draft text. Please review and adjust to match how your bespoke service really works, including timelines.</p>''')
+
+
 def page_care():
     simple_page('care-guide', 'Care guide', 'Simple habits that keep gold, diamonds and watches looking their best.', '''
 <p class="lede">A little care goes a long way. These habits suit most fine jewelry.</p>
@@ -550,6 +550,8 @@ def build():
                                                            "currency": "AED", "categories": CATEGORIES}, ensure_ascii=False) + ';')
     page_home()
     page_collection('all', 'All jewelry & watches', 'Every piece in the VLORÁ collection.', PRODUCTS)
+    page_collection('gold', 'Gold', 'Fine jewelry in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])
+    page_collection('diamond', 'Diamond', 'Diamond jewelry, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond'])
     page_collection('new-arrivals', 'New arrivals', 'The newest pieces to join the collection.', [p for p in PRODUCTS if p.get('new')])
     blurbs = {'Rings': 'Solitaires, bands and statement rings.', 'Earrings': 'Studs, drops and hoops for every day and every occasion.',
               'Necklaces': 'Pendants, chains and rivières.', 'Bracelets': 'Tennis, link and chain bracelets.',
@@ -559,7 +561,7 @@ def build():
         page_collection(CAT_SLUG[c], c, blurbs[c], [p for p in PRODUCTS if p['category'] == c])
     for p in PRODUCTS:
         page_product(p)
-    page_about(); page_contact(); page_faq(); page_care(); page_shipping(); page_privacy(); page_terms()
+    page_about(); page_bespoke(); page_contact(); page_faq(); page_care(); page_shipping(); page_privacy(); page_terms()
     page_wishlist(); page_checkout(); page_404()
     today = datetime.date.today().isoformat()
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'<url><loc>{esc(u)}</loc><lastmod>{today}</lastmod></url>\n' for u in sorted(set(PAGES))) + '</urlset>\n'
