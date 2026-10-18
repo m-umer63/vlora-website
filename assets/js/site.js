@@ -257,6 +257,50 @@
     });
   }
 
+
+  /* ---------- landing page: scroll effects ---------- */
+  var hero2 = $('[data-hero2]'), story = $('[data-story]'), wordsEl = $('[data-words]');
+  var wordNodes = [];
+  if (wordsEl) {
+    var hl = { lifetime: 1, kept: 1 };
+    wordsEl.innerHTML = wordsEl.textContent.trim().split(/\s+/).map(function (w) {
+      return '<span class="w' + (hl[w.toLowerCase().replace(/[^a-z]/g, '')] ? ' hl' : '') + '">' + esc(w) + '</span>';
+    }).join(' ');
+    wordNodes = $$('.w', wordsEl);
+    wordsEl.classList.add('js-words');
+    document.documentElement.classList.add('js-words');
+  }
+  var curChap = 0, chapEls = $$('[data-chap-item]'), tickEls = $$('.tick');
+  var ticking = false;
+  function onScroll() {
+    ticking = false;
+    var vh = window.innerHeight, y = window.scrollY;
+    if (hero2 && y < vh * 1.4) hero2.style.setProperty('--py', y);
+    if (wordNodes.length) {
+      var r = wordsEl.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (vh * 0.55 + r.height)));
+      var n = Math.round(p * wordNodes.length * 1.05);
+      wordNodes.forEach(function (w, i) { w.classList.toggle('lit', i < n); });
+    }
+    if (story) {
+      var b = story.getBoundingClientRect(), total = b.height - vh;
+      if (b.top < vh && b.bottom > 0 && total > 0) {
+        var q = Math.min(1, Math.max(0, -b.top / total));
+        story.style.setProperty('--p', q.toFixed(3));
+        var cnt = chapEls.length, i2 = Math.min(cnt - 1, Math.floor(q * cnt));
+        if (i2 !== curChap) {
+          curChap = i2; story.setAttribute('data-chap', i2);
+          chapEls.forEach(function (c, k) { c.classList.toggle('is-on', k === i2); });
+          tickEls.forEach(function (c, k) { c.classList.toggle('is-on', k === i2); });
+        }
+      }
+    }
+  }
+  if (hero2 || story || wordsEl) {
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    window.addEventListener('resize', onScroll); onScroll();
+  }
+
   /* ---------- init ---------- */
   if ($('#wish-grid')) renderWishPage();
   markWish(); updateCounts(); renderBag();

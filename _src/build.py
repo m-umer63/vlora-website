@@ -258,9 +258,16 @@ def crumbs(d, items):
 
 
 # ---------------------------------------------------------------- pages
+def gem_svg(cls):
+    s = open(os.path.join(ROOT, 'assets/img/vlora-symbol-navy.svg'), encoding='utf-8').read()
+    out = ''
+    for i, p in enumerate(re.findall(r'<path[^>]*/>', s)):
+        out += p.replace('stroke="#0c193b"', 'stroke="currentColor"').replace('<path ', f'<path pathLength="1" style="--i:{i}" ')
+    return f'<svg class="{cls}" viewBox="658 44 342 420" aria-hidden="true" focusable="false">{out}</svg>'
+
+
 def page_home():
     d = 0
-    feat = [p for p in PRODUCTS if p.get('featured')] or PRODUCTS[:6]
     newp = [p for p in PRODUCTS if p.get('new')][:10] or PRODUCTS[:8]
     tiles = ''
     for c in CATEGORIES[:6]:
@@ -269,41 +276,50 @@ def page_home():
         pic = img_tag(d, sample, 0) if sample else ''
         tiles += (f'<a class="tile" href="{link(d, "collections/" + CAT_SLUG[c] + "/")}"><div class="tile-media">{pic}</div>'
                   f'<div class="tile-cap"><h3>{c}</h3><span>{n} pieces</span></div></a>')
-    slides = [
-        ('s1', 'Since 1983', 'Jewelry that is made to be kept', 'Fine jewelry and watches from Dubai.', 'Shop all jewelry', 'collections/all/'),
-        ('s2', 'The ring edit', 'Solitaires, bands and statement stones', 'Find the ring that is yours.', 'Shop rings', 'collections/rings/'),
-        ('s3', 'Just arrived', 'New pieces, newly added', 'See what has just joined the collection.', 'New arrivals', 'collections/new-arrivals/'),
-    ]
-    sl = ''
-    for i, (cls, eye, h, sub, cta, to) in enumerate(slides):
-        sl += (f'<div class="slide {cls}{" is-active" if i == 0 else ""}" data-slide="{i}"><div class="slide-art" aria-hidden="true">'
-               f'<img src="{asset(d, "assets/img/vlora-symbol-cream.svg")}" alt="" width="342" height="420"></div>'
-               f'<div class="slide-copy"><p class="eyebrow">{eye}</p><h1 class="h-xl">{h}</h1><p class="lede">{sub}</p>'
-               f'<a class="btn btn-light" href="{link(d, to)}">{cta}</a></div></div>')
-    dots = ''.join(f'<button class="dot{" is-active" if i == 0 else ""}" data-dot="{i}" aria-label="Go to slide {i + 1}"></button>' for i in range(len(slides)))
+    chapters = [('1983', 'Where it began', 'A family jewelry house is founded.'),
+                ('Craft', 'Made with care', 'A family business that makes as well as sells, with attention at every step.'),
+                ('Today', 'Now online', 'Fine jewelry and watches, now available to order from wherever you are.')]
+    chap_html = ''.join(f'<article class="chap{" is-on" if i == 0 else ""}" data-chap-item="{i}"><p class="chap-num">{n}</p><h3>{t}</h3><p>{x}</p></article>' for i, (n, t, x) in enumerate(chapters))
+    ticks = ''.join(f'<span class="tick{" is-on" if i == 0 else ""}"></span>' for i in range(len(chapters)))
     body = f'''
-<section class="hero" aria-roledescription="carousel" aria-label="Featured">
-  {sl}
-  <div class="hero-ctrl"><button class="arrow" data-hero="-1" aria-label="Previous slide">&#8592;</button><div class="dots">{dots}</div><button class="arrow" data-hero="1" aria-label="Next slide">&#8594;</button></div>
+<section class="hero2" data-hero2>
+  <div class="hero2-bg" aria-hidden="true"><span class="glow g1"></span><span class="glow g2"></span><span class="glow g3"></span></div>
+  <div class="hero2-in">
+    <div class="hero2-copy">
+      <p class="eyebrow-gold mask"><span>Dubai &middot; Since {SITE["since"]}</span></p>
+      <h1 class="h-hero"><span class="line" style="--i:0"><span>Jewelry</span></span><span class="line" style="--i:1"><span>made to be</span></span><span class="line gold" style="--i:2"><span>kept.</span></span></h1>
+      <p class="lede rise" style="--i:4">Fine jewelry and watches from a family house, chosen to be worn often and passed on.</p>
+      <div class="cta-row rise" style="--i:5"><a class="btn btn-gold" href="{link(d, "collections/all/")}">Shop all jewelry</a><a class="link-light" href="{link(d, "pages/about/")}">Our story</a></div>
+    </div>
+    <div class="hero2-art" aria-hidden="true">{gem_svg("hero2-gem")}</div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
 </section>
+
+<section class="statement"><div class="wrap">
+  <p class="eyebrow">The house</p>
+  <p class="words" data-words>We believe fine jewelry should be worn often, handled with care, and kept for a lifetime.</p>
+</div></section>
+
+<section class="story-scroll" data-story data-chap="0" style="--n:{len(chapters)}" aria-label="Our story">
+  <div class="story-sticky">
+    <div class="story-visual" aria-hidden="true">{gem_svg("story-gem")}</div>
+    <div class="story-text">{chap_html}<div class="ticks" aria-hidden="true">{ticks}</div></div>
+  </div>
+</section>
+
 <section class="section"><div class="wrap"><header class="sec-head reveal"><p class="eyebrow">Shop</p><h2 class="h-lg">Our collections</h2></header>
   <div class="tiles reveal">{tiles}</div></div></section>
-<section class="section section-tint"><div class="wrap"><header class="sec-head reveal"><p class="eyebrow">Just in</p><h2 class="h-lg">New arrivals</h2>
+
+<section class="section section-sand"><div class="wrap"><header class="sec-head reveal"><p class="eyebrow">Just in</p><h2 class="h-lg">New arrivals</h2>
   <a class="more" href="{link(d, "collections/new-arrivals/")}">View all</a></header>
   <div class="rail-wrap reveal"><button class="rail-btn rail-prev" data-rail="-1" aria-label="Scroll left">&#8592;</button>
   <div class="rail grid-cards" data-rail-track>{"".join(card(d, p) for p in newp)}</div>
   <button class="rail-btn rail-next" data-rail="1" aria-label="Scroll right">&#8594;</button></div></div></section>
-<section class="story">
-  <div class="story-art" aria-hidden="true"><img src="{asset(d, "assets/img/vlora-symbol-cream.svg")}" alt="" width="342" height="420"></div>
-  <div class="story-copy reveal"><p class="eyebrow">Since {SITE["since"]}</p><h2 class="h-lg">A family house, built on craft</h2>
-    <p>VLORÁ is a family-run jewelry retail and manufacturing business based in Dubai. Every piece we offer is chosen to be worn, kept and passed on.</p>
-    <a class="btn btn-light" href="{link(d, "pages/about/")}">Our story</a></div>
-</section>
-<section class="section"><div class="wrap"><header class="sec-head reveal"><p class="eyebrow">Our picks</p><h2 class="h-lg">Featured pieces</h2></header>
-  <div class="grid-cards reveal">{"".join(card(d, p) for p in feat[:8])}</div></div></section>
-<section class="section section-tint"><div class="wrap services reveal">
+
+<section class="band-gold"><div class="wrap band-grid reveal">
   <div><h3>Order with a conversation</h3><p>Prefer to speak to someone? Message us on WhatsApp and we will help you choose.</p><a class="link-arrow" href="{wa_link("Hello VLORÁ, I would like some help choosing a piece.")}" rel="noopener">Chat on WhatsApp</a></div>
-  <div><h3>Visit the showroom</h3><p>See the pieces in person at our Dubai showroom.</p><a class="link-arrow" href="{link(d, "pages/contact/")}">Find us</a></div>
+  <div><h3>Visit the showroom</h3><p>See the pieces in person in Dubai.</p><a class="link-arrow" href="{link(d, "pages/contact/")}">Find us</a></div>
   <div><h3>Look after your jewelry</h3><p>Simple habits that keep gold and stones looking their best.</p><a class="link-arrow" href="{link(d, "pages/care-guide/")}">Read the care guide</a></div>
 </div></section>
 '''
