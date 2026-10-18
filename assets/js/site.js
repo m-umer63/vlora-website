@@ -262,7 +262,7 @@
   var hero2 = $('[data-hero2]'), story = $('[data-story]'), wordsEl = $('[data-words]');
   var wordNodes = [];
   if (wordsEl) {
-    var hl = { lifetime: 1, kept: 1 };
+    var hl = { reflects: 1, you: 1 };
     wordsEl.innerHTML = wordsEl.textContent.trim().split(/\s+/).map(function (w) {
       return '<span class="w' + (hl[w.toLowerCase().replace(/[^a-z]/g, '')] ? ' hl' : '') + '">' + esc(w) + '</span>';
     }).join(' ');
@@ -278,9 +278,10 @@
     if (hero2 && y < vh * 1.4) hero2.style.setProperty('--py', y);
     if (wordNodes.length) {
       var r = wordsEl.getBoundingClientRect();
-      var p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (vh * 0.55 + r.height)));
+      var p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (vh * 0.4 + r.height * 0.6)));
       var n = Math.round(p * wordNodes.length * 1.05);
       wordNodes.forEach(function (w, i) { w.classList.toggle('lit', i < n); });
+      var qf = wordsEl.closest('.statement'); if (qf) qf.classList.toggle('done', n >= wordNodes.length);
     }
     if (story) {
       var b = story.getBoundingClientRect(), total = b.height - vh;

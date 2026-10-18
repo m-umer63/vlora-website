@@ -481,3 +481,16 @@ p{margin:0 0 1em}
 @media (max-width:380px){.hero2 .lede{font-size:1.02rem}}
 .hero2 .lede{max-width:none}.hero2 .lede .nb{display:block;white-space:nowrap}
 @media (max-width:420px){.hero2 .lede .nb{white-space:normal}}
+
+/* founder quote */
+.quote{margin:0;position:relative;max-width:900px}
+.quote blockquote{margin:0}
+.quote .words{max-width:20ch;font-size:clamp(1.9rem,5vw,3.8rem);line-height:1.25}
+.qmark{position:absolute;left:-.1em;top:-.55em;font-family:var(--display);font-size:clamp(5rem,12vw,9rem);line-height:1;color:var(--gold-bright);opacity:.55;pointer-events:none}
+.sig{display:grid;grid-template-columns:auto;justify-items:start;gap:6px;margin-top:2.2rem;opacity:0;transform:translateY(10px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.statement.done .sig,.no-js .sig{opacity:1;transform:none}
+.sig-line{width:56px;height:1px;background:var(--gold);margin-bottom:10px}
+.sig-name{font-family:var(--serif);font-style:italic;font-size:1.7rem;line-height:1;color:var(--navy)}
+.sig-role{font-family:var(--display);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+@media (prefers-reduced-motion:reduce){.sig{opacity:1;transform:none}}
+.statement .wrap,.statement .eyebrow,.quote,.quote .words,.quote blockquote{text-align:left}
