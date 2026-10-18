@@ -282,7 +282,7 @@ def page_home():
   <div class="hero2-in">
     <div class="hero2-copy">
       <h1 class="h-hero"><span class="line" style="--i:0"><span>Where imagination</span></span><span class="line gold" style="--i:1"><span>finds form.</span></span></h1>
-      <p class="lede rise" style="--i:3">Your vision, our craftsmanship. Let&rsquo;s create something extraordinary.</p>
+      <p class="lede rise" style="--i:3"><span class="nb">Your vision, our craftsmanship.</span> <span class="nb">Let&rsquo;s create something extraordinary.</span></p>
       <div class="cta-row rise" style="--i:4"><a class="btn btn-gold" href="{link(d, "pages/bespoke/")}">Discover Bespoke</a><a class="link-light" href="{link(d, "pages/about/")}">Our story</a></div>
     </div>
   </div>

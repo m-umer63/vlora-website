@@ -476,3 +476,6 @@ p{margin:0 0 1em}
   .hero2 .h-hero{font-size:clamp(1.8rem,8vw,2.3rem)}
 }
 @media (min-width:861px){.hero2-copy{max-width:760px}.hero2 .h-hero .line{white-space:nowrap}}
+
+.hero2 .lede{max-width:none}.hero2 .lede .nb{white-space:nowrap}
+@media (max-width:380px){.hero2 .lede{font-size:1.02rem}}
