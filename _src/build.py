@@ -281,11 +281,9 @@ def page_home():
   </div>
   <div class="hero2-in">
     <div class="hero2-copy">
-      <p class="eyebrow-gold mask"><span>Dubai &middot; Since {SITE["since"]}</span></p>
-      <h1 class="h-hero"><span class="line" style="--i:0"><span>From sketch</span></span><span class="line gold" style="--i:1"><span>to heirloom.</span></span></h1>
-      <p class="lede rise" style="--i:3">Fine jewelry and watches from a family house in Dubai.</p>
-      <div class="cta-row rise" style="--i:4"><a class="btn btn-gold" href="{link(d, "collections/all/")}">Shop all jewelry</a><a class="link-light" href="{link(d, "pages/about/")}">Our story</a></div>
-    </div>
+      <h1 class="h-hero"><span class="line" style="--i:0"><span>Where imagination</span></span><span class="line gold" style="--i:1"><span>finds form.</span></span></h1>
+      <p class="lede rise" style="--i:3">Bring us an idea. We will shape it in gold and diamonds.</p>
+      <div class="cta-row rise" style="--i:4"><a class="btn btn-gold" href="{link(d, "pages/bespoke/")}">Discover Bespoke</a><a class="link-light" href="{link(d, "pages/about/")}">Our story</a></div>
     </div>
   </div>
   <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>

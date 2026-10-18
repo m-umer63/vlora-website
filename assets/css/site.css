@@ -462,3 +462,17 @@ p{margin:0 0 1em}
   .hero2-in{padding-bottom:40px}
   .hero2 .h-hero{font-size:2.1rem}
 }
+
+/* hero v3: never crop the 16:9 film */
+.hero2{min-height:0;height:min(56.25vw,calc(100svh - 112px));min-height:440px}
+.hero2-poster,.hero2-video{object-fit:contain;object-position:50% 50%;background:var(--navy)}
+.hero2 .h-hero{font-size:clamp(1.9rem,3.8vw,3.3rem)}
+@media (max-width:860px){
+  .hero2{height:auto;min-height:0;display:block;background:var(--navy)}
+  .hero2-bg{position:relative;inset:auto;z-index:0;aspect-ratio:16/9;width:100%}
+  .hero2-poster,.hero2-video{object-fit:cover}
+  .hero2-shade{background:linear-gradient(0deg,rgba(12,25,59,.7),transparent 40%),rgba(12,25,59,.12)}
+  .hero2-in{padding:28px var(--gut) 44px}
+  .hero2 .h-hero{font-size:clamp(1.8rem,8vw,2.3rem)}
+}
+@media (min-width:861px){.hero2-copy{max-width:760px}.hero2 .h-hero .line{white-space:nowrap}}
