@@ -479,3 +479,5 @@ p{margin:0 0 1em}
 
 .hero2 .lede{max-width:none}.hero2 .lede .nb{white-space:nowrap}
 @media (max-width:380px){.hero2 .lede{font-size:1.02rem}}
+.hero2 .lede{max-width:none}.hero2 .lede .nb{display:block;white-space:nowrap}
+@media (max-width:420px){.hero2 .lede .nb{white-space:normal}}
