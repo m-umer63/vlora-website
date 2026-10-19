@@ -23,7 +23,7 @@
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--cream);color:var(--navy);font-family:var(--serif);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--cream);color:var(--navy);font-family:var(--ui);font-size:15.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
 img,svg{max-width:100%;display:block}
 img{height:auto}
 a{color:inherit}
@@ -83,7 +83,7 @@ p{margin:0 0 1em}
 .mega-in{max-width:1100px;margin:0 auto;padding:36px var(--gut);display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:48px}
 .mega-col{list-style:none;margin:0;padding:0}
 .mega-h{font-family:var(--ui);font-size:.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
-.mega-col li a{padding:5px 0;font-family:var(--serif);font-size:1.1rem;letter-spacing:0;text-transform:none;display:inline-block}
+.mega-col li a{padding:5px 0;font-family:var(--ui);font-size:.9rem;letter-spacing:0;text-transform:none;display:inline-block}
 .mega-col li a::after{display:none}
 .mega-art{background:var(--navy);color:var(--cream)!important;display:grid;place-items:center;align-content:center;gap:14px;padding:26px!important;min-height:180px;text-align:center}
 .mega-art::after{display:none}
@@ -516,3 +516,10 @@ p{margin:0 0 1em}
 .hero2 .h-hero .gold{font-style:italic;color:var(--gold-bright)}
 .sig-name{font-family:var(--hero);font-style:italic;font-weight:500;font-size:2rem}
 @media (max-width:860px){.hero2 .h-hero{font-size:clamp(2.2rem,10vw,3rem)}}
+
+/* type v4: Gilda Display + Montserrat everywhere; Garamond only for the hero subline */
+input,select,textarea,button{font-family:inherit}
+.hero2 .lede{font-family:var(--serif);font-size:1.15rem;line-height:1.5}
+.js-words .w.lit.hl{color:#D3AF37}
+.sig-name{font-size:2.2rem}
+.sig-role{letter-spacing:.14em}

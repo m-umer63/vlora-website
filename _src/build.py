@@ -294,7 +294,7 @@ def page_home():
   <figure class="quote">
     <span class="qmark" aria-hidden="true">&ldquo;</span>
     <blockquote><p class="words" data-words>Create what reflects you, not what resembles the world.</p></blockquote>
-    <figcaption class="sig"><span class="sig-line" aria-hidden="true"></span><span class="sig-name">A. Khan</span><span class="sig-role">Founder &amp; Chairman</span></figcaption>
+    <figcaption class="sig"><span class="sig-line" aria-hidden="true"></span><span class="sig-name">Akbar Khan</span><span class="sig-role">Founder &amp; Chairman, VLORÁ Jewellery</span></figcaption>
   </figure>
 </div></section>
 
