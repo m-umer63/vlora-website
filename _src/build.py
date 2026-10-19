@@ -20,8 +20,8 @@ SITE = json.load(open(os.path.join(HERE, 'data', 'site.json'), encoding='utf-8')
 PRODUCTS = json.load(open(os.path.join(HERE, 'data', 'products.json'), encoding='utf-8'))
 CATEGORIES = ['Rings', 'Earrings', 'Necklaces', 'Bracelets', 'Bangles', 'Pendants', 'Watches']
 CAT_SLUG = {c: c.lower() for c in CATEGORIES}
-METAL_COL = {'Yellow Gold': '#c4a55b', 'White Gold': '#d6dae4', 'Rose Gold': '#d09c8b', 'Platinum': '#d9dce3',
-             'Silver': '#cfd3da', 'Titanium': '#8f98a8', 'Other': '#c4a55b'}
+METAL_COL = {'Yellow Gold': '#C6A75E', 'White Gold': '#d6dae4', 'Rose Gold': '#C5A28C', 'Platinum': '#d9dce3',
+             'Silver': '#cfd3da', 'Titanium': '#8f98a8', 'Other': '#C6A75E'}
 esc = html.escape
 
 
@@ -83,11 +83,11 @@ def icon(cat, m, g):
 
 
 def placeholder_svg(p, variant):
-    metal = METAL_COL.get(p.get('metal'), '#c4a55b')
+    metal = METAL_COL.get(p.get('metal'), '#C6A75E')
     if variant == 'a':
-        bg0, bg1, g = '#14244d', '#0c193b', '#fafbee'
+        bg0, bg1, g = '#203565', '#0D1E3B', '#fafbee'
     else:
-        bg0, bg1, g = '#fbfcf0', '#eceed9', '#0c193b'
+        bg0, bg1, g = '#F4F0E8', '#E8DCC8', '#0c193b'
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="{esc(p["name"])} (placeholder picture)">'
             f'<defs><radialGradient id="b" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="{bg0}"/><stop offset="1" stop-color="{bg1}"/></radialGradient></defs>'
             f'<rect width="400" height="400" fill="url(#b)"/>{icon(p["category"], metal, g)}</svg>')
@@ -222,8 +222,8 @@ def shell(path, title, desc, body, extra_head='', body_class='', noindex=False, 
 <meta property="og:url" content="{esc(canon)}"><meta property="og:site_name" content="VLORÁ">
 <meta name="theme-color" content="#0c193b">
 <link rel="icon" type="image/svg+xml" href="{asset(d, "assets/img/favicon.svg")}">
-<link rel="preload" href="{asset(d, "assets/fonts/bodoni-moda-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{asset(d, "assets/fonts/manrope-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{asset(d, "assets/fonts/gilda-display-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{asset(d, "assets/fonts/montserrat-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{asset(d, "assets/css/site.css")}">
 {extra_head}
 </head>
