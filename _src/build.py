@@ -156,7 +156,7 @@ def header(d, current=''):
 <div class="scrim" data-close></div>
 <aside class="drawer drawer-left" id="menu-drawer" aria-label="Menu" aria-hidden="true">
   <div class="drawer-head"><span class="eyebrow">Menu</span><button class="icon-btn" data-close aria-label="Close">{ICON["close"]}</button></div>
-  <nav class="mob-nav"><a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/diamond/")}">Diamond</a><a href="{link(d, "pages/bespoke/")}">Bespoke</a><hr><a href="{link(d, "collections/all/")}">All jewelry</a>{mobcats}
+  <nav class="mob-nav"><a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/diamond/")}">Diamond</a><a href="{link(d, "pages/bespoke/")}">Bespoke</a><hr><a href="{link(d, "collections/all/")}">All jewellery</a>{mobcats}
   <a href="{link(d, "collections/new-arrivals/")}">New arrivals</a><hr>
   <a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/care-guide/")}">Care guide</a><a href="{link(d, "pages/faq/")}">FAQ</a><a href="{link(d, "pages/contact/")}">Contact</a><a href="{link(d, "wishlist/")}">Wishlist</a></nav>
 </aside>
@@ -267,11 +267,21 @@ def page_home():
         pic = img_tag(d, sample, 0) if sample else ''
         tiles += (f'<a class="tile" href="{link(d, "collections/" + CAT_SLUG[c] + "/")}"><div class="tile-media">{pic}</div>'
                   f'<div class="tile-cap"><h3>{c}</h3><span>{n} pieces</span></div></a>')
-    chapters = [('1983', 'Where it began', 'A family jewelry house is founded.'),
+    chapters = [('1983', 'Where it began', 'A family jewellery house is founded.'),
                 ('Craft', 'Made with care', 'A family business that makes as well as sells, with attention at every step.'),
-                ('Today', 'Now online', 'Fine jewelry and watches, now available to order from wherever you are.')]
+                ('Today', 'Now online', 'Fine jewellery and watches, now available to order from wherever you are.')]
     chap_html = ''.join(f'<article class="chap{" is-on" if i == 0 else ""}" data-chap-item="{i}"><p class="chap-num">{n}</p><h3>{t}</h3><p>{x}</p></article>' for i, (n, t, x) in enumerate(chapters))
     ticks = ''.join(f'<span class="tick{" is-on" if i == 0 else ""}"></span>' for i in range(len(chapters)))
+    # optional story photos: drop 1983.jpg / craft.jpg / today.jpg into assets/img/story/ and they replace the gem for that chapter
+    story_files = ['1983', 'craft', 'today']
+    story_alts = ['VLORÁ in 1983', 'Making a piece by hand', 'The VLORÁ showroom today']
+    photos, has = '', ''
+    for i, nm in enumerate(story_files):
+        for ext in ('jpg', 'jpeg', 'webp', 'png'):
+            if os.path.exists(os.path.join(ROOT, f'assets/img/story/{nm}.{ext}')):
+                photos += f'<div class="story-photo" data-photo="{i}"><img src="{asset(d, f"assets/img/story/{nm}.{ext}")}" alt="{story_alts[i]}" loading="lazy" decoding="async"></div>'
+                has += f' has-photo-{i}'
+                break
     body = f'''
 <section class="hero2" data-hero2>
   <div class="hero2-bg" aria-hidden="true">
@@ -298,9 +308,9 @@ def page_home():
   </figure>
 </div></section>
 
-<section class="story-scroll" data-story data-chap="0" style="--n:{len(chapters)}" aria-label="Our story">
+<section class="story-scroll{has}" data-story data-chap="0" style="--n:{len(chapters)}" aria-label="Our story">
   <div class="story-sticky">
-    <div class="story-visual" aria-hidden="true">{gem_svg("story-gem")}</div>
+    <div class="story-visual">{gem_svg("story-gem")}{photos}</div>
     <div class="story-text">{chap_html}<div class="ticks" aria-hidden="true">{ticks}</div></div>
   </div>
 </section>
@@ -317,13 +327,13 @@ def page_home():
 <section class="band-gold"><div class="wrap band-grid reveal">
   <div><h3>Order with a conversation</h3><p>Prefer to speak to someone? Message us on WhatsApp and we will help you choose.</p><a class="link-arrow" href="{wa_link("Hello VLORÁ, I would like some help choosing a piece.")}" rel="noopener">Chat on WhatsApp</a></div>
   <div><h3>Visit the showroom</h3><p>See the pieces in person in Dubai.</p><a class="link-arrow" href="{link(d, "pages/contact/")}">Find us</a></div>
-  <div><h3>Look after your jewelry</h3><p>Simple habits that keep gold and stones looking their best.</p><a class="link-arrow" href="{link(d, "pages/care-guide/")}">Read the care guide</a></div>
+  <div><h3>Look after your jewellery</h3><p>Simple habits that keep gold and stones looking their best.</p><a class="link-arrow" href="{link(d, "pages/care-guide/")}">Read the care guide</a></div>
 </div></section>
 '''
     ld = {"@context": "https://schema.org", "@type": "JewelryStore", "name": "VLORÁ", "legalName": SITE['legal_name'], "url": SITE['domain'],
           "foundingDate": SITE['since'], "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"}}
-    shell('index.html', 'VLORÁ | Fine Jewelry & Watches, Dubai',
-          'VLORÁ is a family-run jewelry and watch house in Dubai, since 1983. Shop rings, earrings, necklaces, bracelets, bangles, pendants and watches.',
+    shell('index.html', 'VLORÁ | Fine Jewellery & Watches, Dubai',
+          'VLORÁ is a family-run jewellery and watch house in Dubai, since 1983. Shop rings, earrings, necklaces, bracelets, bangles, pendants and watches.',
           body, f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>', 'home')
 
 
@@ -410,9 +420,9 @@ def simple_page(slug, title, desc, inner, noindex=False):
 
 
 def page_about():
-    simple_page('about', 'About', 'VLORÁ is a family-run jewelry retail and manufacturing business based in Dubai, United Arab Emirates.', f'''
-<p class="lede">VLORÁ is a family-run jewelry retail and manufacturing business based in Dubai, United Arab Emirates. Our mark carries the year {SITE["since"]}.</p>
-<p>We offer fine jewelry and watches chosen for how they look and how they last. Every piece is made to be worn often and kept for a long time.</p>
+    simple_page('about', 'About', 'VLORÁ is a family-run jewellery retail and manufacturing business based in Dubai, United Arab Emirates.', f'''
+<p class="lede">VLORÁ is a family-run jewellery retail and manufacturing business based in Dubai, United Arab Emirates. Our mark carries the year {SITE["since"]}.</p>
+<p>We offer fine jewellery and watches chosen for how they look and how they last. Every piece is made to be worn often and kept for a long time.</p>
 <p class="draft">Draft text. Please replace this page with your own story: how the business began, who runs it, what you are proud of and how your pieces are made.</p>
 <h2>Visit or get in touch</h2><p>Our team is happy to help you choose, answer questions about a piece, or arrange a visit. <a href="{link(2, "pages/contact/")}">Contact us</a>.</p>''')
 
@@ -442,7 +452,7 @@ def page_faq():
     qa = [("How do I order?", "Add pieces to your bag and choose Request order. We receive your details, confirm availability, and then arrange payment and delivery with you directly."),
           ("Can I see a piece before buying?", "Yes. Contact us to arrange a visit to the showroom, or message us on WhatsApp and we can share more pictures."),
           ("Which currency are prices in?", "All prices are in UAE dirhams (AED)."),
-          ("How do I care for my jewelry?", "See our care guide for simple, practical advice."),
+          ("How do I care for my jewellery?", "See our care guide for simple, practical advice."),
           ("What about delivery, returns and exchanges?", "Please read our shipping and returns page, or ask us before you order.")]
     inner = ''.join(f'<details class="faq"><summary>{q}</summary><p>{a}</p></details>' for q, a in qa)
     simple_page('faq', 'FAQ', 'Answers to common questions about ordering from VLORÁ.', inner)
@@ -459,8 +469,8 @@ def page_bespoke():
 
 def page_care():
     simple_page('care-guide', 'Care guide', 'Simple habits that keep gold, diamonds and watches looking their best.', '''
-<p class="lede">A little care goes a long way. These habits suit most fine jewelry.</p>
-<h2>Everyday wear</h2><p>Put jewelry on last, after perfume, creams and hairspray, and take it off first at the end of the day.</p>
+<p class="lede">A little care goes a long way. These habits suit most fine jewellery.</p>
+<h2>Everyday wear</h2><p>Put jewellery on last, after perfume, creams and hairspray, and take it off first at the end of the day.</p>
 <h2>Keep it away from</h2><p>Chlorine, harsh cleaning products, and heavy exercise or gardening. Chemicals and knocks can dull metal and loosen settings.</p>
 <h2>Cleaning</h2><p>Soak in lukewarm water with a drop of mild soap, brush gently with a soft brush, rinse, and pat dry with a soft cloth.</p>
 <h2>Storage</h2><p>Store each piece separately in a soft pouch or lined box so pieces do not scratch each other.</p>
@@ -555,9 +565,9 @@ def build():
     write('assets/js/data.js', 'window.VL=' + json.dumps({"products": slim, "whatsapp": SITE['whatsapp'], "email": SITE['email'],
                                                            "currency": "AED", "categories": CATEGORIES}, ensure_ascii=False) + ';')
     page_home()
-    page_collection('all', 'All jewelry & watches', 'Every piece in the VLORÁ collection.', PRODUCTS)
-    page_collection('gold', 'Gold', 'Fine jewelry in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])
-    page_collection('diamond', 'Diamond', 'Diamond jewelry, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond'])
+    page_collection('all', 'All jewellery & watches', 'Every piece in the VLORÁ collection.', PRODUCTS)
+    page_collection('gold', 'Gold', 'Fine jewellery in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])
+    page_collection('diamond', 'Diamond', 'Diamond jewellery, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond'])
     page_collection('new-arrivals', 'New arrivals', 'The newest pieces to join the collection.', [p for p in PRODUCTS if p.get('new')])
     blurbs = {'Rings': 'Solitaires, bands and statement rings.', 'Earrings': 'Studs, drops and hoops for every day and every occasion.',
               'Necklaces': 'Pendants, chains and rivières.', 'Bracelets': 'Tennis, link and chain bracelets.',
