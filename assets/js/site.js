@@ -259,7 +259,7 @@
 
 
   /* ---------- landing page: scroll effects ---------- */
-  var hero2 = $('[data-hero2]'), story = $('[data-story]'), wordsEl = $('[data-words]');
+  var hero2 = $('[data-hero2]'), wordsEl = $('[data-words]');
   var wordNodes = [];
   if (wordsEl) {
     var hl = { reflects: 1, you: 1 };
@@ -270,7 +270,10 @@
     wordsEl.classList.add('js-words');
     document.documentElement.classList.add('js-words');
   }
-  var curChap = 0, chapEls = $$('[data-chap-item]'), tickEls = $$('.tick');
+  var film = $('[data-film-scroll]'), filmL = $$('.film-layer'), filmFill = $('[data-fill]'), filmYear = $('[data-year]');
+  function smooth(x) { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); }
+  var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) film = null;
   var ticking = false;
   function onScroll() {
     ticking = false;
@@ -283,21 +286,26 @@
       wordNodes.forEach(function (w, i) { w.classList.toggle('lit', i < n); });
       var qf = wordsEl.closest('.statement'); if (qf) qf.classList.toggle('done', n >= wordNodes.length);
     }
-    if (story) {
-      var b = story.getBoundingClientRect(), total = b.height - vh;
-      if (b.top < vh && b.bottom > 0 && total > 0) {
-        var q = Math.min(1, Math.max(0, -b.top / total));
-        story.style.setProperty('--p', q.toFixed(3));
-        var cnt = chapEls.length, i2 = Math.min(cnt - 1, Math.floor(q * cnt));
-        if (i2 !== curChap) {
-          curChap = i2; story.setAttribute('data-chap', i2);
-          chapEls.forEach(function (c, k) { c.classList.toggle('is-on', k === i2); });
-          tickEls.forEach(function (c, k) { c.classList.toggle('is-on', k === i2); });
-        }
+    if (film) {
+      var fb = film.getBoundingClientRect(), ftotal = fb.height - vh;
+      if (fb.top < vh && fb.bottom > 0 && ftotal > 0) {
+        var fp = Math.min(1, Math.max(0, -fb.top / ftotal)), ft = fp * (filmL.length - 1);
+        if (filmFill) filmFill.style.width = (fp * 100).toFixed(1) + '%';
+        if (filmYear) filmYear.textContent = Math.round(1983 + (2026 - 1983) * fp);
+        filmL.forEach(function (l, k) {
+          var img = l.firstChild, cap = l.querySelector('.film-cap');
+          if (k > 0) {
+            var rv = smooth((ft - (k - 1) - 0.1) / 0.8);
+            l.style.clipPath = 'inset(0 ' + ((1 - rv) * 100) + '% 0 0)';
+            img.style.transform = 'scale(' + (1.12 - rv * 0.08) + ') translateX(' + ((1 - rv) * -3) + '%)';
+          } else { img.style.transform = 'scale(' + (1.04 + Math.min(ft, 1) * 0.06) + ')'; }
+          var dd = Math.abs(ft - k), o = dd < 0.35 ? 1 : dd > 0.75 ? 0 : 1 - (dd - 0.35) / 0.4;
+          cap.style.opacity = o; cap.style.transform = 'translateY(' + ((ft - k) * -26) + 'px)';
+        });
       }
     }
   }
-  if (hero2 || story || wordsEl) {
+  if (hero2 || film || wordsEl) {
     window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
     window.addEventListener('resize', onScroll); onScroll();
   }
