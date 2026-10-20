@@ -267,21 +267,20 @@ def page_home():
         pic = img_tag(d, sample, 0) if sample else ''
         tiles += (f'<a class="tile" href="{link(d, "collections/" + CAT_SLUG[c] + "/")}"><div class="tile-media">{pic}</div>'
                   f'<div class="tile-cap"><h3>{c}</h3><span>{n} pieces</span></div></a>')
-    chapters = [('1983', 'Where it began', 'A family jewellery house is founded.'),
+    chapters = [('1983', 'Where it began', 'In the lanes of Dubai&rsquo;s Gold Souq, a family jewellery house opens its doors.'),
+                ('Founder', 'A name behind every piece', 'Akbar Khan builds VLOR&Aacute; on one idea: create what reflects you.'),
                 ('Craft', 'Made with care', 'A family business that makes as well as sells, with attention at every step.'),
-                ('Today', 'Now online', 'Fine jewellery and watches, now available to order from wherever you are.')]
+                ('Branches', 'Still in the souq', 'Our shops carry the same promise, now with a wider choice of fine jewellery and watches.'),
+                ('Today', 'Now online', 'Order from wherever you are, with the same care you would find at our counter.')]
     chap_html = ''.join(f'<article class="chap{" is-on" if i == 0 else ""}" data-chap-item="{i}"><p class="chap-num">{n}</p><h3>{t}</h3><p>{x}</p></article>' for i, (n, t, x) in enumerate(chapters))
     ticks = ''.join(f'<span class="tick{" is-on" if i == 0 else ""}"></span>' for i in range(len(chapters)))
-    # optional story photos: drop 1983.jpg / craft.jpg / today.jpg into assets/img/story/ and they replace the gem for that chapter
-    story_files = ['1983', 'craft', 'today']
-    story_alts = ['VLORÁ in 1983', 'Making a piece by hand', 'The VLORÁ showroom today']
-    photos, has = '', ''
+    # story photos (graded by _src/grade_story.py), one per chapter, crossfading inside the emerald-cut window
+    story_files = ['1983', 'founder', 'craft', 'branches', 'today']
+    story_alts = ['A busy lane of the Gold Souq in Dubai, 1980s', 'Portrait of Akbar Khan, founder of VLORÁ', 'Two jewellers at their counter in the early years', 'A VLORÁ branch in the souq today', 'The VLORÁ shopfront today']
+    photos = ''
     for i, nm in enumerate(story_files):
-        for ext in ('jpg', 'jpeg', 'webp', 'png'):
-            if os.path.exists(os.path.join(ROOT, f'assets/img/story/{nm}.{ext}')):
-                photos += f'<div class="story-photo" data-photo="{i}"><img src="{asset(d, f"assets/img/story/{nm}.{ext}")}" alt="{story_alts[i]}" loading="lazy" decoding="async"></div>'
-                has += f' has-photo-{i}'
-                break
+        photos += f'<div class="story-photo" data-photo="{i}"><img src="{asset(d, f"assets/img/story/{nm}.jpg")}" alt="{story_alts[i]}" width="1000" height="1250" loading="{"eager" if i == 0 else "lazy"}" decoding="async"></div>'
+    has = ''
     body = f'''
 <section class="hero2" data-hero2>
   <div class="hero2-bg" aria-hidden="true">
@@ -310,7 +309,7 @@ def page_home():
 
 <section class="story-scroll{has}" data-story data-chap="0" style="--n:{len(chapters)}" aria-label="Our story">
   <div class="story-sticky">
-    <div class="story-visual">{gem_svg("story-gem")}{photos}</div>
+    <div class="story-visual">{photos}</div>
     <div class="story-text">{chap_html}<div class="ticks" aria-hidden="true">{ticks}</div></div>
   </div>
 </section>
