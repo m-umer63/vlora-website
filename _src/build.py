@@ -275,11 +275,12 @@ def page_home():
         (1997, 'y1997', 'The founder', 'Akbar Khan', 'An experienced goldsmith, and the man who started it all.', 'Portrait of Akbar Khan, founder of VLORÁ'),
         (2002, 'y2002', 'Dubai', 'The city of gold', 'Dubai becomes known as the city of gold, with the Gold Souq at the heart of it.', 'Gold bangles and necklaces in a souq showcase'),
         (2008, 'y2008', 'VLOR&Aacute;', 'Our first branch', 'VLOR&Aacute; opens its first retail branch, to serve customers directly.', 'A VLORÁ branch in the Gold Souq'),
-        (2013, 'y2013', 'VLOR&Aacute;', 'A second branch', 'A second branch follows, offering handcrafted gold and diamond jewellery.', 'The Gold Souq walkway'),
-        (2023, 'y2023', 'Manufacturing', 'Partner to 100+ brands', 'VLOR&Aacute; now manufactures for more than 100 brands around the world.', 'The VLORÁ shopfront'),
+        (2013, 'y2013', 'VLOR&Aacute;', 'A second branch', 'A second branch follows, offering handcrafted gold and diamond jewellery.', 'The VLORÁ shopfront'),
+        (2023, 'y2023', 'Manufacturing', 'Partner to 100+ brands', 'VLOR&Aacute; now manufactures for more than 100 brands around the world.', 'The Gold Souq walkway'),
         (2026, 'y2026', 'Now online', 'Made for you', 'VLOR&Aacute; goes online, crafting exclusive pieces for individual clients.', 'The Gold Souq today')]
     yr_caps = ''.join(f'<div class="yrs-cap{" is-on" if i == 0 else ""}" data-yrs-cap><span class="yrs-k">{lab}</span><h3>{t}</h3><p>{x}</p></div>' for i, (y, f, lab, t, x, alt) in enumerate(years))
     yr_fb = ''.join(f'<figure class="yrs-fig"><img src="{asset(d, f"assets/img/story/{f}.jpg")}" alt="{alt}" width="1600" height="900" loading="lazy" decoding="async"><figcaption><b>{y}</b><span>{t}</span><em>{x}</em></figcaption></figure>' for (y, f, lab, t, x, alt) in years)
+    trans_lab = '<div class="trans-lab" data-trans-lab><b>Photo transition</b></div>' if ARGS.preview else ''
     yr_srcs = ','.join(asset(d, f'assets/img/story/{f}.jpg') for (y, f, lab, t, x, alt) in years)
     yr_years = ','.join(str(y) for (y, *_r) in years)
     body = f'''
@@ -316,6 +317,7 @@ def page_home():
       <div class="yrs-idx" data-yrs-idx aria-hidden="true">01 / 09</div>
       <div class="yrs-final" data-yrs-final><div><h2>Now, wherever you are.</h2><a class="btn btn-gold" href="{link(d, "collections/gold/")}">Discover the collections</a></div></div>
       <div class="yrs-hint" data-yrs-hint aria-hidden="true">Scroll</div>
+      {trans_lab}
     </div>
   </div>
   <div class="yrs-fb">{yr_fb}</div>

@@ -319,7 +319,8 @@ function heroVideo(){
     var lateLoad = function () { IM.forEach(function (im, i) { if (!im.src) im.src = SRC[i]; }); };
     if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { lateLoad(); io.disconnect(); } }, { rootMargin: '1800px 0px' }); io.observe(sec); } else lateLoad();
     var mk = function () { var c = document.createElement('canvas'); return [c, c.getContext('2d')]; };
-    var A = mk(), B = mk(), M = mk(), pc = A[0], px = A[1], tc = B[0], tx = B[1], mc = M[0], mx = M[1];
+    var A = mk(), B = mk(), M = mk(), G = mk(), pc = A[0], px = A[1], tc = B[0], tx = B[1], mc = M[0], mx = M[1], gc = G[0], gx = G[1];
+    var TR = 'dissolve', hasFilter = 'filter' in ctx;
     var W = 0, H = 0, dpr = 1, need = true, fontOK = false, ps = 0, tgt = 0;
     var HOLD = .55, WH = 1, WT = 2.6, SEG = HOLD * WH + (1 - HOLD) * WT, ZOOM = 1.7, UNITS = (N - 1) * SEG, TOTAL = UNITS + ZOOM;
     function smooth(x) { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); }
@@ -327,7 +328,7 @@ function heroVideo(){
     function size() {
       dpr = Math.min(window.devicePixelRatio || 1, W < 760 ? 1.5 : 2);
       var r = stage.getBoundingClientRect(); W = r.width || innerWidth; H = r.height || innerHeight;
-      [cv, pc, tc, mc].forEach(function (c) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); });
+      [cv, pc, tc, mc, gc].forEach(function (c) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); });
       sec.style.height = Math.round(innerHeight * (.4 * TOTAL) + (innerHeight - (r.top > 0 ? 0 : 0))) + 'px';
       need = true;
     }
@@ -345,8 +346,26 @@ function heroVideo(){
       var cw = g.canvas.width, ch = g.canvas.height, s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight) * sc, w = img.naturalWidth * s, h = img.naturalHeight * s;
       g.drawImage(img, (cw - w) / 2 + ox * cw, (ch - h) / 2 + oy * ch, w, h); return true;
     }
+    // push is the base zoom drift shared by every style, so a change of photo is just the same slow motion carrying on
+    function compose(g, target, k, e, fr) {
+      var cw = target.width, ch = target.height, drift = 1.06 + .05 * Math.min(1, fr), nxt = IM[k + 1], ok = nxt && nxt.complete && nxt.naturalWidth;
+      g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.filter = 'none'; g.clearRect(0, 0, cw, ch);
+      if (e <= 0 || !ok) { coverDraw(g, IM[k], drift, 0, 0); return; }
+      if (TR === 'push') {                       // both photos travel upward, the way the digits roll
+        coverDraw(g, IM[k], drift, 0, -.07 * e); g.globalAlpha = e; coverDraw(g, nxt, 1.1, 0, .07 * (1 - e)); g.globalAlpha = 1; return;
+      }
+      if (TR === 'rack' && hasFilter) {          // focus pulls from one photo to the next
+        var b1 = e * 16 * dpr, b2 = (1 - e) * 16 * dpr;
+        g.filter = 'blur(' + b1.toFixed(1) + 'px)'; coverDraw(g, IM[k], drift + .04 * e, 0, 0);
+        g.globalAlpha = Math.min(1, e * 1.6); g.filter = 'blur(' + b2.toFixed(1) + 'px)'; coverDraw(g, nxt, 1.1 - .04 * e, 0, 0);
+        g.filter = 'none'; g.globalAlpha = 1; return;
+      }
+      coverDraw(g, IM[k], drift + .03 * e, 0, 0);   // dissolve (also light / digit)
+      g.globalAlpha = e; coverDraw(g, nxt, 1.09 - .03 * e, 0, 0); g.globalAlpha = 1;
+      if (TR === 'light') { var bl = Math.sin(Math.PI * e) * .24; g.globalCompositeOperation = 'lighter'; g.fillStyle = 'rgba(244,227,170,' + bl.toFixed(3) + ')'; g.fillRect(0, 0, cw, ch); g.globalCompositeOperation = 'source-over'; }
+    }
     function layout() {
-      var mob = W < 760; ctx.font = '100px "Gilda Display"';
+      var mob = W < 760; ctx.font = '700 100px Cinzel';
       var cw0 = ctx.measureText('0').width, cols = mob ? 2 : 4, rows = mob ? 2 : 1;
       var fs = Math.min((W * (mob ? .8 : .92)) / (cols * cw0 / 100), (H * (mob ? .4 : .66)) / (rows * .82));
       var cw = cw0 * fs / 100, lh = fs * .82, gx = (W - cols * cw) / 2, gy = (H - rows * lh) / 2 - (mob ? H * .075 : H * .05);
@@ -355,15 +374,15 @@ function heroVideo(){
     function digits(g, L, v, mode, S, An) {
       g.save(); g.setTransform(dpr, 0, 0, dpr, 0, 0);
       if (S !== 1) { g.translate(An.x, An.y); g.scale(S, S); g.translate(-An.x, -An.y); }
-      g.font = L.fs + 'px "Gilda Display"'; g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.lineJoin = 'round';
-      if (mode === 'halo') { g.lineWidth = L.fs * .11; g.strokeStyle = 'rgba(6,13,34,.5)'; } else if (mode === 'stroke') { g.lineWidth = 1.3 / S; g.strokeStyle = 'rgba(211,175,55,.7)'; } else { g.fillStyle = '#fff'; g.strokeStyle = '#fff'; g.lineWidth = L.fs * .04; }
+      g.font = '700 ' + L.fs + 'px Cinzel'; g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.lineJoin = 'round';
+      if (mode === 'halo') { g.lineWidth = L.fs * .11; g.strokeStyle = 'rgba(6,13,34,.5)'; } else if (mode === 'stroke') { g.lineWidth = 1.3 / S; g.strokeStyle = 'rgba(211,175,55,.7)'; } else { g.fillStyle = '#fff'; }
       for (var i = 0; i < 4; i++) {
         var p = L.pos(i), pw = Math.pow(10, 3 - i), q = v / pw, fl = Math.floor(q), fr = q - fl;
         var roll = i === 3 ? fr : clamp((v % pw) - (pw - 1)); roll = smooth(roll);
         var d0 = ((fl % 10) + 10) % 10, d1 = (d0 + 1) % 10, off = roll * L.lh * 1.15, cx = p.x + L.cw / 2;
         g.save(); g.beginPath(); g.rect(p.x - 2, p.y + L.lh * .02, L.cw + 4, L.lh * .98); g.clip();
         if (mode === 'stroke' || mode === 'halo') { g.strokeText(d0, cx, p.base - off); g.strokeText(d1, cx, p.base + L.lh * 1.15 - off); }
-        else { g.strokeText(d0, cx, p.base - off); g.fillText(d0, cx, p.base - off); g.strokeText(d1, cx, p.base + L.lh * 1.15 - off); g.fillText(d1, cx, p.base + L.lh * 1.15 - off); }
+        else { g.fillText(d0, cx, p.base - off); g.fillText(d1, cx, p.base + L.lh * 1.15 - off); }
         g.restore();
       }
       g.restore();
@@ -372,30 +391,19 @@ function heroVideo(){
       var m = mapProgress(ps), c = m.c, q = m.q, k = Math.min(N - 2, Math.floor(c)), fr = c - k;
       var e = smooth((fr - HOLD) / (1 - HOLD)); if (c >= N - 1) { k = N - 2; e = 1; }
       var v = yearAt(c), L = layout(), cw = pc.width, ch = pc.height;
-      // 1) composite photo k -> k+1 with a feathered wipe, gentle push and a gold light along the front
-      px.setTransform(1, 0, 0, 1, 0, 0); px.clearRect(0, 0, cw, ch);
-      coverDraw(px, IM[k], 1.06 + .05 * Math.min(1, fr + (k === 0 ? 0 : 0)) + .03 * e, -.012 * e, 0);
-      if (e > 0 && IM[k + 1].complete && IM[k + 1].naturalWidth) {
-        tx.setTransform(1, 0, 0, 1, 0, 0); tx.globalCompositeOperation = 'source-over'; tx.clearRect(0, 0, cw, ch);
-        coverDraw(tx, IM[k + 1], 1.1 - .04 * e, .016 * (1 - e), 0);
-        var f = .5 * cw, edge = e * (cw + f), g = tx.createLinearGradient(edge - f, 0, edge, ch * .18);
-        g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
-        tx.globalCompositeOperation = 'destination-in'; tx.fillStyle = g; tx.fillRect(0, 0, cw, ch); tx.globalCompositeOperation = 'source-over';
-        px.drawImage(tc, 0, 0);
-        var glow = Math.sin(Math.PI * e) * .22, gg = px.createLinearGradient(edge - f * .55, 0, edge - f * .05, ch * .1);
-        gg.addColorStop(0, 'rgba(211,175,55,0)'); gg.addColorStop(.7, 'rgba(244,227,161,' + glow + ')'); gg.addColorStop(1, 'rgba(211,175,55,0)');
-        px.globalCompositeOperation = 'lighter'; px.fillStyle = gg; px.fillRect(0, 0, cw, ch); px.globalCompositeOperation = 'source-over';
-      }
+      // 1) compose photo k -> k+1 for the chosen transition style
+      var eg = e, ew = e;
+      if (TR === 'digit') { var span = 1 - HOLD; ew = smooth((fr - HOLD) / (span * .62)); eg = smooth((fr - HOLD - span * .38) / (span * .62)); if (c >= N - 1) { ew = 1; eg = 1; } }
+      compose(px, pc, k, ew, fr);
+      var pg = pc; if (TR === 'digit') { compose(gx, gc, k, eg, fr); pg = gc; }
       // 2) base: navy + photo as a clear (not heavily tinted) backdrop
       ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = '#0c193b'; ctx.fillRect(0, 0, cv.width, cv.height);
-      ctx.globalAlpha = .4 + q * .6; ctx.drawImage(pc, 0, 0); ctx.globalAlpha = 1;
+      ctx.globalAlpha = .36 + q * .64; ctx.drawImage(pg, 0, 0); ctx.globalAlpha = 1;
       // 3) numerals filled with the same photograph at full strength
       var S = 1 + Math.pow(q, 2.4) * 70, a0 = L.pos(1), An = { x: a0.x + L.cw / 2, y: a0.y + L.lh * .5 };
-      ctx.globalAlpha = 1 - Math.min(1, q * 2); digits(ctx, L, v, 'halo', S, An); ctx.globalAlpha = 1;
       mx.setTransform(1, 0, 0, 1, 0, 0); mx.clearRect(0, 0, cw, ch); mx.globalCompositeOperation = 'source-over';
       digits(mx, L, v, 'fill', S, An); mx.globalCompositeOperation = 'source-in'; mx.drawImage(pc, 0, 0); mx.globalCompositeOperation = 'source-over';
       ctx.drawImage(mc, 0, 0);
-      ctx.globalAlpha = 1 - Math.min(1, q * 3); digits(ctx, L, v, 'stroke', S, An); ctx.globalAlpha = 1;
       // 4) soft shade under the caption only
       var sh = ctx.createLinearGradient(0, ch * .6, 0, ch); sh.addColorStop(0, 'rgba(12,25,59,0)'); sh.addColorStop(1, 'rgba(12,25,59,' + (.62 * (1 - q)) + ')'); ctx.fillStyle = sh; ctx.fillRect(0, 0, cw, ch);
       var ci = Math.min(N - 1, Math.round(c));
@@ -414,7 +422,9 @@ function heroVideo(){
     }
     size(); window.addEventListener('resize', function () { size(); });
     var go = function () { fontOK = true; need = true; };
-    if (document.fonts && document.fonts.load) document.fonts.load('100px "Gilda Display"').then(go, go); else go();
+    if (document.fonts && document.fonts.load) document.fonts.load('700 100px Cinzel').then(go, go); else go();
+    var lab = $('[data-trans-lab]', sec);
+    if (lab) { [['dissolve', 'Soft dissolve'], ['rack', 'Focus pull'], ['push', 'Rising push'], ['light', 'Light bloom'], ['digit', 'Follow the digits']].forEach(function (o) { var bt = document.createElement('button'); bt.type = 'button'; bt.textContent = o[1]; if (o[0] === TR) bt.className = 'on'; bt.addEventListener('click', function () { TR = o[0]; $$('button', lab).forEach(function (x) { x.classList.toggle('on', x === bt); }); need = true; }); lab.appendChild(bt); }); }
     requestAnimationFrame(loop);
   }
 
