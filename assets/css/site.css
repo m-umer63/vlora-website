@@ -547,8 +547,3 @@ input,select,textarea,button{font-family:inherit}
 .yrs-final.is-on{opacity:1}.yrs-final.is-on .btn{pointer-events:auto}
 .yrs-final h2{font-size:clamp(2.4rem,7vw,5.6rem);line-height:1.05;color:var(--cream);text-shadow:0 4px 40px rgba(12,25,59,.8);margin-bottom:1.4rem}
 .yrs-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:16px;font-family:var(--cinzel);font-size:.62rem;letter-spacing:.3em;color:var(--sand);transition:opacity .4s}
-
-.trans-lab{position:absolute;right:var(--gut);top:14px;z-index:9;display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:min(560px,80vw);pointer-events:auto}
-.trans-lab b{width:100%;text-align:right;font:500 .6rem var(--cinzel);letter-spacing:.24em;color:var(--sand);text-transform:uppercase}
-.trans-lab button{font:500 .66rem var(--ui);letter-spacing:.06em;color:var(--cream);background:rgba(12,25,59,.62);border:1px solid rgba(229,204,179,.45);padding:6px 11px;cursor:pointer}
-.trans-lab button.on{background:#D3AF37;color:#0c193b;border-color:#D3AF37}

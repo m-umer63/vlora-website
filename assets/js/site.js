@@ -319,8 +319,8 @@ function heroVideo(){
     var lateLoad = function () { IM.forEach(function (im, i) { if (!im.src) im.src = SRC[i]; }); };
     if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { lateLoad(); io.disconnect(); } }, { rootMargin: '1800px 0px' }); io.observe(sec); } else lateLoad();
     var mk = function () { var c = document.createElement('canvas'); return [c, c.getContext('2d')]; };
-    var A = mk(), B = mk(), M = mk(), G = mk(), pc = A[0], px = A[1], tc = B[0], tx = B[1], mc = M[0], mx = M[1], gc = G[0], gx = G[1];
-    var TR = 'dissolve', hasFilter = 'filter' in ctx;
+    var A = mk(), M = mk(), pc = A[0], px = A[1], mc = M[0], mx = M[1];
+    
     var W = 0, H = 0, dpr = 1, need = true, fontOK = false, ps = 0, tgt = 0;
     var HOLD = .55, WH = 1, WT = 2.6, SEG = HOLD * WH + (1 - HOLD) * WT, ZOOM = 1.7, UNITS = (N - 1) * SEG, TOTAL = UNITS + ZOOM;
     function smooth(x) { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); }
@@ -328,7 +328,7 @@ function heroVideo(){
     function size() {
       dpr = Math.min(window.devicePixelRatio || 1, W < 760 ? 1.5 : 2);
       var r = stage.getBoundingClientRect(); W = r.width || innerWidth; H = r.height || innerHeight;
-      [cv, pc, tc, mc, gc].forEach(function (c) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); });
+      [cv, pc, mc].forEach(function (c) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); });
       sec.style.height = Math.round(innerHeight * (.4 * TOTAL) + (innerHeight - (r.top > 0 ? 0 : 0))) + 'px';
       need = true;
     }
@@ -351,18 +351,9 @@ function heroVideo(){
       var cw = target.width, ch = target.height, drift = 1.06 + .05 * Math.min(1, fr), nxt = IM[k + 1], ok = nxt && nxt.complete && nxt.naturalWidth;
       g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.filter = 'none'; g.clearRect(0, 0, cw, ch);
       if (e <= 0 || !ok) { coverDraw(g, IM[k], drift, 0, 0); return; }
-      if (TR === 'push') {                       // both photos travel upward, the way the digits roll
-        coverDraw(g, IM[k], drift, 0, -.07 * e); g.globalAlpha = e; coverDraw(g, nxt, 1.1, 0, .07 * (1 - e)); g.globalAlpha = 1; return;
-      }
-      if (TR === 'rack' && hasFilter) {          // focus pulls from one photo to the next
-        var b1 = e * 16 * dpr, b2 = (1 - e) * 16 * dpr;
-        g.filter = 'blur(' + b1.toFixed(1) + 'px)'; coverDraw(g, IM[k], drift + .04 * e, 0, 0);
-        g.globalAlpha = Math.min(1, e * 1.6); g.filter = 'blur(' + b2.toFixed(1) + 'px)'; coverDraw(g, nxt, 1.1 - .04 * e, 0, 0);
-        g.filter = 'none'; g.globalAlpha = 1; return;
-      }
-      coverDraw(g, IM[k], drift + .03 * e, 0, 0);   // dissolve (also light / digit)
+      coverDraw(g, IM[k], drift + .03 * e, 0, 0);   // soft dissolve with a brief light bloom
       g.globalAlpha = e; coverDraw(g, nxt, 1.09 - .03 * e, 0, 0); g.globalAlpha = 1;
-      if (TR === 'light') { var bl = Math.sin(Math.PI * e) * .24; g.globalCompositeOperation = 'lighter'; g.fillStyle = 'rgba(244,227,170,' + bl.toFixed(3) + ')'; g.fillRect(0, 0, cw, ch); g.globalCompositeOperation = 'source-over'; }
+      var bl = Math.sin(Math.PI * e) * .24; g.globalCompositeOperation = 'lighter'; g.fillStyle = 'rgba(244,227,170,' + bl.toFixed(3) + ')'; g.fillRect(0, 0, cw, ch); g.globalCompositeOperation = 'source-over';
     }
     function layout() {
       var mob = W < 760; ctx.font = '700 100px Cinzel';
@@ -392,18 +383,17 @@ function heroVideo(){
       var e = smooth((fr - HOLD) / (1 - HOLD)); if (c >= N - 1) { k = N - 2; e = 1; }
       var v = yearAt(c), L = layout(), cw = pc.width, ch = pc.height;
       // 1) compose photo k -> k+1 for the chosen transition style
-      var eg = e, ew = e;
-      if (TR === 'digit') { var span = 1 - HOLD; ew = smooth((fr - HOLD) / (span * .62)); eg = smooth((fr - HOLD - span * .38) / (span * .62)); if (c >= N - 1) { ew = 1; eg = 1; } }
-      compose(px, pc, k, ew, fr);
-      var pg = pc; if (TR === 'digit') { compose(gx, gc, k, eg, fr); pg = gc; }
+      compose(px, pc, k, e, fr);
       // 2) base: navy + photo as a clear (not heavily tinted) backdrop
       ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = '#0c193b'; ctx.fillRect(0, 0, cv.width, cv.height);
-      ctx.globalAlpha = .36 + q * .64; ctx.drawImage(pg, 0, 0); ctx.globalAlpha = 1;
+      ctx.globalAlpha = .26 + q * .74; ctx.drawImage(pc, 0, 0); ctx.globalAlpha = 1;
+      // calm band behind the numerals so they stand clear of the photo (no outline)
+      if (q < 1) { var by0 = (L.pos(0).y - L.lh * .35) * dpr, by1 = (L.pos(3).y + L.lh * 1.35) * dpr, bg = ctx.createLinearGradient(0, by0, 0, by1); bg.addColorStop(0, 'rgba(6,13,34,0)'); bg.addColorStop(.28, 'rgba(6,13,34,' + (.34 * (1 - q)).toFixed(3) + ')'); bg.addColorStop(.72, 'rgba(6,13,34,' + (.34 * (1 - q)).toFixed(3) + ')'); bg.addColorStop(1, 'rgba(6,13,34,0)'); ctx.fillStyle = bg; ctx.fillRect(0, by0, cv.width, by1 - by0); }
       // 3) numerals filled with the same photograph at full strength
       var S = 1 + Math.pow(q, 2.4) * 70, a0 = L.pos(1), An = { x: a0.x + L.cw / 2, y: a0.y + L.lh * .5 };
       mx.setTransform(1, 0, 0, 1, 0, 0); mx.clearRect(0, 0, cw, ch); mx.globalCompositeOperation = 'source-over';
       digits(mx, L, v, 'fill', S, An); mx.globalCompositeOperation = 'source-in'; mx.drawImage(pc, 0, 0); mx.globalCompositeOperation = 'source-over';
-      ctx.drawImage(mc, 0, 0);
+      ctx.drawImage(mc, 0, 0); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .2; ctx.drawImage(mc, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
       // 4) soft shade under the caption only
       var sh = ctx.createLinearGradient(0, ch * .6, 0, ch); sh.addColorStop(0, 'rgba(12,25,59,0)'); sh.addColorStop(1, 'rgba(12,25,59,' + (.62 * (1 - q)) + ')'); ctx.fillStyle = sh; ctx.fillRect(0, 0, cw, ch);
       var ci = Math.min(N - 1, Math.round(c));
@@ -423,8 +413,6 @@ function heroVideo(){
     size(); window.addEventListener('resize', function () { size(); });
     var go = function () { fontOK = true; need = true; };
     if (document.fonts && document.fonts.load) document.fonts.load('700 100px Cinzel').then(go, go); else go();
-    var lab = $('[data-trans-lab]', sec);
-    if (lab) { [['dissolve', 'Soft dissolve'], ['rack', 'Focus pull'], ['push', 'Rising push'], ['light', 'Light bloom'], ['digit', 'Follow the digits']].forEach(function (o) { var bt = document.createElement('button'); bt.type = 'button'; bt.textContent = o[1]; if (o[0] === TR) bt.className = 'on'; bt.addEventListener('click', function () { TR = o[0]; $$('button', lab).forEach(function (x) { x.classList.toggle('on', x === bt); }); need = true; }); lab.appendChild(bt); }); }
     requestAnimationFrame(loop);
   }
 
