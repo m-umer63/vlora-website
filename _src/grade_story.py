@@ -54,11 +54,27 @@ def portrait_right(name, f, box, mix=.8):
     canvas += rng.normal(0, 3, canvas.shape[:2])[..., None]
     save(name, Image.fromarray(np.clip(canvas, 0, 255).astype(np.uint8)))
 
+def portrait_center(name, f, box, mix=.8):
+    """Whole portrait kept in frame (no heavy zoom): sharp in the centre, softly blurred navy fill at the sides."""
+    im = Image.open(src + f).convert('RGB'); x0, y0, x1, y1 = box
+    im = im.crop((int(x0 * im.width), int(y0 * im.height), int(x1 * im.width), int(y1 * im.height)))
+    fg = soft_grade(im.resize((int(im.width * H / im.height), H), Image.LANCZOS), mix)
+    yy, xx = np.mgrid[0:H, 0:W]; d = np.sqrt(((xx - W / 2) / (W * .5)) ** 2 + ((yy - H * .45) / (H * .7)) ** 2)
+    bg = np.array([12, 25, 59.]) + (np.array([40, 64, 118.]) - np.array([12, 25, 59.])) * np.clip(1 - d, 0, 1)[..., None] * .8
+    arr = np.asarray(fg).astype(float); fw = fg.width
+    mask = np.ones((H, fw)); fe = int(fw * .16)
+    mask[:, :fe] = np.linspace(0, 1, fe)[None, :]; mask[:, -fe:] *= np.linspace(1, 0, fe)[None, :]
+    xs0 = (W - fw) // 2
+    bg[:, xs0:xs0 + fw] = bg[:, xs0:xs0 + fw] * (1 - mask[..., None]) + arr * mask[..., None]
+    bg += rng.normal(0, 3, bg.shape[:2])[..., None]
+    save(name, Image.fromarray(np.clip(bg, 0, 255).astype(np.uint8)))
+
 land('y1983', 'lane.png', .5, .5)
 land('y1985', 'workshop.png', .5, .42, mix=.8)           # black-and-white source: lean on the duotone
-land('y1988', 'b.png', .5, .34, mix=.8, box=(0.05, 0, 0.95, 1))
-land('y1997', 'crowd.png', .5, .5, mix=.35)
+land('y1988', 'crowd.png', .5, .5, mix=.35)
+portrait_center('y1997', 'b.png', (0.05, 0.05, 0.95, 0.9))
 land('y2002', 'showcase.png', .5, .5, mix=.3)
 land('y2008', 'd.png', .5, .5, mix=.4)
-land('y2015', 'sign.png', .5, .41, mix=.4)
-land('y2026', 'c.png', .5, .22, mix=.5)
+land('y2013', 'walk.png', .5, .42, mix=.4)
+land('y2023', 'c.png', .5, .22, mix=.5)
+land('y2026', 'sign.png', .5, .41, mix=.4)               # placeholder until the store-interior photo arrives

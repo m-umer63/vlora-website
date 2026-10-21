@@ -269,14 +269,15 @@ def page_home():
                   f'<div class="tile-cap"><h3>{c}</h3><span>{n} pieces</span></div></a>')
     # "years" story: huge numerals roll from 1983 to 2026 with the photographs living inside the digits (canvas, see site.js initYears)
     years = [
-        (1983, 'y1983', 'Where it began', 'In the Gold Souq', 'A family jewellery house opens its doors in the lanes of Dubai.', 'Dubai Gold Souq lane in the early years'),
-        (1985, 'y1985', 'The workshop', 'Made by hand', 'A family business that makes as well as sells, with attention at every step.', 'Jeweller working on a ring at the bench'),
-        (1988, 'y1988', 'The founder', 'Akbar Khan', 'He builds VLOR&Aacute; on one idea: create what reflects you.', 'Portrait of Akbar Khan, founder of VLORÁ'),
-        (1997, 'y1997', 'The souq', 'A market comes alive', 'The Gold Souq fills with people from everywhere, and we grow with it.', 'Evening crowds in the Gold Souq'),
-        (2002, 'y2002', 'The counter', 'Gold, chosen with care', 'Every piece on our shelves is chosen for the people who will wear it.', 'Gold bangles and necklaces in a souq showcase'),
-        (2008, 'y2008', 'VLOR&Aacute;', 'A shopfront of our own', 'The VLOR&Aacute; name takes its place in the souq.', 'A VLORÁ branch in the Gold Souq'),
-        (2015, 'y2015', 'The souq today', 'Still the heart of it', 'Dubai&rsquo;s Gold Souq, renewed, and still where we are found.', 'The renewed Gold Souq'),
-        (2026, 'y2026', 'Now online', 'Wherever you are', 'Order from home, with the same care you would find at our counter.', 'The VLORÁ shopfront today')]
+        (1983, 'y1983', 'The beginning', 'Adnan Al Khaja Gold Smithing', 'Our parent company opens its doors in the Gold Souq.', 'Dubai Gold Souq lane in the early years'),
+        (1985, 'y1985', 'Growing', 'Casting for the region', 'The business expands into gold casting, supplying jewellers across the region.', 'Jeweller working on a ring at the bench'),
+        (1988, 'y1988', 'Deira', 'A souq takes shape', 'In the streets of Deira, the Gold Souq begins to form and the trade gathers around it.', 'Evening crowds in the Gold Souq'),
+        (1997, 'y1997', 'The founder', 'Akbar Khan', 'An experienced goldsmith, and the man who started it all.', 'Portrait of Akbar Khan, founder of VLORÁ'),
+        (2002, 'y2002', 'Dubai', 'The city of gold', 'Dubai becomes known as the city of gold, with the Gold Souq at the heart of it.', 'Gold bangles and necklaces in a souq showcase'),
+        (2008, 'y2008', 'VLOR&Aacute;', 'Our first branch', 'VLOR&Aacute; opens its first retail branch, to serve customers directly.', 'A VLORÁ branch in the Gold Souq'),
+        (2013, 'y2013', 'VLOR&Aacute;', 'A second branch', 'A second branch follows, offering handcrafted gold and diamond jewellery.', 'The Gold Souq walkway'),
+        (2023, 'y2023', 'Manufacturing', 'Partner to 100+ brands', 'VLOR&Aacute; now manufactures for more than 100 brands around the world.', 'The VLORÁ shopfront'),
+        (2026, 'y2026', 'Now online', 'Made for you', 'VLOR&Aacute; goes online, crafting exclusive pieces for individual clients.', 'The Gold Souq today')]
     yr_caps = ''.join(f'<div class="yrs-cap{" is-on" if i == 0 else ""}" data-yrs-cap><span class="yrs-k">{lab}</span><h3>{t}</h3><p>{x}</p></div>' for i, (y, f, lab, t, x, alt) in enumerate(years))
     yr_fb = ''.join(f'<figure class="yrs-fig"><img src="{asset(d, f"assets/img/story/{f}.jpg")}" alt="{alt}" width="1600" height="900" loading="lazy" decoding="async"><figcaption><b>{y}</b><span>{t}</span><em>{x}</em></figcaption></figure>' for (y, f, lab, t, x, alt) in years)
     yr_srcs = ','.join(asset(d, f'assets/img/story/{f}.jpg') for (y, f, lab, t, x, alt) in years)
@@ -312,7 +313,7 @@ def page_home():
     <canvas class="yrs-canvas" data-yrs-canvas aria-hidden="true"></canvas>
     <div class="yrs-ov">
       <div class="yrs-caps">{yr_caps}</div>
-      <div class="yrs-idx" data-yrs-idx aria-hidden="true">01 / 08</div>
+      <div class="yrs-idx" data-yrs-idx aria-hidden="true">01 / 09</div>
       <div class="yrs-final" data-yrs-final><div><h2>Now, wherever you are.</h2><a class="btn btn-gold" href="{link(d, "collections/gold/")}">Discover the collections</a></div></div>
       <div class="yrs-hint" data-yrs-hint aria-hidden="true">Scroll</div>
     </div>
