@@ -547,3 +547,6 @@ input,select,textarea,button{font-family:inherit}
 .yrs-final.is-on{opacity:1}.yrs-final.is-on .btn{pointer-events:auto}
 .yrs-final h2{font-size:clamp(2.4rem,7vw,5.6rem);line-height:1.05;color:var(--cream);text-shadow:0 4px 40px rgba(12,25,59,.8);margin-bottom:1.4rem}
 .yrs-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:16px;font-family:var(--cinzel);font-size:.62rem;letter-spacing:.3em;color:var(--sand);transition:opacity .4s}
+.feat .sec-head{align-items:flex-end}.feat .sec-head .h-lg{flex:0 1 auto}
+.feat-lead{flex:1 1 280px;margin:0;color:var(--muted,#4a4f63);max-width:46ch}
+@media(max-width:860px){.feat-lead{flex-basis:100%;order:3}}

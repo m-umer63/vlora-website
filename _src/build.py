@@ -157,7 +157,6 @@ def header(d, current=''):
 <aside class="drawer drawer-left" id="menu-drawer" aria-label="Menu" aria-hidden="true">
   <div class="drawer-head"><span class="eyebrow">Menu</span><button class="icon-btn" data-close aria-label="Close">{ICON["close"]}</button></div>
   <nav class="mob-nav"><a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/diamond/")}">Diamond</a><a href="{link(d, "pages/bespoke/")}">Bespoke</a><hr><a href="{link(d, "collections/all/")}">All jewellery</a>{mobcats}
-  <a href="{link(d, "collections/new-arrivals/")}">New arrivals</a><hr>
   <a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/care-guide/")}">Care guide</a><a href="{link(d, "pages/faq/")}">FAQ</a><a href="{link(d, "pages/contact/")}">Contact</a><a href="{link(d, "wishlist/")}">Wishlist</a></nav>
 </aside>
 <div class="search-panel" id="search-panel" aria-hidden="true">
@@ -259,7 +258,14 @@ def gem_svg(cls):
 
 def page_home():
     d = 0
-    newp = [p for p in PRODUCTS if p.get('new')][:10] or PRODUCTS[:8]
+    fc = SITE.get('featured_collection', 'Rings')
+    fpr = [p for p in PRODUCTS if p['category'] == fc][:8]
+    feat = (f'<section class="section feat"><div class="wrap"><header class="sec-head reveal"><p class="eyebrow">Featured collection</p><h2 class="h-lg">{fc}</h2>'
+            f'<p class="feat-lead">{SITE.get("featured_blurb", "")}</p>'
+            f'<a class="more" href="{link(d, "collections/" + CAT_SLUG[fc] + "/")}">View all {fc.lower()}</a></header>'
+            f'<div class="rail-wrap reveal"><button class="rail-btn rail-prev" data-rail="-1" aria-label="Scroll left">&#8592;</button>'
+            f'<div class="rail grid-cards" data-rail-track>{"".join(card(d, p) for p in fpr)}</div>'
+            f'<button class="rail-btn rail-next" data-rail="1" aria-label="Scroll right">&#8594;</button></div></div></section>')
     tiles = ''
     for c in CATEGORIES[:6]:
         n = sum(1 for p in PRODUCTS if p['category'] == c)
@@ -308,6 +314,8 @@ def page_home():
   </figure>
 </div></section>
 
+{feat}
+
 <section class="yrs" data-yrs data-years="{yr_years}" data-srcs="{yr_srcs}" aria-label="Our story, 1983 to 2026">
   <div class="yrs-stage">
     <canvas class="yrs-canvas" data-yrs-canvas aria-hidden="true"></canvas>
@@ -323,12 +331,6 @@ def page_home():
 
 <section class="section"><div class="wrap"><header class="sec-head reveal"><p class="eyebrow">Shop</p><h2 class="h-lg">Our collections</h2></header>
   <div class="tiles reveal">{tiles}</div></div></section>
-
-<section class="section section-sand"><div class="wrap"><header class="sec-head reveal"><p class="eyebrow">Just in</p><h2 class="h-lg">New arrivals</h2>
-  <a class="more" href="{link(d, "collections/new-arrivals/")}">View all</a></header>
-  <div class="rail-wrap reveal"><button class="rail-btn rail-prev" data-rail="-1" aria-label="Scroll left">&#8592;</button>
-  <div class="rail grid-cards" data-rail-track>{"".join(card(d, p) for p in newp)}</div>
-  <button class="rail-btn rail-next" data-rail="1" aria-label="Scroll right">&#8594;</button></div></div></section>
 
 <section class="band-gold"><div class="wrap band-grid reveal">
   <div><h3>Order with a conversation</h3><p>Prefer to speak to someone? Message us on WhatsApp and we will help you choose.</p><a class="link-arrow" href="{wa_link("Hello VLORÁ, I would like some help choosing a piece.")}" rel="noopener">Chat on WhatsApp</a></div>
@@ -574,7 +576,6 @@ def build():
     page_collection('all', 'All jewellery & watches', 'Every piece in the VLORÁ collection.', PRODUCTS)
     page_collection('gold', 'Gold', 'Fine jewellery in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])
     page_collection('diamond', 'Diamond', 'Diamond jewellery, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond'])
-    page_collection('new-arrivals', 'New arrivals', 'The newest pieces to join the collection.', [p for p in PRODUCTS if p.get('new')])
     blurbs = {'Rings': 'Solitaires, bands and statement rings.', 'Earrings': 'Studs, drops and hoops for every day and every occasion.',
               'Necklaces': 'Pendants, chains and rivières.', 'Bracelets': 'Tennis, link and chain bracelets.',
               'Bangles': 'Slim bangles and cuffs in gold and diamonds.', 'Pendants': 'Pendants to wear alone or layered.',
