@@ -314,7 +314,7 @@ def page_home():
     <div class="yrs-ov">
       <div class="yrs-caps">{yr_caps}</div>
       <div class="yrs-idx" data-yrs-idx aria-hidden="true">01 / 09</div>
-      <div class="yrs-final" data-yrs-final><div><h2>Now, wherever you are.</h2><a class="btn btn-gold" href="{link(d, "collections/gold/")}">Discover the collections</a></div></div>
+      <div class="yrs-final" data-yrs-final><div><h2>The story continues with you.</h2><a class="btn btn-gold" href="{link(d, "collections/gold/")}">Discover the collections</a></div></div>
       <div class="yrs-hint" data-yrs-hint aria-hidden="true">Scroll</div>
     </div>
   </div>
