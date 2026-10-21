@@ -76,5 +76,5 @@ portrait_center('y1997', 'b.png', (0.05, 0.05, 0.95, 0.9), mix=.6)
 land('y2002', 'showcase.png', .5, .5, mix=.2)
 land('y2008', 'd.png', .5, .5, mix=.25)
 land('y2013', 'c.png', .5, .22, mix=.3)
-land('y2023', 'walk.png', .5, .42, mix=.25)
-land('y2026', 'sign.png', .5, .41, mix=.25)               # placeholder until the store-interior photo arrives
+land('y2023', 'sign.png', .5, .41, mix=.25)
+land('y2026', 'interior.png', .5, .42, mix=.15)

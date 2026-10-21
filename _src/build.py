@@ -276,8 +276,8 @@ def page_home():
         (2002, 'y2002', 'Dubai', 'The city of gold', 'Dubai becomes known as the city of gold, with the Gold Souq at the heart of it.', 'Gold bangles and necklaces in a souq showcase'),
         (2008, 'y2008', 'VLOR&Aacute;', 'Our first branch', 'VLOR&Aacute; opens its first retail branch, to serve customers directly.', 'A VLORÁ branch in the Gold Souq'),
         (2013, 'y2013', 'VLOR&Aacute;', 'A second branch', 'A second branch follows, offering handcrafted gold and diamond jewellery.', 'The VLORÁ shopfront'),
-        (2023, 'y2023', 'Manufacturing', 'Partner to 100+ brands', 'VLOR&Aacute; now manufactures for more than 100 brands around the world.', 'The Gold Souq walkway'),
-        (2026, 'y2026', 'Now online', 'Made for you', 'VLOR&Aacute; goes online, crafting exclusive pieces for individual clients.', 'The Gold Souq today')]
+        (2023, 'y2023', 'Manufacturing', 'Partner to 100+ brands', 'VLOR&Aacute; now manufactures for more than 100 brands around the world.', 'The Gold Souq'),
+        (2026, 'y2026', 'Now online', 'Made for you', 'VLOR&Aacute; goes online, crafting exclusive pieces for individual clients.', 'Inside a VLORÁ store')]
     yr_caps = ''.join(f'<div class="yrs-cap{" is-on" if i == 0 else ""}" data-yrs-cap><span class="yrs-k">{lab}</span><h3>{t}</h3><p>{x}</p></div>' for i, (y, f, lab, t, x, alt) in enumerate(years))
     yr_fb = ''.join(f'<figure class="yrs-fig"><img src="{asset(d, f"assets/img/story/{f}.jpg")}" alt="{alt}" width="1600" height="900" loading="lazy" decoding="async"><figcaption><b>{y}</b><span>{t}</span><em>{x}</em></figcaption></figure>' for (y, f, lab, t, x, alt) in years)
     yr_srcs = ','.join(asset(d, f'assets/img/story/{f}.jpg') for (y, f, lab, t, x, alt) in years)

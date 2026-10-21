@@ -543,7 +543,7 @@ input,select,textarea,button{font-family:inherit}
 .yrs-cap h3{font-size:clamp(1.5rem,3vw,2.4rem);margin-bottom:.6rem;color:var(--cream);text-shadow:0 2px 24px rgba(12,25,59,.85)}
 .yrs-cap p{color:#F4F0E8;font-size:clamp(.92rem,1.2vw,1.05rem);line-height:1.65;max-width:40ch;text-shadow:0 1px 16px rgba(12,25,59,.9)}
 .yrs-idx{position:absolute;right:var(--gut);bottom:clamp(56px,10vh,96px);font-family:var(--cinzel);font-size:.7rem;letter-spacing:.3em;color:var(--sand)}
-.yrs-final{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;opacity:0;transition:opacity .9s}
+.yrs-final{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(12,25,59,.78) 0%,rgba(12,25,59,.55) 45%,rgba(12,25,59,.25) 100%);display:grid;place-items:center;text-align:center;padding:24px;opacity:0;transition:opacity .9s}
 .yrs-final.is-on{opacity:1}.yrs-final.is-on .btn{pointer-events:auto}
 .yrs-final h2{font-size:clamp(2.4rem,7vw,5.6rem);line-height:1.05;color:var(--cream);text-shadow:0 4px 40px rgba(12,25,59,.8);margin-bottom:1.4rem}
 .yrs-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:16px;font-family:var(--cinzel);font-size:.62rem;letter-spacing:.3em;color:var(--sand);transition:opacity .4s}
