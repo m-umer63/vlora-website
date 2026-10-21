@@ -1,37 +1,64 @@
-"""Grades the story photos into one navy/gold monotone look (1920x1080). Usage: python3 grade_story.py <dir with source PNGs>"""
-import numpy as np
-from PIL import Image, ImageOps, ImageFilter
-import sys
-src=sys.argv[1].rstrip('/')+'/'; OUT='assets/img/story/'
-stops=[(0,(10,19,48)),(.38,(32,53,101)),(.72,(197,162,140)),(1,(244,240,232))]
-xs=np.linspace(0,1,256); L=np.stack([np.interp(xs,[s[0] for s in stops],[s[1][c] for s in stops]) for c in range(3)],1).astype(np.uint8)
-rng=np.random.default_rng(3); W,H=1920,1080
-def grade(im,g=1.0):
-    gray=ImageOps.autocontrast(ImageOps.grayscale(im),cutoff=1.5).filter(ImageFilter.UnsharpMask(2,60,2))
-    a=(np.asarray(gray)/255.0)**g
-    yy,xx=np.mgrid[0:im.size[1],0:im.size[0]]
-    d=np.sqrt(((xx-im.size[0]/2)/(im.size[0]*.62))**2+((yy-im.size[1]/2)/(im.size[1]*.7))**2)
-    a=a*(1-0.35*np.clip(d-0.5,0,1)**1.3*1.6)
-    a=np.clip(a+rng.normal(0,.018,a.shape),0,1)
-    return Image.fromarray(L[(a*255).astype(np.uint8)])
-def cover(im,w,h,fx=.5,fy=.5):
-    s=max(w/im.width,h/im.height); im=im.resize((int(im.width*s)+1,int(im.height*s)+1),Image.LANCZOS)
-    x=int((im.width-w)*fx); y=int((im.height-h)*fy); return im.crop((x,y,x+w,y+h))
-def land(name,f,fx=.5,fy=.5,g=1.0):
-    im=Image.open(src+f).convert('RGB'); grade(cover(im,W,H,fx,fy),g).save(OUT+name+'.jpg',quality=78,optimize=True,progressive=True)
-def portrait_comp(name,f,pbox,g=1.0):
-    im=Image.open(src+f).convert('RGB'); x0,y0,x1,y1=pbox; im=im.crop((int(x0*im.width),int(y0*im.height),int(x1*im.width),int(y1*im.height)))
-    bg=cover(im,W,H).filter(ImageFilter.GaussianBlur(40)); fg=cover(im,int(H*.8),H)
-    canvas=bg.copy(); canvas.paste(fg,(int(W*.52),0))
-    g_=grade(canvas,g)
-    # dark navy veil on the left so text reads
-    arr=np.asarray(g_).astype(float); xx=np.linspace(0,1,W)[None,:,None]; veil=np.clip(1-xx/0.5,0,1)**1.2*0.55
-    arr=arr*(1-veil)+np.array([10,19,48])*veil; Image.fromarray(arr.astype(np.uint8)).save(OUT+name+'.jpg',quality=78,optimize=True,progressive=True)
+"""Prepares the eight 'years' photos for the home-page story (1600x900, soft navy/gold grade that keeps the photo visible).
+Usage: python3 grade_story.py <dir with source PNGs: lane workshop b crowd showcase d sign c>"""
+import sys, numpy as np
+from PIL import Image, ImageOps, ImageFilter, ImageEnhance
+src = sys.argv[1].rstrip('/') + '/'
+OUT = 'assets/img/story/'
+W, H = 1600, 900
+stops = [(0, (10, 19, 48)), (.38, (32, 53, 101)), (.72, (197, 162, 140)), (1, (244, 240, 232))]
+xs = np.linspace(0, 1, 256)
+LUT = np.stack([np.interp(xs, [q[0] for q in stops], [q[1][c] for q in stops]) for c in range(3)], 1)
+rng = np.random.default_rng(11)
 
-land('lane','lane.png',.5,.5,1.0)
-portrait_comp('founder','b.png',(0,0.03,1,0.03+1459*1.25/2053))
-land('craft','f.png',.5,.5,.9)
-land('market','souq1989.png',.5,.55)
-land('souq-today','sign.png',.5,.41,1.0)
-land('branches','d.png',.5,.5)
-portrait_comp('today','c.png',(0,0,1,1))
+def cover(im, w, h, fx=.5, fy=.5):
+    s = max(w / im.width, h / im.height)
+    im = im.resize((int(im.width * s) + 1, int(im.height * s) + 1), Image.LANCZOS)
+    x = int((im.width - w) * fx); y = int((im.height - h) * fy)
+    return im.crop((x, y, x + w, y + h))
+
+def soft_grade(im, mix=.5, gamma=1.0):
+    """mix = share of the navy/gold duotone; the rest is the photo's own (softened) colour."""
+    gray = ImageOps.autocontrast(ImageOps.grayscale(im), cutoff=1.2).filter(ImageFilter.UnsharpMask(2, 55, 2))
+    a = (np.asarray(gray) / 255.0) ** gamma
+    duo = LUT[(a * 255).astype(np.uint8)]
+    col = ImageOps.autocontrast(im, cutoff=1.0)
+    col = ImageEnhance.Color(col).enhance(.78).filter(ImageFilter.UnsharpMask(2, 45, 2))
+    col = np.asarray(col).astype(float)
+    out = duo * mix + col * (1 - mix)
+    yy, xx = np.mgrid[0:im.height, 0:im.width]
+    d = np.sqrt(((xx - im.width / 2) / (im.width * .62)) ** 2 + ((yy - im.height / 2) / (im.height * .7)) ** 2)
+    out *= (1 - 0.22 * np.clip(d - 0.55, 0, 1)[..., None] * 1.6)
+    out += rng.normal(0, 3.2, out.shape[:2])[..., None]
+    return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
+
+def save(name, im):
+    im.save(f'{OUT}{name}.jpg', quality=76, optimize=True, progressive=True); print(name)
+
+def land(name, f, fx=.5, fy=.5, mix=.5, gamma=1.0, box=None):
+    im = Image.open(src + f).convert('RGB')
+    if box: im = im.crop((int(box[0] * im.width), int(box[1] * im.height), int(box[2] * im.width), int(box[3] * im.height)))
+    save(name, soft_grade(cover(im, W, H, fx, fy), mix, gamma))
+
+def portrait_right(name, f, box, mix=.8):
+    im = Image.open(src + f).convert('RGB'); x0, y0, x1, y1 = box
+    im = im.crop((int(x0 * im.width), int(y0 * im.height), int(x1 * im.width), int(y1 * im.height)))
+    fg = soft_grade(im.resize((int(im.width * H / im.height), H), Image.LANCZOS), mix)
+    arr = np.asarray(fg).astype(float); fw = fg.width
+    yy, xx = np.mgrid[0:H, 0:W]
+    d = np.sqrt(((xx - W * .72) / (W * .55)) ** 2 + ((yy - H * .45) / (H * .8)) ** 2)
+    canvas = np.array([12, 25, 59.]) + (np.array([32, 53, 101.]) - np.array([12, 25, 59.])) * np.clip(1 - d, 0, 1)[..., None] * .9
+    mask = np.ones((H, fw)); fe = int(fw * .28)
+    mask[:, :fe] = np.linspace(0, 1, fe)[None, :] ** 1.4; ft = int(fw * .1); mask[:, -ft:] *= np.linspace(1, 0, ft)[None, :]
+    x0p = int(W * .60); x1p = min(W, x0p + fw); cw = x1p - x0p
+    canvas[:, x0p:x1p] = canvas[:, x0p:x1p] * (1 - mask[:, :cw, None]) + arr[:, :cw] * mask[:, :cw, None]
+    canvas += rng.normal(0, 3, canvas.shape[:2])[..., None]
+    save(name, Image.fromarray(np.clip(canvas, 0, 255).astype(np.uint8)))
+
+land('y1983', 'lane.png', .5, .5)
+land('y1985', 'workshop.png', .5, .42, mix=.8)           # black-and-white source: lean on the duotone
+land('y1988', 'b.png', .5, .34, mix=.8, box=(0.05, 0, 0.95, 1))
+land('y1997', 'crowd.png', .5, .5, mix=.35)
+land('y2002', 'showcase.png', .5, .5, mix=.3)
+land('y2008', 'd.png', .5, .5, mix=.4)
+land('y2015', 'sign.png', .5, .41, mix=.4)
+land('y2026', 'c.png', .5, .22, mix=.5)

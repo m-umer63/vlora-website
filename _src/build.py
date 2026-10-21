@@ -267,18 +267,20 @@ def page_home():
         pic = img_tag(d, sample, 0) if sample else ''
         tiles += (f'<a class="tile" href="{link(d, "collections/" + CAT_SLUG[c] + "/")}"><div class="tile-media">{pic}</div>'
                   f'<div class="tile-cap"><h3>{c}</h3><span>{n} pieces</span></div></a>')
-    # scroll-driven film strip: full-screen graded photos wipe over each other, with a year counter
-    chapters = [('lane', 'Where it began', 'In the lanes of Dubai&rsquo;s Gold Souq, a family jewellery house opens its doors.', 'Dubai Gold Souq lane in the early years', ''),
-                ('founder', 'A name behind every piece', 'Akbar Khan builds VLOR&Aacute; on one idea: create what reflects you.', 'Portrait of Akbar Khan, founder of VLORÁ', 'pos-r'),
-                ('craft', 'Made with care', 'A family business that makes as well as sells, with attention at every step.', 'Two jewellers at their counter in the early years', ''),
-                ('market', 'A market of gold', 'The souq grows, and so does the choice. We grow with it.', 'Lit showcases in the Gold Souq, late 1980s', ''),
-                ('souq-today', 'Still the heart of it', 'The Gold Souq today, and still where we are found.', 'The Gold Souq today', ''),
-                ('branches', 'Our branches', 'The same promise, now with a wider choice of fine jewellery and watches.', 'A VLORÁ branch in the souq', ''),
-                ('today', 'Now online', 'Order from wherever you are, with the same care you would find at our counter.', 'The VLORÁ shopfront today', 'pos-r')]
-    layers = ''
-    for i, (nm, t, x, alt, cls) in enumerate(chapters):
-        layers += (f'<article class="film-layer{" " + cls if cls else ""}" data-film="{i}"><img src="{asset(d, f"assets/img/story/{nm}.jpg")}" alt="{alt}" width="1920" height="1080" loading="{"eager" if i == 0 else "lazy"}" decoding="async">'
-                   f'<span class="film-shade"></span><div class="film-cap"><span class="film-no">0{i + 1}</span><h3>{t}</h3><p>{x}</p></div></article>')
+    # "years" story: huge numerals roll from 1983 to 2026 with the photographs living inside the digits (canvas, see site.js initYears)
+    years = [
+        (1983, 'y1983', 'Where it began', 'In the Gold Souq', 'A family jewellery house opens its doors in the lanes of Dubai.', 'Dubai Gold Souq lane in the early years'),
+        (1985, 'y1985', 'The workshop', 'Made by hand', 'A family business that makes as well as sells, with attention at every step.', 'Jeweller working on a ring at the bench'),
+        (1988, 'y1988', 'The founder', 'Akbar Khan', 'He builds VLOR&Aacute; on one idea: create what reflects you.', 'Portrait of Akbar Khan, founder of VLORÁ'),
+        (1997, 'y1997', 'The souq', 'A market comes alive', 'The Gold Souq fills with people from everywhere, and we grow with it.', 'Evening crowds in the Gold Souq'),
+        (2002, 'y2002', 'The counter', 'Gold, chosen with care', 'Every piece on our shelves is chosen for the people who will wear it.', 'Gold bangles and necklaces in a souq showcase'),
+        (2008, 'y2008', 'VLOR&Aacute;', 'A shopfront of our own', 'The VLOR&Aacute; name takes its place in the souq.', 'A VLORÁ branch in the Gold Souq'),
+        (2015, 'y2015', 'The souq today', 'Still the heart of it', 'Dubai&rsquo;s Gold Souq, renewed, and still where we are found.', 'The renewed Gold Souq'),
+        (2026, 'y2026', 'Now online', 'Wherever you are', 'Order from home, with the same care you would find at our counter.', 'The VLORÁ shopfront today')]
+    yr_caps = ''.join(f'<div class="yrs-cap{" is-on" if i == 0 else ""}" data-yrs-cap><span class="yrs-k">{lab}</span><h3>{t}</h3><p>{x}</p></div>' for i, (y, f, lab, t, x, alt) in enumerate(years))
+    yr_fb = ''.join(f'<figure class="yrs-fig"><img src="{asset(d, f"assets/img/story/{f}.jpg")}" alt="{alt}" width="1600" height="900" loading="lazy" decoding="async"><figcaption><b>{y}</b><span>{t}</span><em>{x}</em></figcaption></figure>' for (y, f, lab, t, x, alt) in years)
+    yr_srcs = ','.join(asset(d, f'assets/img/story/{f}.jpg') for (y, f, lab, t, x, alt) in years)
+    yr_years = ','.join(str(y) for (y, *_r) in years)
     body = f'''
 <section class="hero2" data-hero2>
   <div class="hero2-bg" aria-hidden="true">
@@ -305,11 +307,17 @@ def page_home():
   </figure>
 </div></section>
 
-<section class="film" data-film-scroll style="--n:{len(chapters)}" aria-label="Our story">
-  <div class="film-stage">{layers}
-    <div class="film-year" aria-hidden="true"><span data-year>1983</span></div>
-    <div class="film-bar" aria-hidden="true"><i data-fill></i><span class="l">1983</span><span class="r">2026</span></div>
+<section class="yrs" data-yrs data-years="{yr_years}" data-srcs="{yr_srcs}" aria-label="Our story, 1983 to 2026">
+  <div class="yrs-stage">
+    <canvas class="yrs-canvas" data-yrs-canvas aria-hidden="true"></canvas>
+    <div class="yrs-ov">
+      <div class="yrs-caps">{yr_caps}</div>
+      <div class="yrs-idx" data-yrs-idx aria-hidden="true">01 / 08</div>
+      <div class="yrs-final" data-yrs-final><div><h2>Now, wherever you are.</h2><a class="btn btn-gold" href="{link(d, "collections/gold/")}">Discover the collections</a></div></div>
+      <div class="yrs-hint" data-yrs-hint aria-hidden="true">Scroll</div>
+    </div>
   </div>
+  <div class="yrs-fb">{yr_fb}</div>
 </section>
 
 <section class="section"><div class="wrap"><header class="sec-head reveal"><p class="eyebrow">Shop</p><h2 class="h-lg">Our collections</h2></header>
