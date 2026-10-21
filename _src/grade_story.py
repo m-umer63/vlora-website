@@ -69,12 +69,12 @@ def portrait_center(name, f, box, mix=.8):
     bg += rng.normal(0, 3, bg.shape[:2])[..., None]
     save(name, Image.fromarray(np.clip(bg, 0, 255).astype(np.uint8)))
 
-land('y1983', 'lane.png', .5, .5, mix=.3)
-land('y1985', 'workshop.png', .5, .42, mix=.6)           # black-and-white source: lean on the duotone
-land('y1988', 'crowd.png', .5, .5, mix=.2)
-portrait_center('y1997', 'b.png', (0.05, 0.05, 0.95, 0.9), mix=.6)
-land('y2002', 'showcase.png', .5, .5, mix=.2)
-land('y2008', 'd.png', .5, .5, mix=.25)
-land('y2013', 'c.png', .5, .22, mix=.3)
-land('y2023', 'sign.png', .5, .41, mix=.25)
-land('y2026', 'interior.png', .5, .42, mix=.15)
+land('y1983', 'lane.png', .5, .5, mix=.18)
+land('y1985', 'workshop.png', .5, .42, mix=.48)           # black-and-white source: lean on the duotone
+land('y1988', 'crowd.png', .5, .5, mix=.08)
+portrait_center('y1997', 'b.png', (0.05, 0.05, 0.95, 0.9), mix=.48)
+land('y2002', 'showcase.png', .5, .5, mix=.08)
+land('y2008', 'd.png', .5, .5, mix=.13)
+land('y2013', 'c.png', .5, .22, mix=.18)
+land('y2023', 'sign.png', .5, .41, mix=.13)
+land('y2026', 'interior.png', .5, .5, mix=.08)

@@ -386,17 +386,18 @@ function heroVideo(){
       compose(px, pc, k, e, fr);
       // 2) base: navy + photo as a clear (not heavily tinted) backdrop
       ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = '#0c193b'; ctx.fillRect(0, 0, cv.width, cv.height);
-      ctx.globalAlpha = .2 + q * .8; ctx.drawImage(pc, 0, 0); ctx.globalAlpha = 1;
+      ctx.globalAlpha = .3 + q * .7; ctx.drawImage(pc, 0, 0); ctx.globalAlpha = 1;
       // calm band behind the numerals so they stand clear of the photo (no outline)
-      if (q < 1) { var by0 = (L.pos(0).y - L.lh * .35) * dpr, by1 = (L.pos(3).y + L.lh * 1.35) * dpr, bg = ctx.createLinearGradient(0, by0, 0, by1); bg.addColorStop(0, 'rgba(6,13,34,0)'); bg.addColorStop(.28, 'rgba(6,13,34,' + (.46 * (1 - q)).toFixed(3) + ')'); bg.addColorStop(.72, 'rgba(6,13,34,' + (.46 * (1 - q)).toFixed(3) + ')'); bg.addColorStop(1, 'rgba(6,13,34,0)'); ctx.fillStyle = bg; ctx.fillRect(0, by0, cv.width, by1 - by0); }
+      if (q < 1) { var by0 = (L.pos(0).y - L.lh * .35) * dpr, by1 = (L.pos(3).y + L.lh * 1.35) * dpr, bg = ctx.createLinearGradient(0, by0, 0, by1); bg.addColorStop(0, 'rgba(6,13,34,0)'); bg.addColorStop(.28, 'rgba(6,13,34,' + (.5 * (1 - q)).toFixed(3) + ')'); bg.addColorStop(.72, 'rgba(6,13,34,' + (.5 * (1 - q)).toFixed(3) + ')'); bg.addColorStop(1, 'rgba(6,13,34,0)'); ctx.fillStyle = bg; ctx.fillRect(0, by0, cv.width, by1 - by0); }
       // 3) numerals filled with the same photograph at full strength
       var S = 1 + Math.pow(q, 2.4) * 70, a0 = L.pos(1), An = { x: a0.x + L.cw / 2, y: a0.y + L.lh * .5 };
       mx.setTransform(1, 0, 0, 1, 0, 0); mx.clearRect(0, 0, cw, ch); mx.globalCompositeOperation = 'source-over';
       digits(mx, L, v, 'fill', S, An); mx.globalCompositeOperation = 'source-in'; mx.drawImage(pc, 0, 0); mx.globalCompositeOperation = 'source-over';
       ctx.drawImage(mc, 0, 0); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .3; ctx.drawImage(mc, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+      if (q < .98) { ctx.globalAlpha = 1 - q; digits(ctx, L, v, 'stroke', S, An); ctx.globalAlpha = 1; }
       // 4) soft shade under the caption only
       var sh = ctx.createLinearGradient(0, ch * .6, 0, ch); sh.addColorStop(0, 'rgba(12,25,59,0)'); sh.addColorStop(1, 'rgba(12,25,59,' + (.62 * (1 - q)) + ')'); ctx.fillStyle = sh; ctx.fillRect(0, 0, cw, ch);
-      var ci = Math.min(N - 1, Math.round(c));
+      var ci = c >= N - 1 ? N - 1 : k + (e >= .5 ? 1 : 0);
       caps.forEach(function (el, i) { el.classList.toggle('is-on', i === ci && q < .15); });
       if (idx) idx.textContent = q < .15 ? ('0' + (ci + 1)).slice(-2) + ' / 0' + N : '';
       if (fin) fin.classList.toggle('is-on', q > .85); if (hint) hint.style.opacity = ps < .01 ? 1 : 0;
