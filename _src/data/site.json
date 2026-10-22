@@ -16,11 +16,12 @@
   "featured_collection": "Rings",
   "featured_blurb": "Handcrafted in gold and set with stones, made to be worn every day.",
   "map_query": "VLORA Jewellery, Gold Souq, Deira, Dubai",
-  "google_reviews_url": "",
+  "google_reviews_url": "https://maps.app.goo.gl/WZUAtK4UkCjgcfXG7",
   "google_rating": "",
   "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3922.7775078543086!2d55.295273975615075!3d25.270056628745305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f434400a1e9dd%3A0x4ae3e98bf080c0e0!2sVLORA%20Jewelry%20%26%20Watches!5e1!3m2!1sen!2sae!4v1792666980574!5m2!1sen!2sae",
   "geo": {
     "lat": 25.270056,
     "lng": 55.295274
-  }
+  },
+  "google_maps_url": "https://maps.app.goo.gl/WZUAtK4UkCjgcfXG7"
 }
