@@ -286,9 +286,9 @@ def page_home():
     mq = urllib.parse.quote_plus(SITE.get('map_query', 'Gold Souq, Deira, Dubai'))
     visit = (f'<section class="visit"><div class="wrap visit-grid"><div class="visit-t"><p class="eyebrow">The showroom</p><h2 class="h-md">See it in person</h2>'
              f'<dl><dt>Address</dt><dd>{esc(SITE["address"])}</dd><dt>Hours</dt><dd>{esc(SITE["hours"])}</dd><dt>Phone</dt><dd>{esc(SITE["phone_display"])}</dd></dl>'
-             f'<div class="visit-btns"><a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&amp;query={mq}" rel="noopener" target="_blank">Get directions</a>'
+             f'<div class="visit-btns"><a class="btn btn-gold" href="https://www.google.com/maps/dir/?api=1&amp;destination={SITE["geo"]["lat"]},{SITE["geo"]["lng"]}" rel="noopener" target="_blank">Get directions</a>'
              f'<a class="btn btn-ghost-light" href="{wa_link("Hello VLORÁ, I would like to visit the showroom.")}" rel="noopener">WhatsApp us</a></div></div>'
-             f'<div class="visit-map"><iframe title="VLORÁ on Google Maps" src="https://www.google.com/maps?q={mq}&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div></div></section>')
+             f'<div class="visit-map"><iframe title="VLORÁ on Google Maps" src="{esc(SITE.get("map_embed") or "https://www.google.com/maps?q=" + mq + "&output=embed")}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div></section>')
     star = '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M10 1.5l2.5 5.4 5.9.6-4.4 4 1.3 5.8L10 14.3 4.7 17.3 6 11.5 1.6 7.5l5.9-.6z" fill="currentColor"/></svg>'
     def rcard(r):
         smp = '<span class="rev-sample">Sample</span>' if r.get('sample') else ''
@@ -366,7 +366,7 @@ def page_home():
 {revs}
 '''
     ld = {"@context": "https://schema.org", "@type": "JewelryStore", "name": "VLORÁ", "legalName": SITE['legal_name'], "url": SITE['domain'],
-          "foundingDate": SITE['since'], "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"}}
+          "foundingDate": SITE['since'], "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"}, "geo": {"@type": "GeoCoordinates", "latitude": SITE["geo"]["lat"], "longitude": SITE["geo"]["lng"]}}
     shell('index.html', 'VLORÁ | Fine Jewellery & Watches, Dubai',
           'VLORÁ is a family-run jewellery and watch house in Dubai, since 1983. Shop rings, earrings, necklaces, bracelets, bangles, pendants and watches.',
           body, f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>', 'home')
