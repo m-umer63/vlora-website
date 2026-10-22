@@ -299,7 +299,7 @@ def page_home():
     revs = ''
     if REVIEWS:
         revs = (f'<section class="revs" aria-label="Google reviews"><div class="wrap revs-head reveal"><p class="eyebrow">Google reviews</p><h2 class="h-lg">What our customers say</h2>'
-                + (f'<a class="more" href="{esc(gl)}" rel="noopener" target="_blank">Read all reviews</a>' if gl else '') + '</div>'
+                + '<div class="revs-links">' + (f'<a class="more" href="{esc(gl)}" rel="noopener" target="_blank">Read all reviews</a>' if gl else '') + (f'<a class="more" href="{esc(SITE["google_write_review_url"])}" rel="noopener" target="_blank">Leave a review</a>' if SITE.get('google_write_review_url') else '') + '</div></div>'
                 f'<div class="revs-marq"><div class="revs-track">{rows}<div class="revs-dup" aria-hidden="true">{rows}</div></div></div></section>')
     # "years" story: huge numerals roll from 1983 to 2026 with the photographs living inside the digits (canvas, see site.js initYears)
     years = [

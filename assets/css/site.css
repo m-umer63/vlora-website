@@ -597,3 +597,4 @@ input,select,textarea,button{font-family:inherit}
 .rev figcaption{display:flex;flex-direction:column;font-size:.8rem}.rev figcaption span{opacity:.6}
 .rev-sample{position:absolute;top:12px;right:12px;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:#6b5223;color:var(--cream);padding:3px 7px}
 @media(prefers-reduced-motion:reduce){.revs-track{animation:none;width:auto;flex-wrap:nowrap;overflow-x:auto}.revs-dup{display:none}}
+.revs-links{display:flex;gap:24px;flex-wrap:wrap}
