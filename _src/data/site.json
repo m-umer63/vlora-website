@@ -4,12 +4,12 @@
   "domain": "https://vlora.ae",
   "tagline": "Jewellery & Watches",
   "since": "1983",
-  "contact_confirmed": false,
-  "whatsapp": "971500000000",
-  "phone_display": "+971 50 000 0000",
+  "contact_confirmed": true,
+  "whatsapp": "971588447707",
+  "phone_display": "+971 4 226 9441",
   "email": "info@vlora.ae",
-  "address": "Showroom address to be confirmed, Dubai, United Arab Emirates",
-  "hours": "Opening hours to be confirmed",
+  "address": "Shop 1, Halo Al Obaid Building, Gold Souq, Deira, Dubai",
+  "hours": "Daily 10:00 am – 10:00 pm · Fridays from 2:30 pm",
   "instagram": "",
   "facebook": "",
   "currency": "AED",
@@ -24,5 +24,7 @@
     "lng": 55.295274
   },
   "google_maps_url": "https://maps.app.goo.gl/WZUAtK4UkCjgcfXG7",
-  "google_write_review_url": "https://g.page/r/CeDAgPCL6eNKEBE/review"
+  "google_write_review_url": "https://g.page/r/CeDAgPCL6eNKEBE/review",
+  "whatsapp_display": "+971 58 844 7707",
+  "phone2_display": "+971 58 844 7707"
 }
