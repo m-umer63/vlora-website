@@ -307,6 +307,12 @@ function heroVideo(){
   if ($('#wish-grid')) renderWishPage();
 
   /* ---------- years story: numerals roll 1983 -> 2026, photographs live inside the digits ---------- */
+    function initCollections() {
+    var sec = $('[data-coll-sec]'); if (!sec) return;
+    var links = $$('[data-coll]', sec), lis = links.map(function (a) { return a.parentNode; }), imgs = $$('.coll-stage img', sec);
+    function set(i) { lis.forEach(function (l, k) { l.classList.toggle('on', k === i); }); imgs.forEach(function (m, k) { m.classList.toggle('on', k === i); }); }
+    links.forEach(function (a, i) { ['mouseenter', 'focus', 'touchstart'].forEach(function (ev) { a.addEventListener(ev, function () { set(i); }, { passive: true }); }); });
+  }
   function initYears() {
     var sec = $('[data-yrs]'); if (!sec) return;
     var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -417,5 +423,5 @@ function heroVideo(){
     requestAnimationFrame(loop);
   }
 
-  markWish(); updateCounts(); renderBag(); heroVideo(); initYears();
+  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections();
 })();

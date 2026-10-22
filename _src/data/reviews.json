@@ -1,0 +1,44 @@
+[
+ {
+  "name": "Sample reviewer",
+  "stars": 5,
+  "text": "Beautiful craftsmanship and a very warm welcome. The piece looks even better in person.",
+  "when": "2 weeks ago",
+  "sample": true
+ },
+ {
+  "name": "Sample reviewer",
+  "stars": 5,
+  "text": "They helped me design a ring from a sketch. Patient, honest and the finish is perfect.",
+  "when": "a month ago",
+  "sample": true
+ },
+ {
+  "name": "Sample reviewer",
+  "stars": 5,
+  "text": "Quality gold and fair pricing. The team explained every detail before I decided.",
+  "when": "a month ago",
+  "sample": true
+ },
+ {
+  "name": "Sample reviewer",
+  "stars": 5,
+  "text": "Ordered an anniversary gift and it arrived beautifully packed. Will buy again.",
+  "when": "2 months ago",
+  "sample": true
+ },
+ {
+  "name": "Sample reviewer",
+  "stars": 5,
+  "text": "A family business you can trust. Resizing was quick and done with great care.",
+  "when": "2 months ago",
+  "sample": true
+ },
+ {
+  "name": "Sample reviewer",
+  "stars": 5,
+  "text": "Lovely diamond earrings, exactly as shown. Excellent service from start to finish.",
+  "when": "3 months ago",
+  "sample": true
+ }
+]

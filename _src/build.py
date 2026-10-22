@@ -5,7 +5,7 @@ Usage:
   python3 _src/build.py                 # builds the live site into the repo root
   python3 _src/build.py --out /tmp/x --preview   # preview build (links end in index.html so it works anywhere)
 """
-import argparse, html, json, os, re, shutil, datetime
+import argparse, html, json, os, re, shutil, datetime, urllib.parse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -18,6 +18,7 @@ SUF = 'index.html' if ARGS.preview else ''
 
 SITE = json.load(open(os.path.join(HERE, 'data', 'site.json'), encoding='utf-8'))
 PRODUCTS = json.load(open(os.path.join(HERE, 'data', 'products.json'), encoding='utf-8'))
+REVIEWS = json.load(open(os.path.join(HERE, 'data', 'reviews.json'), encoding='utf-8')) if os.path.exists(os.path.join(HERE, 'data', 'reviews.json')) else []
 CATEGORIES = ['Rings', 'Earrings', 'Necklaces', 'Bracelets', 'Bangles', 'Pendants', 'Watches']
 CAT_SLUG = {c: c.lower() for c in CATEGORIES}
 METAL_COL = {'Yellow Gold': '#C6A75E', 'White Gold': '#d6dae4', 'Rose Gold': '#C5A28C', 'Platinum': '#d9dce3',
@@ -266,13 +267,40 @@ def page_home():
             f'<div class="rail-wrap reveal"><button class="rail-btn rail-prev" data-rail="-1" aria-label="Scroll left">&#8592;</button>'
             f'<div class="rail grid-cards" data-rail-track>{"".join(card(d, p) for p in fpr)}</div>'
             f'<button class="rail-btn rail-next" data-rail="1" aria-label="Scroll right">&#8594;</button></div></div></section>')
-    tiles = ''
-    for c in CATEGORIES[:6]:
-        n = sum(1 for p in PRODUCTS if p['category'] == c)
-        sample = next((p for p in PRODUCTS if p['category'] == c), None)
-        pic = img_tag(d, sample, 0) if sample else ''
-        tiles += (f'<a class="tile" href="{link(d, "collections/" + CAT_SLUG[c] + "/")}"><div class="tile-media">{pic}</div>'
-                  f'<div class="tile-cap"><h3>{c}</h3><span>{n} pieces</span></div></a>')
+    lis = stg = ''
+    for n, c in enumerate(CATEGORIES):
+        cnt = sum(1 for p in PRODUCTS if p['category'] == c)
+        slug = CAT_SLUG[c]
+        lis += f'<li{" class=on" if n == 0 else ""}><a href="{link(d, "collections/" + slug + "/")}" data-coll="{n}">{c}<i>{cnt} pieces</i></a></li>'
+        stg += f'<img class="{"on" if n == 0 else ""}" src="{asset(d, "assets/img/categories/" + slug + ".jpg")}" alt="{c}" width="900" height="1125" loading="lazy" decoding="async">'
+    coll = (f'<section class="coll" data-coll-sec><div class="wrap coll-grid"><div class="coll-list"><p class="eyebrow">Shop by category</p><ul>{lis}</ul></div>'
+            f'<div class="coll-stage" aria-hidden="true">{stg}</div></div></section>')
+    def ico(path):
+        return f'<svg viewBox="0 0 40 40" aria-hidden="true">{path}</svg>'
+    promise = ('<section class="promise"><div class="wrap"><header class="reveal"><p class="eyebrow">The VLOR&Aacute; promise</p><h2 class="h-lg">Buy with confidence</h2></header><div class="promise-row reveal">'
+        f'<div>{ico("<path d=&quot;M4 12h22v16H4zM26 17h7l4 5v6H26zM11 31a3 3 0 1 0 .01 0M30 31a3 3 0 1 0 .01 0&quot;/>".replace("&quot;", chr(34)))}<h3>Insured delivery</h3><p>Every order is tracked and insured to your door.</p></div>'
+        f'<div>{ico("<path d=&quot;M20 4l12 6v10c0 8-5 13-12 16C13 33 8 28 8 20V10z&quot;/><path d=&quot;M14 20l5 5 8-9&quot;/>".replace("&quot;", chr(34)))}<h3>Certified stones</h3><p>Diamonds and gold come with their documents.</p></div>'
+        f'<div>{ico("<path d=&quot;M20 6l4 9 10 1-7.5 7 2 10L20 28l-8.5 5 2-10L6 16l10-1z&quot;/>".replace("&quot;", chr(34)))}<h3>Lifetime care</h3><p>Cleaning and resizing, looked after by our own workshop.</p></div>'
+        f'<div>{ico("<path d=&quot;M8 20a12 12 0 1 0 4-9&quot;/><path d=&quot;M8 7v6h6&quot;/>".replace("&quot;", chr(34)))}<h3>Easy returns</h3><p>Not right? Send it back within the return window.</p></div>'
+        '</div></div></section>')
+    mq = urllib.parse.quote_plus(SITE.get('map_query', 'Gold Souq, Deira, Dubai'))
+    visit = (f'<section class="visit"><div class="wrap visit-grid"><div class="visit-t"><p class="eyebrow">The showroom</p><h2 class="h-md">See it in person</h2>'
+             f'<dl><dt>Address</dt><dd>{esc(SITE["address"])}</dd><dt>Hours</dt><dd>{esc(SITE["hours"])}</dd><dt>Phone</dt><dd>{esc(SITE["phone_display"])}</dd></dl>'
+             f'<div class="visit-btns"><a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&amp;query={mq}" rel="noopener" target="_blank">Get directions</a>'
+             f'<a class="btn btn-ghost-light" href="{wa_link("Hello VLORÁ, I would like to visit the showroom.")}" rel="noopener">WhatsApp us</a></div></div>'
+             f'<div class="visit-map"><iframe title="VLORÁ on Google Maps" src="https://www.google.com/maps?q={mq}&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div></div></section>')
+    star = '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M10 1.5l2.5 5.4 5.9.6-4.4 4 1.3 5.8L10 14.3 4.7 17.3 6 11.5 1.6 7.5l5.9-.6z" fill="currentColor"/></svg>'
+    def rcard(r):
+        smp = '<span class="rev-sample">Sample</span>' if r.get('sample') else ''
+        return (f'<figure class="rev">{smp}<div class="rev-stars" aria-label="{r["stars"]} out of 5 stars">{star * int(r["stars"])}</div>'
+                f'<blockquote>{esc(r["text"])}</blockquote><figcaption><b>{esc(r["name"])}</b><span>{esc(r.get("when", ""))} &middot; Google</span></figcaption></figure>')
+    rows = ''.join(rcard(r) for r in REVIEWS)
+    gl = SITE.get('google_reviews_url', '')
+    revs = ''
+    if REVIEWS:
+        revs = (f'<section class="revs" aria-label="Google reviews"><div class="wrap revs-head reveal"><p class="eyebrow">Google reviews</p><h2 class="h-lg">What our customers say</h2>'
+                + (f'<a class="more" href="{esc(gl)}" rel="noopener" target="_blank">Read all reviews</a>' if gl else '') + '</div>'
+                f'<div class="revs-marq"><div class="revs-track">{rows}<div class="revs-dup" aria-hidden="true">{rows}</div></div></div></section>')
     # "years" story: huge numerals roll from 1983 to 2026 with the photographs living inside the digits (canvas, see site.js initYears)
     years = [
         (1983, 'y1983', 'The beginning', 'Adnan Al Khaja Gold Smithing', 'Our parent company opens its doors in the Gold Souq.', 'Dubai Gold Souq lane in the early years'),
@@ -329,14 +357,13 @@ def page_home():
   <div class="yrs-fb">{yr_fb}</div>
 </section>
 
-<section class="section"><div class="wrap"><header class="sec-head reveal"><p class="eyebrow">Shop</p><h2 class="h-lg">Our collections</h2></header>
-  <div class="tiles reveal">{tiles}</div></div></section>
+{coll}
 
-<section class="band-gold"><div class="wrap band-grid reveal">
-  <div><h3>Order with a conversation</h3><p>Prefer to speak to someone? Message us on WhatsApp and we will help you choose.</p><a class="link-arrow" href="{wa_link("Hello VLORÁ, I would like some help choosing a piece.")}" rel="noopener">Chat on WhatsApp</a></div>
-  <div><h3>Visit the showroom</h3><p>See the pieces in person in Dubai.</p><a class="link-arrow" href="{link(d, "pages/contact/")}">Find us</a></div>
-  <div><h3>Look after your jewellery</h3><p>Simple habits that keep gold and stones looking their best.</p><a class="link-arrow" href="{link(d, "pages/care-guide/")}">Read the care guide</a></div>
-</div></section>
+{promise}
+
+{visit}
+
+{revs}
 '''
     ld = {"@context": "https://schema.org", "@type": "JewelryStore", "name": "VLORÁ", "legalName": SITE['legal_name'], "url": SITE['domain'],
           "foundingDate": SITE['since'], "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"}}
