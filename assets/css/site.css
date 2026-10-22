@@ -602,3 +602,10 @@ input,select,textarea,button{font-family:inherit}
 .visit-map iframe{background:transparent}
 .rev{flex-basis:min(82vw,400px)}.rev blockquote{white-space:pre-line}.revs-track{animation-duration:90s}
 .revs-track{align-items:flex-start}.rev blockquote{flex:none}
+/* slimmer reviews */
+.revs{padding:clamp(32px,4.5vw,56px) 0}
+.revs-head{margin-bottom:20px}
+.rev{flex-basis:min(78vw,300px);padding:18px 20px 16px;gap:10px}
+.rev blockquote{font-size:.88rem;line-height:1.55}
+.rev figcaption{font-size:.76rem}
+.revs-track{animation-duration:55s;gap:14px}
