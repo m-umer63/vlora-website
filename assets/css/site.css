@@ -600,3 +600,5 @@ input,select,textarea,button{font-family:inherit}
 .revs-links{display:flex;gap:24px;flex-wrap:wrap}
 .visit-fb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--cream);font-family:'Cinzel',serif;letter-spacing:.16em;font-size:.74rem;text-transform:uppercase;text-decoration:none}
 .visit-map iframe{background:transparent}
+.rev{flex-basis:min(82vw,400px)}.rev blockquote{white-space:pre-line}.revs-track{animation-duration:90s}
+.revs-track{align-items:flex-start}.rev blockquote{flex:none}

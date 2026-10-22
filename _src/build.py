@@ -293,7 +293,7 @@ def page_home():
     def rcard(r):
         smp = '<span class="rev-sample">Sample</span>' if r.get('sample') else ''
         return (f'<figure class="rev">{smp}<div class="rev-stars" aria-label="{r["stars"]} out of 5 stars">{star * int(r["stars"])}</div>'
-                f'<blockquote>{esc(r["text"])}</blockquote><figcaption><b>{esc(r["name"])}</b><span>{esc(r.get("when", ""))} &middot; Google</span></figcaption></figure>')
+                f'<blockquote>{esc(r["text"])}</blockquote><figcaption><b>{esc(r["name"])}</b><span>{(esc(r["when"]) + " &middot; ") if r.get("when") else ""}Google review</span></figcaption></figure>')
     rows = ''.join(rcard(r) for r in REVIEWS)
     gl = SITE.get('google_reviews_url', '')
     revs = ''
