@@ -598,3 +598,5 @@ input,select,textarea,button{font-family:inherit}
 .rev-sample{position:absolute;top:12px;right:12px;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:#6b5223;color:var(--cream);padding:3px 7px}
 @media(prefers-reduced-motion:reduce){.revs-track{animation:none;width:auto;flex-wrap:nowrap;overflow-x:auto}.revs-dup{display:none}}
 .revs-links{display:flex;gap:24px;flex-wrap:wrap}
+.visit-fb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--cream);font-family:'Cinzel',serif;letter-spacing:.16em;font-size:.74rem;text-transform:uppercase;text-decoration:none}
+.visit-map iframe{background:transparent}
