@@ -307,12 +307,21 @@ def page_home():
             f'<div class="coll-stage" aria-hidden="true">{stg}</div></div></section>')
     def ico(path):
         return f'<svg viewBox="0 0 40 40" aria-hidden="true">{path}</svg>'
-    promise = ('<section class="promise"><div class="wrap"><header class="reveal"><p class="eyebrow">The VLOR&Aacute; promise</p><h2 class="h-lg">Buy with confidence</h2></header><div class="promise-row reveal">'
-        f'<div>{ico("<path d=&quot;M4 12h22v16H4zM26 17h7l4 5v6H26zM11 31a3 3 0 1 0 .01 0M30 31a3 3 0 1 0 .01 0&quot;/>".replace("&quot;", chr(34)))}<h3>Insured delivery</h3><p>Every order is tracked and insured to your door.</p></div>'
-        f'<div>{ico("<path d=&quot;M20 4l12 6v10c0 8-5 13-12 16C13 33 8 28 8 20V10z&quot;/><path d=&quot;M14 20l5 5 8-9&quot;/>".replace("&quot;", chr(34)))}<h3>Certified stones</h3><p>Diamonds and gold come with their documents.</p></div>'
-        f'<div>{ico("<path d=&quot;M20 6l4 9 10 1-7.5 7 2 10L20 28l-8.5 5 2-10L6 16l10-1z&quot;/>".replace("&quot;", chr(34)))}<h3>Lifetime care</h3><p>Cleaning and resizing, looked after by our own workshop.</p></div>'
-        f'<div>{ico("<path d=&quot;M8 20a12 12 0 1 0 4-9&quot;/><path d=&quot;M8 7v6h6&quot;/>".replace("&quot;", chr(34)))}<h3>Easy returns</h3><p>Not right? Send it back within the return window.</p></div>'
-        '</div></div></section>')
+    promise_items = [
+        ('Free Lifetime Care', 'Cleaning, polishing and checks for your piece, for life.',
+         '<path d="M20 20c-3-5-6-7-9.5-7a7 7 0 0 0 0 14c3.5 0 6.5-2 9.5-7zm0 0c3 5 6 7 9.5 7a7 7 0 0 0 0-14c-3.5 0-6.5 2-9.5 7z"/>'),
+        ('Certified Gems', 'Every stone comes with its grading documents.',
+         '<path d="M12 8h16l6 8-14 17L6 16z"/><path d="M6 16h28M15 8l5 8 5-8M20 16v17"/>'),
+        ('Expert Craftsmanship', 'Made and finished by our own jewellers since 1983.',
+         '<path d="M9 14l9-7 6 6-3 3 13 13a2.6 2.6 0 0 1-3.7 3.7L18 19l-3 3-6-6z"/>'),
+        ('Price Match Guarantee', 'Found the same piece for less? Show us and we will match it.',
+         '<path d="M6 6h14l14 14-14 14L6 20z"/><circle cx="13" cy="13" r="2"/><path d="M15 25l3.5 3.5L26 21"/>'),
+        ('Responsible Sourcing', 'Gold and stones from suppliers we know and trust.',
+         '<path d="M8 32C8 18 16 8 32 8c0 16-10 24-24 24z"/><path d="M8 32l14-14"/>'),
+    ]
+    promise = ('<section class="promise"><div class="wrap"><p class="eyebrow reveal">The VLOR&Aacute; promise</p><div class="promise-row reveal">'
+        + ''.join(f'<div>{ico(path)}<h3>{t}</h3><p>{dsc}</p></div>' for t, dsc, path in promise_items)
+        + '</div></div></section>')
     mq = urllib.parse.quote_plus(SITE.get('map_query', 'Gold Souq, Deira, Dubai'))
     visit = (f'<section class="visit"><div class="wrap visit-grid"><div class="visit-t"><p class="eyebrow">The showroom</p><h2 class="h-md">See it in person</h2>'
              f'<dl><dt>Address</dt><dd>{esc(SITE["address"])}</dd><dt>Hours</dt><dd>{esc(SITE["hours"])}</dd><dt>Phone</dt><dd>{esc(SITE["phone_display"])}<br>{esc(SITE["phone2_display"])}</dd></dl>'
@@ -328,7 +337,7 @@ def page_home():
     gl = SITE.get('google_reviews_url', '')
     revs = ''
     if REVIEWS:
-        revs = (f'<section class="revs" aria-label="Google reviews"><div class="wrap revs-head reveal"><p class="eyebrow">Google reviews</p><h2 class="h-lg">What our customers say</h2>'
+        revs = (f'<section class="revs" aria-label="Google reviews"><div class="wrap revs-head reveal"><p class="eyebrow">Google reviews</p><h2 class="h-md">What our customers say</h2>'
                 + '<div class="revs-links">' + (f'<a class="more" href="{esc(gl)}" rel="noopener" target="_blank">Read all reviews</a>' if gl else '') + (f'<a class="more" href="{esc(SITE["google_write_review_url"])}" rel="noopener" target="_blank">Leave a review</a>' if SITE.get('google_write_review_url') else '') + '</div></div>'
                 f'<div class="revs-marq"><div class="revs-track">{rows}<div class="revs-dup" aria-hidden="true">{rows}</div></div></div></section>')
     gs = (f'<section class="gs3" id="gs3-run" data-gs3 data-three="{asset(d, "assets/js/three.min.js")}" data-scene="{asset(d, "assets/js/gem-scene.js")}" aria-label="A VLOR&Aacute; emerald pendant, from raw stone to worn piece">'

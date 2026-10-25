@@ -610,6 +610,33 @@ input,select,textarea,button{font-family:inherit}
 .rev figcaption{font-size:.76rem}
 .revs-track{animation-duration:55s;gap:14px}
 
+/* ---------- landing rhythm: one vertical gap everywhere, last three bands equal and slim ---------- */
+:root{--sp:clamp(32px,4.2vw,60px);--bp:var(--sp);--band-h:384px}
+.statement{padding:var(--sp) 0}
+.feat.section{padding:var(--sp) 0 calc(var(--sp)*2)}
+.coll{padding:calc(var(--sp)*2) 0 var(--sp)}
+.promise,.visit,.revs{padding:var(--bp) 0;display:flex;flex-direction:column;justify-content:center}
+.promise>.wrap,.visit>.wrap,.revs>.wrap,.revs>.revs-marq{width:100%}
+.promise .eyebrow{margin:0 0 22px}
+.promise-row{display:grid;grid-template-columns:repeat(5,1fr);margin-top:0;border-top:1px solid rgba(12,25,59,.18)}
+.promise-row>div{padding:24px 18px 4px;border-right:1px solid rgba(12,25,59,.18)}.promise-row>div:last-child{border:0}
+.promise-row svg{width:30px;height:30px;stroke:var(--navy);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;margin-bottom:12px}
+.promise-row h3{font-size:1.02rem;margin:0 0 6px;line-height:1.25}.promise-row p{font-size:.8rem;line-height:1.5;opacity:.78;margin:0}
+.visit-map{min-height:0;height:100%}
+.visit .h-md{margin-bottom:10px}.visit dl{margin-bottom:16px;font-size:.85rem;gap:5px 18px}
+.revs-marq{flex:none}
+.revs-head{margin-bottom:12px;gap:4px 12px;align-items:flex-end}
+.revs .h-md{font-size:clamp(1.3rem,2vw,1.75rem);margin:0;line-height:1.1}.revs .eyebrow{margin:0 0 2px}
+.rev{padding:14px 18px 12px}.rev blockquote{font-size:.84rem;line-height:1.5}
+@media (min-width:900px){.promise,.visit,.revs{height:var(--band-h)}.visit-grid{height:100%}}
+@media (max-width:899px){
+  .promise-row{grid-template-columns:repeat(2,1fr)}
+  .promise-row>div{border-right:0;border-bottom:1px solid rgba(12,25,59,.12);padding:18px 12px 14px}
+  .promise-row>div:nth-child(odd){border-right:1px solid rgba(12,25,59,.12)}
+  .promise-row>div:last-child{grid-column:1/-1;border-bottom:0;border-right:0}
+  .visit-map{min-height:240px}
+}
+
 /* ---------- emerald scroll scene ---------- */
 .gs3{position:relative;height:760vh;background:#f4f0e8;--gs3-ink:#0c193b;--gs3-gold:#6b5223}
 .gs3-pin{position:sticky;top:var(--hdr,85px);height:calc(100vh - var(--hdr,85px));height:calc(100svh - var(--hdr,85px));overflow:hidden}
