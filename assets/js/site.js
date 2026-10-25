@@ -313,6 +313,20 @@ function heroVideo(){
     function set(i) { lis.forEach(function (l, k) { l.classList.toggle('on', k === i); }); imgs.forEach(function (m, k) { m.classList.toggle('on', k === i); }); }
     links.forEach(function (a, i) { ['mouseenter', 'focus', 'touchstart'].forEach(function (ev) { a.addEventListener(ev, function () { set(i); }, { passive: true }); }); });
   }
+
+  /* ---------- emerald scroll scene: live 3D, loaded on demand; static photo fallback ---------- */
+  function initGemScene() {
+    var sec = $('[data-gs3]'); if (!sec) return;
+    var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var weak = (navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.connection && navigator.connection.saveData);
+    var gl = false; try { var t = document.createElement('canvas'); gl = !!(window.WebGLRenderingContext && (t.getContext('webgl') || t.getContext('experimental-webgl'))); } catch (e) {}
+    if (rm || weak || !gl) { sec.classList.add('is-static'); return; }
+    function add(src, cb) { var s = document.createElement('script'); s.src = src; s.onload = cb; s.onerror = function () { sec.classList.add('is-static'); }; document.head.appendChild(s); }
+    var started = false;
+    function start() { if (started) return; started = true; add(sec.getAttribute('data-three'), function () { add(sec.getAttribute('data-scene'), function () { sec.classList.add('is-live'); }); }); }
+    if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '1400px 0px' }); io.observe(sec); }
+    else start();
+  }
   function initYears() {
     var sec = $('[data-yrs]'); if (!sec) return;
     var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -423,5 +437,5 @@ function heroVideo(){
     requestAnimationFrame(loop);
   }
 
-  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections();
+  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene();
 })();

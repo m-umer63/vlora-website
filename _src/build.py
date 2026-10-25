@@ -257,6 +257,36 @@ def gem_svg(cls):
     return f'<svg class="{cls}" viewBox="658 44 342 420" aria-hidden="true" focusable="false">{out}</svg>'
 
 
+def story_section(d):
+    # "years" story: huge numerals roll from 1983 to 2026 with the photographs living inside the digits (canvas, see site.js initYears)
+    years = [
+        (1983, 'y1983', 'The beginning', 'Adnan Al Khaja Gold Smithing', 'Our parent company opens its doors in the Gold Souq.', 'Dubai Gold Souq lane in the early years'),
+        (1985, 'y1985', 'Growing', 'Casting for the region', 'The business expands into gold casting, supplying jewellers across the region.', 'Jeweller working on a ring at the bench'),
+        (1988, 'y1988', 'Deira', 'A souq takes shape', 'In the streets of Deira, the Gold Souq begins to form and the trade gathers around it.', 'Evening crowds in the Gold Souq'),
+        (1997, 'y1997', 'The founder', 'Akbar Khan', 'An experienced goldsmith, and the man who started it all.', 'Portrait of Akbar Khan, founder of VLORÁ'),
+        (2002, 'y2002', 'Dubai', 'The city of gold', 'Dubai becomes known as the city of gold, with the Gold Souq at the heart of it.', 'Gold bangles and necklaces in a souq showcase'),
+        (2008, 'y2008', 'VLOR&Aacute;', 'Our first branch', 'VLOR&Aacute; opens its first retail branch, to serve customers directly.', 'A VLORÁ branch in the Gold Souq'),
+        (2013, 'y2013', 'VLOR&Aacute;', 'A second branch', 'A second branch follows, offering handcrafted gold and diamond jewellery.', 'The VLORÁ shopfront'),
+        (2023, 'y2023', 'Manufacturing', 'Partner to 100+ brands', 'VLOR&Aacute; now manufactures for more than 100 brands around the world.', 'The Gold Souq'),
+        (2026, 'y2026', 'Now online', 'Made for you', 'VLOR&Aacute; goes online, crafting exclusive pieces for individual clients.', 'Inside a VLORÁ store')]
+    yr_caps = ''.join(f'<div class="yrs-cap{" is-on" if i == 0 else ""}" data-yrs-cap><span class="yrs-k">{lab}</span><h3>{t}</h3><p>{x}</p></div>' for i, (y, f, lab, t, x, alt) in enumerate(years))
+    yr_fb = ''.join(f'<figure class="yrs-fig"><img src="{asset(d, f"assets/img/story/{f}.jpg")}" alt="{alt}" width="1600" height="900" loading="lazy" decoding="async"><figcaption><b>{y}</b><span>{t}</span><em>{x}</em></figcaption></figure>' for (y, f, lab, t, x, alt) in years)
+    yr_srcs = ','.join(asset(d, f'assets/img/story/{f}.jpg') for (y, f, lab, t, x, alt) in years)
+    yr_years = ','.join(str(y) for (y, *_r) in years)
+    return f'''<section class="yrs" data-yrs data-years="{yr_years}" data-srcs="{yr_srcs}" aria-label="Our story, 1983 to 2026">
+  <div class="yrs-stage">
+    <canvas class="yrs-canvas" data-yrs-canvas aria-hidden="true"></canvas>
+    <div class="yrs-ov">
+      <div class="yrs-caps">{yr_caps}</div>
+      <div class="yrs-idx" data-yrs-idx aria-hidden="true">01 / 09</div>
+      <div class="yrs-final" data-yrs-final><div><h2>The story continues with you.</h2><a class="btn btn-gold" href="{link(d, "collections/gold/")}">Discover the collections</a></div></div>
+      <div class="yrs-hint" data-yrs-hint aria-hidden="true">Scroll</div>
+    </div>
+  </div>
+  <div class="yrs-fb">{yr_fb}</div>
+</section>'''
+
+
 def page_home():
     d = 0
     fc = SITE.get('featured_collection', 'Rings')
@@ -301,21 +331,12 @@ def page_home():
         revs = (f'<section class="revs" aria-label="Google reviews"><div class="wrap revs-head reveal"><p class="eyebrow">Google reviews</p><h2 class="h-lg">What our customers say</h2>'
                 + '<div class="revs-links">' + (f'<a class="more" href="{esc(gl)}" rel="noopener" target="_blank">Read all reviews</a>' if gl else '') + (f'<a class="more" href="{esc(SITE["google_write_review_url"])}" rel="noopener" target="_blank">Leave a review</a>' if SITE.get('google_write_review_url') else '') + '</div></div>'
                 f'<div class="revs-marq"><div class="revs-track">{rows}<div class="revs-dup" aria-hidden="true">{rows}</div></div></div></section>')
-    # "years" story: huge numerals roll from 1983 to 2026 with the photographs living inside the digits (canvas, see site.js initYears)
-    years = [
-        (1983, 'y1983', 'The beginning', 'Adnan Al Khaja Gold Smithing', 'Our parent company opens its doors in the Gold Souq.', 'Dubai Gold Souq lane in the early years'),
-        (1985, 'y1985', 'Growing', 'Casting for the region', 'The business expands into gold casting, supplying jewellers across the region.', 'Jeweller working on a ring at the bench'),
-        (1988, 'y1988', 'Deira', 'A souq takes shape', 'In the streets of Deira, the Gold Souq begins to form and the trade gathers around it.', 'Evening crowds in the Gold Souq'),
-        (1997, 'y1997', 'The founder', 'Akbar Khan', 'An experienced goldsmith, and the man who started it all.', 'Portrait of Akbar Khan, founder of VLORÁ'),
-        (2002, 'y2002', 'Dubai', 'The city of gold', 'Dubai becomes known as the city of gold, with the Gold Souq at the heart of it.', 'Gold bangles and necklaces in a souq showcase'),
-        (2008, 'y2008', 'VLOR&Aacute;', 'Our first branch', 'VLOR&Aacute; opens its first retail branch, to serve customers directly.', 'A VLORÁ branch in the Gold Souq'),
-        (2013, 'y2013', 'VLOR&Aacute;', 'A second branch', 'A second branch follows, offering handcrafted gold and diamond jewellery.', 'The VLORÁ shopfront'),
-        (2023, 'y2023', 'Manufacturing', 'Partner to 100+ brands', 'VLOR&Aacute; now manufactures for more than 100 brands around the world.', 'The Gold Souq'),
-        (2026, 'y2026', 'Now online', 'Made for you', 'VLOR&Aacute; goes online, crafting exclusive pieces for individual clients.', 'Inside a VLORÁ store')]
-    yr_caps = ''.join(f'<div class="yrs-cap{" is-on" if i == 0 else ""}" data-yrs-cap><span class="yrs-k">{lab}</span><h3>{t}</h3><p>{x}</p></div>' for i, (y, f, lab, t, x, alt) in enumerate(years))
-    yr_fb = ''.join(f'<figure class="yrs-fig"><img src="{asset(d, f"assets/img/story/{f}.jpg")}" alt="{alt}" width="1600" height="900" loading="lazy" decoding="async"><figcaption><b>{y}</b><span>{t}</span><em>{x}</em></figcaption></figure>' for (y, f, lab, t, x, alt) in years)
-    yr_srcs = ','.join(asset(d, f'assets/img/story/{f}.jpg') for (y, f, lab, t, x, alt) in years)
-    yr_years = ','.join(str(y) for (y, *_r) in years)
+    gs = (f'<section class="gs3" id="gs3-run" data-gs3 data-three="{asset(d, "assets/js/three.min.js")}" data-scene="{asset(d, "assets/js/gem-scene.js")}" aria-label="A VLOR&Aacute; emerald pendant, from raw stone to worn piece">'
+          '<div class="gs3-pin"><canvas id="gs3-gl" aria-hidden="true"></canvas>'
+          '<div class="gs3-heads"><h2 class="gs3-h" id="gs3-h0">Selected for <em>Brilliance.</em></h2><h2 class="gs3-h" id="gs3-h1">Shaped by <em>Craft.</em></h2><h2 class="gs3-h" id="gs3-h2">Art, Made <em>Wearable.</em></h2></div>'
+          '<div class="gs3-hint" id="gs3-hint" aria-hidden="true">Scroll<i></i></div>'
+          f'<figure class="gs3-ns"><img src="{asset(d, "assets/img/story/model-worn.webp")}" alt="A VLOR&Aacute; emerald pendant on a gold chain, worn at the collarbone" width="785" height="660" loading="lazy" decoding="async"></figure>'
+          '</div><noscript><style>.gs3{height:auto}.gs3-pin{position:relative;top:0;height:auto;padding:90px 16px}#gs3-gl,.gs3-hint,.gs3-h:not(#gs3-h2){display:none}.gs3-heads{position:relative;height:90px}.gs3-h{opacity:1}.gs3-ns{display:block;margin:30px auto 0;width:min(84vw,520px)}.gs3-ns img{width:100%;height:auto}</style></noscript></section>')
     body = f'''
 <section class="hero2" data-hero2>
   <div class="hero2-bg" aria-hidden="true">
@@ -344,18 +365,7 @@ def page_home():
 
 {feat}
 
-<section class="yrs" data-yrs data-years="{yr_years}" data-srcs="{yr_srcs}" aria-label="Our story, 1983 to 2026">
-  <div class="yrs-stage">
-    <canvas class="yrs-canvas" data-yrs-canvas aria-hidden="true"></canvas>
-    <div class="yrs-ov">
-      <div class="yrs-caps">{yr_caps}</div>
-      <div class="yrs-idx" data-yrs-idx aria-hidden="true">01 / 09</div>
-      <div class="yrs-final" data-yrs-final><div><h2>The story continues with you.</h2><a class="btn btn-gold" href="{link(d, "collections/gold/")}">Discover the collections</a></div></div>
-      <div class="yrs-hint" data-yrs-hint aria-hidden="true">Scroll</div>
-    </div>
-  </div>
-  <div class="yrs-fb">{yr_fb}</div>
-</section>
+{gs}
 
 {coll}
 
@@ -455,11 +465,15 @@ def simple_page(slug, title, desc, inner, noindex=False):
 
 
 def page_about():
-    simple_page('about', 'About', 'VLORÁ is a family-run jewellery retail and manufacturing business based in Dubai, United Arab Emirates.', f'''
-<p class="lede">VLORÁ is a family-run jewellery retail and manufacturing business based in Dubai, United Arab Emirates. Our mark carries the year {SITE["since"]}.</p>
-<p>We offer fine jewellery and watches chosen for how they look and how they last. Every piece is made to be worn often and kept for a long time.</p>
+    path = 'pages/about/index.html'
+    d = depth_of(path)
+    intro = f'''<p class="lede">VLORÁ is a family-run jewellery retail and manufacturing business based in Dubai, United Arab Emirates. Our mark carries the year {SITE["since"]}.</p>'''
+    rest = f'''<p>We offer fine jewellery and watches chosen for how they look and how they last. Every piece is made to be worn often and kept for a long time.</p>
 <p class="draft">Draft text. Please replace this page with your own story: how the business began, who runs it, what you are proud of and how your pieces are made.</p>
-<h2>Visit or get in touch</h2><p>Our team is happy to help you choose, answer questions about a piece, or arrange a visit. <a href="{link(2, "pages/contact/")}">Contact us</a>.</p>''')
+<h2>Visit or get in touch</h2><p>Our team is happy to help you choose, answer questions about a piece, or arrange a visit. <a href="{link(d, "pages/contact/")}">Contact us</a>.</p>'''
+    body = (f'<section class="page-head"><div class="wrap">{crumbs(d, [("About", None)])}<h1 class="h-xl">About</h1><div class="prose">{intro}</div></div></section>'
+            + story_section(d) + f'<section class="section tight"><div class="wrap prose">{rest}</div></section>')
+    shell(path, 'About', 'VLORÁ is a family-run jewellery retail and manufacturing business based in Dubai, United Arab Emirates.', body)
 
 
 def page_contact():
