@@ -1,10 +1,10 @@
 [
  {
-  "name": "GIA",
-  "logo": "gia.png",
-  "h": 38,
-  "w": 460,
-  "ht": 151,
+  "name": "Dubai City of Gold",
+  "logo": "dubai-city-of-gold.png",
+  "h": 68,
+  "w": 146,
+  "ht": 200,
   "url": ""
  },
  {
@@ -13,6 +13,14 @@
   "h": 32,
   "w": 460,
   "ht": 122,
+  "url": ""
+ },
+ {
+  "name": "GIA",
+  "logo": "gia.png",
+  "h": 38,
+  "w": 460,
+  "ht": 151,
   "url": ""
  },
  {
@@ -32,26 +40,18 @@
   "url": ""
  },
  {
-  "name": "Esaad",
-  "logo": "esaad.png",
-  "h": 50,
-  "w": 216,
-  "ht": 200,
-  "url": ""
- },
- {
-  "name": "Dubai City of Gold",
-  "logo": "dubai-city-of-gold.png",
-  "h": 68,
-  "w": 146,
-  "ht": 200,
-  "url": ""
- },
- {
   "name": "Fazaa",
   "logo": "fazaa.png",
   "h": 52,
   "w": 187,
+  "ht": 200,
+  "url": ""
+ },
+ {
+  "name": "Esaad",
+  "logo": "esaad.png",
+  "h": 50,
+  "w": 216,
   "ht": 200,
   "url": ""
  },
