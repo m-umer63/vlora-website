@@ -733,3 +733,16 @@ input,select,textarea,button{font-family:inherit}
   .ab-figrow{grid-template-columns:1fr 1fr;row-gap:32px}
 }
 @media (prefers-reduced-motion:reduce){.ab-h1 .line>span{animation:none}}
+.ab-two-l{grid-template-columns:.8fr 1.2fr}
+.ab-photo-p img{aspect-ratio:4/5;object-fit:cover;object-position:center 18%}
+.ab-marks{display:flex;gap:clamp(24px,5vw,56px);margin:1.8rem 0 0;padding-top:1.2rem;border-top:1px solid var(--line)}
+.ab-marks dt{font-family:var(--cinzel);font-size:clamp(1.6rem,3vw,2.2rem);line-height:1;color:var(--navy)}
+.ab-marks dd{margin:.5rem 0 0;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.ab-care header{max-width:44em}
+.ab-care-row{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3.5vw,56px);margin:2.4rem 0}
+.ab-care-row>div{border-top:1px solid var(--navy);padding-top:20px}
+.ab-care-row b{font-family:var(--cinzel);font-weight:400;font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.ab-care-row h3{font-family:var(--display);font-weight:400;font-size:clamp(1.3rem,2vw,1.6rem);margin:.6rem 0 .5rem}
+.ab-care-row p{margin:0;font-size:.92rem;line-height:1.6;max-width:26em}
+.ab-care .cta-row{justify-content:flex-start}
+@media (max-width:900px){.ab-two-l{grid-template-columns:1fr}.ab-photo-p img{aspect-ratio:4/5;max-width:420px}.ab-care-row{grid-template-columns:1fr}}

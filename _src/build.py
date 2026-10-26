@@ -534,12 +534,13 @@ def page_about():
   <footer>Allama Iqbal</footer></blockquote>
 </div></section>
 
-<section class="ab-sec ab-next"><div class="wrap ab-two ab-two-r">
-  <div class="ab-text reveal"><p class="eyebrow">The next chapter</p><h2 class="h-md">A second generation, a clearer direction.</h2>
-    <p>Umer joined the business in 2016, after studying aeronautical engineering. He went on to train in gemology and now works with us as a certified gemologist.</p>
-    <p>In 2023 the whole company was reshaped around what VLOR&Aacute; stands for: the family&rsquo;s craft, presented as one brand, in the same Gold Souq where it began.</p>
+<section class="ab-sec ab-next"><div class="wrap ab-two ab-two-l">
+  <figure class="ab-photo ab-photo-p reveal"><img src="{asset(d, "assets/img/story/umer.jpg")}" alt="Umer, director and certified gemologist at VLORÁ" width="1000" height="1426" loading="lazy" decoding="async"><figcaption>Umer, Director &amp; Certified Gemologist</figcaption></figure>
+  <div class="ab-text reveal"><p class="eyebrow">The second generation</p><h2 class="h-md">The craft, carried forward.</h2>
+    <p>Umer studied aeronautical engineering before joining the family business in 2016. He went on to qualify as a gemologist, and today he is a certified gemologist working alongside his father.</p>
+    <p>In 2023 he led a complete rethink of the company, bringing everything we do together as one brand, built on the craft and the values we began with.</p>
+    <dl class="ab-marks"><div><dt>2016</dt><dd>Joins the business</dd></div><div><dt>2023</dt><dd>Brings it together as one brand</dd></div></dl>
   </div>
-  <div class="ab-years reveal" aria-hidden="true"><div><b>2016</b><span>Joins the business</span></div><div><b>2023</b><span>A new direction</span></div></div>
 </div></section>
 
 <section class="ab-sec ab-sand ab-process"><div class="wrap">
@@ -559,10 +560,15 @@ def page_about():
 
 {build_partners(d)}
 
-<section class="ab-sec ab-sand ab-close"><div class="wrap reveal">
-  <p class="eyebrow">What we hope you remember</p>
-  <p class="ab-big">Care, before, during and after your jewellery is made.</p>
-  <div class="cta-row"><a class="btn btn-primary" href="{link(d, "pages/contact/")}">Talk to us</a><a class="btn btn-ghost" href="{link(d, "collections/gold/")}">Discover the collections</a></div>
+<section class="ab-sec ab-sand ab-care"><div class="wrap">
+  <header class="reveal"><p class="eyebrow">Our service</p><h2 class="h-md">Care at every stage.</h2>
+  <p class="ab-sub">If you remember one thing about VLOR&Aacute;, we hope it is how we looked after you. It is the same from your first question to the years you spend wearing the piece.</p></header>
+  <div class="ab-care-row">
+    <div class="reveal" style="--i:0"><b>Before</b><h3>We listen first.</h3><p>We take the time to understand what you want, and advise you honestly, so you choose with confidence.</p></div>
+    <div class="reveal" style="--i:1"><b>During</b><h3>One team, start to finish.</h3><p>Your piece is made in our own workshop, by people who work side by side, from the first drawing to the final polish.</p></div>
+    <div class="reveal" style="--i:2"><b>After</b><h3>Looked after for life.</h3><p>Complimentary cleaning, polishing and routine checks, for as long as you wear it.</p></div>
+  </div>
+  <div class="cta-row reveal"><a class="btn btn-primary" href="{link(d, "pages/contact/")}">Talk to us</a><a class="btn btn-ghost" href="{link(d, "collections/gold/")}">Discover the collections</a></div>
 </div></section>
 
 {build_visit()}
