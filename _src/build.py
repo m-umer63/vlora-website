@@ -177,12 +177,17 @@ def header(d, current=''):
 def footer(d):
     cat = ''.join(f'<li><a href="{link(d, "collections/" + CAT_SLUG[c] + "/")}">{c}</a></li>' for c in CATEGORIES)
     soc = ''
-    if SITE.get('instagram'): soc += f'<li><a href="{esc(SITE["instagram"])}" rel="noopener">Instagram</a></li>'
-    if SITE.get('facebook'): soc += f'<li><a href="{esc(SITE["facebook"])}" rel="noopener">Facebook</a></li>'
+    ig_i = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg>'
+    fb_i = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21z"/></svg>'
+    wa_i = ICON["wa"].replace('width="18" height="18"', 'width="20" height="20"')
+    social = (f'<ul class="social" aria-label="Follow and contact us">'
+              f'<li><a href="{esc(SITE["instagram"])}" rel="noopener" target="_blank" aria-label="VLORÁ on Instagram">{ig_i}</a></li>'
+              f'<li><a href="{esc(SITE["facebook"])}" rel="noopener" target="_blank" aria-label="VLORÁ on Facebook">{fb_i}</a></li>'
+              f'<li><a href="{wa_link()}" rel="noopener" target="_blank" aria-label="Chat with VLORÁ on WhatsApp">{wa_i}</a></li></ul>')
     return f'''<footer class="site-footer">
   <div class="foot-grid">
-    <div class="foot-brand"><img src="{asset(d, "assets/img/vlora-logo-cream.svg")}" alt="VLORÁ" width="220" height="70"><p class="logo-sub">JEWELRY &amp; WATCHES</p>
-      <p class="foot-note">{esc(SITE["company_full"])}<br>Dubai, United Arab Emirates</p></div>
+    <div class="foot-brand"><img src="{asset(d, "assets/img/vlora-logo-footer.png")}" alt="VLORÁ Jewelry &amp; Watches" width="900" height="368">
+      <p class="foot-note">{esc(SITE["company_full"])}</p>{social}</div>
     <div><h4>The house</h4><ul><li><a href="{link(d, "pages/about/")}">About</a></li><li><a href="{link(d, "pages/care-guide/")}">Care guide</a></li><li><a href="{link(d, "pages/faq/")}">FAQ</a></li>{soc}</ul></div>
     <div><h4>Client services</h4><ul><li><a href="{link(d, "pages/contact/")}">Contact</a></li><li><a href="{link(d, "pages/shipping-returns/")}">Shipping &amp; returns</a></li><li><a href="{link(d, "wishlist/")}">Wishlist</a></li></ul></div>
     <div><h4>Shop</h4><ul>{cat}</ul></div>
@@ -190,7 +195,7 @@ def footer(d):
       <li><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone_display"])}">{esc(SITE["phone_display"])}</a></li><li><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone2_display"])}">{esc(SITE["phone2_display"])}</a></li><li><a href="mailto:{esc(SITE["email"])}">{esc(SITE["email"])}</a></li>
       <li><a class="wa" href="{wa_link()}" rel="noopener">{ICON["wa"]} WhatsApp us</a></li></ul></div>
   </div>
-  <div class="foot-base"><span>&copy; {datetime.date.today().year} {esc(SITE["legal_name"])}. All rights reserved.<small class="foot-reg">Licence No. {esc(SITE["license_no"])} &middot; TRN {esc(SITE["trn"])}</small></span>
+  <div class="foot-base"><span>&copy; {datetime.date.today().year} {esc(SITE["legal_name"])}. All rights reserved.<small class="foot-reg">{esc(SITE["company_full"])} &middot; Gold Souq, Dubai<br>DED License {esc(SITE["license_no"])} &middot; TRN {esc(SITE["trn"])}</small></span>
     <span><a href="{link(d, "pages/privacy/")}">Privacy</a> &middot; <a href="{link(d, "pages/terms/")}">Terms</a></span></div>
 </footer>
 '''
