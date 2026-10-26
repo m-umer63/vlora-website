@@ -671,8 +671,9 @@ input,select,textarea,button{font-family:inherit}
 
 .foot-reg{display:block;margin-top:6px;font-size:.68rem;letter-spacing:.06em;opacity:.6}
 .foot-note{margin:14px 0 0}
-.social{display:flex;gap:10px;margin:16px 0 0!important;padding:0}
+.social{display:flex;justify-content:center;gap:10px;width:210px;max-width:100%;margin:16px 0 0!important;padding:0}
 .site-footer .social li{margin:0}
 .social a{display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(250,251,238,.28);border-radius:50%;color:#E8DCC8;transition:background .3s,color .3s,border-color .3s}
 .site-footer .social a:hover{background:#fafbee;color:#0c193b;border-color:#fafbee;text-decoration:none}
-.foot-reg{line-height:1.6}
+.foot-reg{line-height:1.6;font-size:.6rem;letter-spacing:.05em}
+@media (min-width:900px){.foot-reg{white-space:nowrap}}

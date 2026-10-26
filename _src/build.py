@@ -187,7 +187,7 @@ def footer(d):
     return f'''<footer class="site-footer">
   <div class="foot-grid">
     <div class="foot-brand"><img src="{asset(d, "assets/img/vlora-logo-footer.png")}" alt="VLORÁ Jewelry &amp; Watches" width="900" height="368">
-      <p class="foot-note">{esc(SITE["company_full"])}</p>{social}</div>
+      <p class="foot-note">{esc(SITE["company_full"])}<br>Dubai, United Arab Emirates</p>{social}</div>
     <div><h4>The house</h4><ul><li><a href="{link(d, "pages/about/")}">About</a></li><li><a href="{link(d, "pages/care-guide/")}">Care guide</a></li><li><a href="{link(d, "pages/faq/")}">FAQ</a></li>{soc}</ul></div>
     <div><h4>Client services</h4><ul><li><a href="{link(d, "pages/contact/")}">Contact</a></li><li><a href="{link(d, "pages/shipping-returns/")}">Shipping &amp; returns</a></li><li><a href="{link(d, "wishlist/")}">Wishlist</a></li></ul></div>
     <div><h4>Shop</h4><ul>{cat}</ul></div>
@@ -195,7 +195,7 @@ def footer(d):
       <li><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone_display"])}">{esc(SITE["phone_display"])}</a></li><li><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone2_display"])}">{esc(SITE["phone2_display"])}</a></li><li><a href="mailto:{esc(SITE["email"])}">{esc(SITE["email"])}</a></li>
       <li><a class="wa" href="{wa_link()}" rel="noopener">{ICON["wa"]} WhatsApp us</a></li></ul></div>
   </div>
-  <div class="foot-base"><span>&copy; {datetime.date.today().year} {esc(SITE["legal_name"])}. All rights reserved.<small class="foot-reg">{esc(SITE["company_full"])} &middot; Gold Souq, Dubai<br>DED License {esc(SITE["license_no"])} &middot; TRN {esc(SITE["trn"])}</small></span>
+  <div class="foot-base"><span>&copy; {datetime.date.today().year} {esc(SITE["legal_name"])}. All rights reserved.<small class="foot-reg">{esc(SITE["company_full"])} &middot; Gold Souq, Dubai &middot; DED License {esc(SITE["license_no"])} &middot; TRN {esc(SITE["trn"])}</small></span>
     <span><a href="{link(d, "pages/privacy/")}">Privacy</a> &middot; <a href="{link(d, "pages/terms/")}">Terms</a></span></div>
 </footer>
 '''
