@@ -677,3 +677,4 @@ input,select,textarea,button{font-family:inherit}
 .site-footer .social a:hover{background:#fafbee;color:#0c193b;border-color:#fafbee;text-decoration:none}
 .foot-reg{line-height:1.6;font-size:.6rem;letter-spacing:.05em}
 @media (min-width:900px){.foot-reg{white-space:nowrap}}
+.site-footer{border-top:1px solid rgba(250,251,238,.14)}

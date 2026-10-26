@@ -390,11 +390,11 @@ def page_home():
 
 {promise}
 
+{revs}
+
 {partners}
 
 {visit}
-
-{revs}
 '''
     ld = {"@context": "https://schema.org", "@type": "JewelryStore", "name": "VLORÁ", "legalName": SITE['legal_name'], "url": SITE['domain'],
           "foundingDate": SITE['since'], "telephone": "+97142269441", "email": SITE["email"], "openingHours": ["Mo,Tu,We,Th,Sa,Su 10:30-22:00", "Fr 14:30-22:00"], "address": {"@type": "PostalAddress", "streetAddress": "Shop 1, Halo Al Obaid Building, Gold Souq", "addressLocality": "Deira, Dubai", "addressCountry": "AE"}, "geo": {"@type": "GeoCoordinates", "latitude": SITE["geo"]["lat"], "longitude": SITE["geo"]["lng"]}}
