@@ -182,15 +182,15 @@ def footer(d):
     return f'''<footer class="site-footer">
   <div class="foot-grid">
     <div class="foot-brand"><img src="{asset(d, "assets/img/vlora-logo-cream.svg")}" alt="VLORÁ" width="220" height="70"><p class="logo-sub">JEWELRY &amp; WATCHES</p>
-      <p class="foot-note">{esc(SITE["legal_name"])}<br>Dubai, United Arab Emirates</p></div>
+      <p class="foot-note">{esc(SITE["company_full"])}<br>Dubai, United Arab Emirates</p></div>
     <div><h4>The house</h4><ul><li><a href="{link(d, "pages/about/")}">About</a></li><li><a href="{link(d, "pages/care-guide/")}">Care guide</a></li><li><a href="{link(d, "pages/faq/")}">FAQ</a></li>{soc}</ul></div>
     <div><h4>Client services</h4><ul><li><a href="{link(d, "pages/contact/")}">Contact</a></li><li><a href="{link(d, "pages/shipping-returns/")}">Shipping &amp; returns</a></li><li><a href="{link(d, "wishlist/")}">Wishlist</a></li></ul></div>
     <div><h4>Shop</h4><ul>{cat}</ul></div>
-    <div><h4>Visit &amp; contact</h4><ul class="plain"><li>{esc(SITE["address"])}</li><li>{esc(SITE["hours"])}</li>
+    <div><h4>Visit &amp; contact</h4><ul class="plain"><li>{esc(SITE["address"])}</li><li>{esc(SITE["hours"]).replace("\n", "<br>")}</li>
       <li><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone_display"])}">{esc(SITE["phone_display"])}</a></li><li><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone2_display"])}">{esc(SITE["phone2_display"])}</a></li><li><a href="mailto:{esc(SITE["email"])}">{esc(SITE["email"])}</a></li>
       <li><a class="wa" href="{wa_link()}" rel="noopener">{ICON["wa"]} WhatsApp us</a></li></ul></div>
   </div>
-  <div class="foot-base"><span>&copy; {datetime.date.today().year} {esc(SITE["legal_name"])}. All rights reserved.</span>
+  <div class="foot-base"><span>&copy; {datetime.date.today().year} {esc(SITE["legal_name"])}. All rights reserved.<small class="foot-reg">Licence No. {esc(SITE["license_no"])} &middot; TRN {esc(SITE["trn"])}</small></span>
     <span><a href="{link(d, "pages/privacy/")}">Privacy</a> &middot; <a href="{link(d, "pages/terms/")}">Terms</a></span></div>
 </footer>
 '''
@@ -329,7 +329,7 @@ def page_home():
     partners = (f'<section class="partners" aria-label="Our partners and certifications"><div class="wrap"><ul class="partners-row">{"".join(plogo(p) for p in PARTNERS)}</ul></div></section>') if PARTNERS else ''
     mq = urllib.parse.quote_plus(SITE.get('map_query', 'Gold Souq, Deira, Dubai'))
     visit = (f'<section class="visit"><div class="wrap visit-grid"><div class="visit-t"><p class="eyebrow">The showroom</p><h2 class="h-md">See it in person</h2>'
-             f'<dl><dt>Address</dt><dd>{esc(SITE["address"])}</dd><dt>Hours</dt><dd>{esc(SITE["hours"])}</dd><dt>Phone</dt><dd>{esc(SITE["phone_display"])}<br>{esc(SITE["phone2_display"])}</dd></dl>'
+             f'<dl><dt>Address</dt><dd>{esc(SITE["address"])}</dd><dt>Hours</dt><dd>{esc(SITE["hours"]).replace("\n", "<br>")}</dd><dt>Phone</dt><dd>{esc(SITE["phone_display"])}<br>{esc(SITE["phone2_display"])}</dd></dl>'
              f'<div class="visit-btns"><a class="btn btn-gold" href="https://www.google.com/maps/dir/?api=1&amp;destination={SITE["geo"]["lat"]},{SITE["geo"]["lng"]}" rel="noopener" target="_blank">Get directions</a>'
              f'<a class="btn btn-ghost-light" href="{wa_link("Hello VLORÁ, I would like to visit the showroom.")}" rel="noopener">WhatsApp us</a></div></div>'
              f'<div class="visit-map"><a class="visit-fb" href="{esc(SITE.get("google_maps_url", "#"))}" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>Open in Google Maps</span></a><iframe title="VLORÁ on Google Maps" src="{esc(SITE.get("map_embed") or "https://www.google.com/maps?q=" + mq + "&output=embed")}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div></section>')
@@ -392,7 +392,7 @@ def page_home():
 {revs}
 '''
     ld = {"@context": "https://schema.org", "@type": "JewelryStore", "name": "VLORÁ", "legalName": SITE['legal_name'], "url": SITE['domain'],
-          "foundingDate": SITE['since'], "telephone": "+97142269441", "email": SITE["email"], "openingHours": ["Mo,Tu,We,Th,Sa,Su 10:00-22:00", "Fr 14:30-22:00"], "address": {"@type": "PostalAddress", "streetAddress": "Shop 1, Halo Al Obaid Building, Gold Souq", "addressLocality": "Deira, Dubai", "addressCountry": "AE"}, "geo": {"@type": "GeoCoordinates", "latitude": SITE["geo"]["lat"], "longitude": SITE["geo"]["lng"]}}
+          "foundingDate": SITE['since'], "telephone": "+97142269441", "email": SITE["email"], "openingHours": ["Mo,Tu,We,Th,Sa,Su 10:30-22:00", "Fr 14:30-22:00"], "address": {"@type": "PostalAddress", "streetAddress": "Shop 1, Halo Al Obaid Building, Gold Souq", "addressLocality": "Deira, Dubai", "addressCountry": "AE"}, "geo": {"@type": "GeoCoordinates", "latitude": SITE["geo"]["lat"], "longitude": SITE["geo"]["lng"]}}
     shell('index.html', 'VLORÁ | Fine Jewellery & Watches, Dubai',
           'VLORÁ is a family-run jewellery and watch house in Dubai, since 1983. Shop rings, earrings, necklaces, bracelets, bangles, pendants and watches.',
           body, f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>', 'home')
@@ -503,7 +503,7 @@ def page_contact():
 <li><strong>Phone</strong><br><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone_display"])}">{esc(SITE["phone_display"])}</a> &middot; <a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone2_display"])}">{esc(SITE["phone2_display"])}</a></li>
 <li><strong>Email</strong><br><a href="mailto:{esc(SITE["email"])}">{esc(SITE["email"])}</a></li>
 <li><strong>Showroom</strong><br>{esc(SITE["address"])}</li>
-<li><strong>Hours</strong><br>{esc(SITE["hours"])}</li></ul></div>
+<li><strong>Hours</strong><br>{esc(SITE["hours"]).replace("\n", "<br>")}</li></ul></div>
 <form class="form" id="contact-form" data-wa="{SITE["whatsapp"]}" data-email="{esc(SITE["email"])}">
 <h2>Send an enquiry</h2>
 <label>Your name<input name="name" required autocomplete="name"></label>

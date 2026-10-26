@@ -668,3 +668,5 @@ input,select,textarea,button{font-family:inherit}
 .gs3.is-static .gs3-ns{display:block;margin:30px auto 0;width:min(84vw,520px)}
 .gs3.is-static .gs3-ns img{width:100%;height:auto;display:block}
 
+
+.foot-reg{display:block;margin-top:6px;font-size:.68rem;letter-spacing:.06em;opacity:.6}
