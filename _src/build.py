@@ -390,9 +390,9 @@ def page_home():
 
 {promise}
 
-{revs}
-
 {partners}
+
+{revs}
 
 {visit}
 '''
