@@ -1,38 +1,66 @@
 [
  {
-  "name": "Partner 1",
-  "logo": "sample-1.svg",
-  "url": "",
-  "sample": true
+  "name": "GIA",
+  "logo": "gia.png",
+  "h": 38,
+  "w": 460,
+  "ht": 151,
+  "url": ""
  },
  {
-  "name": "Partner 2",
-  "logo": "sample-2.svg",
-  "url": "",
-  "sample": true
+  "name": "Dubai Chamber",
+  "logo": "dubai-chamber.png",
+  "h": 32,
+  "w": 460,
+  "ht": 122,
+  "url": ""
  },
  {
-  "name": "Partner 3",
-  "logo": "sample-3.svg",
-  "url": "",
-  "sample": true
+  "name": "IGI",
+  "logo": "igi.png",
+  "h": 32,
+  "w": 395,
+  "ht": 169,
+  "url": ""
  },
  {
-  "name": "Partner 4",
-  "logo": "sample-4.svg",
-  "url": "",
-  "sample": true
+  "name": "Planet",
+  "logo": "planet.png",
+  "h": 28,
+  "w": 460,
+  "ht": 104,
+  "url": ""
  },
  {
-  "name": "Partner 5",
-  "logo": "sample-5.svg",
-  "url": "",
-  "sample": true
+  "name": "Esaad",
+  "logo": "esaad.png",
+  "h": 50,
+  "w": 216,
+  "ht": 200,
+  "url": ""
  },
  {
-  "name": "Partner 6",
-  "logo": "sample-6.svg",
-  "url": "",
-  "sample": true
+  "name": "Dubai City of Gold",
+  "logo": "dubai-city-of-gold.png",
+  "h": 68,
+  "w": 146,
+  "ht": 200,
+  "url": ""
+ },
+ {
+  "name": "Fazaa",
+  "logo": "fazaa.png",
+  "h": 52,
+  "w": 187,
+  "ht": 200,
+  "url": ""
+ },
+ {
+  "name": "Emirates Platinum",
+  "logo": "emirates-platinum.png",
+  "h": 44,
+  "w": 378,
+  "ht": 200,
+  "url": ""
  }
 ]

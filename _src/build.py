@@ -324,7 +324,7 @@ def page_home():
         + ''.join(f'<div>{ico(path)}<h3>{t}</h3><p>{dsc}</p></div>' for t, dsc, path in promise_items)
         + '</div></div></section>')
     def plogo(p):
-        im = f'<img src="{asset(d, "assets/img/partners/" + p["logo"])}" alt="{esc(p["name"])}" loading="lazy" decoding="async">'
+        im = f'<img src="{asset(d, "assets/img/partners/" + p["logo"])}" alt="{esc(p["name"])}" width="{p["w"]}" height="{p["ht"]}" style="--h:{p["h"]}px" loading="lazy" decoding="async">'
         return f'<li>{("<a href=" + chr(34) + esc(p["url"]) + chr(34) + " rel=noopener target=_blank>" + im + "</a>") if p.get("url") else im}</li>'
     partners = (f'<section class="partners" aria-label="Our partners and certifications"><div class="wrap"><ul class="partners-row">{"".join(plogo(p) for p in PARTNERS)}</ul></div></section>') if PARTNERS else ''
     mq = urllib.parse.quote_plus(SITE.get('map_query', 'Gold Souq, Deira, Dubai'))
