@@ -7,7 +7,7 @@ try{renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:false});}ca
 var PR=Math.min(devicePixelRatio||1,1.5);renderer.setPixelRatio(PR);
 renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;
 renderer.shadowMap.enabled=false;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-var scene=new THREE.Scene();scene.background=new THREE.Color(0xf4f0e8);
+var scene=new THREE.Scene();scene.background=new THREE.Color(0xfafbee);
 var cam=new THREE.PerspectiveCamera(28,1,.1,120);
 function cl(x){return x<0?0:x>1?1:x}function sm(x){x=cl(x);return x*x*x*(x*(x*6-15)+10)}function rg(p,a,b){return cl((p-a)/(b-a))}function lerp(a,b,t){return a+(b-a)*t}
 
