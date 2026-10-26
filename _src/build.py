@@ -308,15 +308,15 @@ def page_home():
     def ico(path):
         return f'<svg viewBox="0 0 40 40" aria-hidden="true">{path}</svg>'
     promise_items = [
-        ('Free Lifetime Care', 'Cleaning, polishing and checks for your piece, for life.',
+        ('A Lifetime of Care', 'Complimentary cleaning, polishing and routine checks, for years of lasting brilliance.',
          '<path d="M20 20c-3-5-6-7-9.5-7a7 7 0 0 0 0 14c3.5 0 6.5-2 9.5-7zm0 0c3 5 6 7 9.5 7a7 7 0 0 0 0-14c-3.5 0-6.5 2-9.5 7z"/>'),
-        ('Certified Gems', 'Every stone comes with its grading documents.',
-         '<path d="M12 8h16l6 8-14 17L6 16z"/><path d="M6 16h28M15 8l5 8 5-8M20 16v17"/>'),
-        ('Expert Craftsmanship', 'Made and finished by our own jewellers since 1983.',
+        ('Expert Craftsmanship', 'Thoughtfully made, carefully finished, and shaped by decades of jewellery expertise.',
          '<path d="M9 14l9-7 6 6-3 3 13 13a2.6 2.6 0 0 1-3.7 3.7L18 19l-3 3-6-6z"/>'),
-        ('Price Match Guarantee', 'Found the same piece for less? Show us and we will match it.',
+        ('Best Price Promise', 'Found identical piece for less? Share the details and we&rsquo;ll match it.',
          '<path d="M6 6h14l14 14-14 14L6 20z"/><circle cx="13" cy="13" r="2"/><path d="M15 25l3.5 3.5L26 21"/>'),
-        ('Responsible Sourcing', 'Gold and stones from suppliers we know and trust.',
+        ('Certified Brilliance', 'Independent grading reports for eligible diamonds and gemstones.',
+         '<path d="M12 8h16l6 8-14 17L6 16z"/><path d="M6 16h28M15 8l5 8 5-8M20 16v17"/>'),
+        ('Responsible Sourcing', 'Gems and materials selected through trusted and certified supplier relationships.',
          '<path d="M8 32C8 18 16 8 32 8c0 16-10 24-24 24z"/><path d="M8 32l14-14"/>'),
     ]
     promise = ('<section class="promise"><div class="wrap"><p class="eyebrow reveal">The VLOR&Aacute; promise</p><div class="promise-row reveal">'
