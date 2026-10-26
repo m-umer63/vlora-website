@@ -18,6 +18,7 @@ SUF = 'index.html' if ARGS.preview else ''
 
 SITE = json.load(open(os.path.join(HERE, 'data', 'site.json'), encoding='utf-8'))
 PRODUCTS = json.load(open(os.path.join(HERE, 'data', 'products.json'), encoding='utf-8'))
+PARTNERS = [p for p in (json.load(open(os.path.join(HERE, 'data', 'partners.json'), encoding='utf-8')) if os.path.exists(os.path.join(HERE, 'data', 'partners.json')) else []) if ARGS.preview or not p.get('sample')]
 REVIEWS = json.load(open(os.path.join(HERE, 'data', 'reviews.json'), encoding='utf-8')) if os.path.exists(os.path.join(HERE, 'data', 'reviews.json')) else []
 CATEGORIES = ['Rings', 'Earrings', 'Necklaces', 'Bracelets', 'Bangles', 'Pendants', 'Watches']
 CAT_SLUG = {c: c.lower() for c in CATEGORIES}
@@ -322,6 +323,10 @@ def page_home():
     promise = ('<section class="promise"><div class="wrap"><p class="eyebrow reveal">The VLOR&Aacute; promise</p><div class="promise-row reveal">'
         + ''.join(f'<div>{ico(path)}<h3>{t}</h3><p>{dsc}</p></div>' for t, dsc, path in promise_items)
         + '</div></div></section>')
+    def plogo(p):
+        im = f'<img src="{asset(d, "assets/img/partners/" + p["logo"])}" alt="{esc(p["name"])}" loading="lazy" decoding="async">'
+        return f'<li>{("<a href=" + chr(34) + esc(p["url"]) + chr(34) + " rel=noopener target=_blank>" + im + "</a>") if p.get("url") else im}</li>'
+    partners = (f'<section class="partners" aria-label="Our partners and certifications"><div class="wrap"><ul class="partners-row">{"".join(plogo(p) for p in PARTNERS)}</ul></div></section>') if PARTNERS else ''
     mq = urllib.parse.quote_plus(SITE.get('map_query', 'Gold Souq, Deira, Dubai'))
     visit = (f'<section class="visit"><div class="wrap visit-grid"><div class="visit-t"><p class="eyebrow">The showroom</p><h2 class="h-md">See it in person</h2>'
              f'<dl><dt>Address</dt><dd>{esc(SITE["address"])}</dd><dt>Hours</dt><dd>{esc(SITE["hours"])}</dd><dt>Phone</dt><dd>{esc(SITE["phone_display"])}<br>{esc(SITE["phone2_display"])}</dd></dl>'
@@ -379,6 +384,8 @@ def page_home():
 {coll}
 
 {promise}
+
+{partners}
 
 {visit}
 

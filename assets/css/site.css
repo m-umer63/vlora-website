@@ -637,6 +637,16 @@ input,select,textarea,button{font-family:inherit}
   .visit-map{min-height:240px}
 }
 
+/* partners / certifications strip: grey until hovered */
+.partners{background:var(--cream);border-top:1px solid rgba(12,25,59,.12);padding:clamp(18px,2.4vw,30px) 0}
+.partners-row{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px clamp(20px,3.5vw,56px)}
+.partners-row li{flex:0 1 auto;display:flex;align-items:center}
+.partners-row a{display:flex}
+.partners-row img{height:clamp(28px,3vw,40px);width:auto;max-width:150px;object-fit:contain;filter:grayscale(1);opacity:.55;transition:filter .45s var(--ease),opacity .45s var(--ease),transform .45s var(--ease)}
+.partners-row li:hover img,.partners-row a:focus-visible img{filter:none;opacity:1;transform:translateY(-2px)}
+@media (max-width:899px){.partners-row{display:grid;grid-template-columns:repeat(3,1fr);justify-items:center}.partners-row img{max-width:100px}}
+@media (hover:none){.partners-row img{opacity:.8}}
+
 /* ---------- emerald scroll scene ---------- */
 .gs3{position:relative;height:760vh;background:#f4f0e8;--gs3-ink:#0c193b;--gs3-gold:#6b5223}
 .gs3-pin{position:sticky;top:var(--hdr,85px);height:calc(100vh - var(--hdr,85px));height:calc(100svh - var(--hdr,85px));overflow:hidden}

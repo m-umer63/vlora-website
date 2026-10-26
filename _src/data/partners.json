@@ -1,0 +1,38 @@
+[
+ {
+  "name": "Partner 1",
+  "logo": "sample-1.svg",
+  "url": "",
+  "sample": true
+ },
+ {
+  "name": "Partner 2",
+  "logo": "sample-2.svg",
+  "url": "",
+  "sample": true
+ },
+ {
+  "name": "Partner 3",
+  "logo": "sample-3.svg",
+  "url": "",
+  "sample": true
+ },
+ {
+  "name": "Partner 4",
+  "logo": "sample-4.svg",
+  "url": "",
+  "sample": true
+ },
+ {
+  "name": "Partner 5",
+  "logo": "sample-5.svg",
+  "url": "",
+  "sample": true
+ },
+ {
+  "name": "Partner 6",
+  "logo": "sample-6.svg",
+  "url": "",
+  "sample": true
+ }
+]
