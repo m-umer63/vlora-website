@@ -315,6 +315,27 @@ function heroVideo(){
   }
 
   /* ---------- emerald scroll scene: live 3D, loaded on demand; static photo fallback ---------- */
+  function initCounts() {
+    var els = $$('[data-count]');
+    if (!els.length) return;
+    var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (rm || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        var el = e.target, to = +el.getAttribute('data-count'), suf = el.getAttribute('data-suf') || '', t0 = null, dur = 1800;
+        function step(t) {
+          if (t0 === null) t0 = t;
+          var k = Math.min(1, (t - t0) / dur), v = Math.round(to * (1 - Math.pow(1 - k, 3)));
+          el.textContent = v.toLocaleString('en-US') + (k === 1 ? suf : '');
+          if (k < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: .4 });
+    els.forEach(function (el) { io.observe(el); });
+  }
   function initGemScene() {
     var sec = $('[data-gs3]'); if (!sec) return;
     var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -437,5 +458,5 @@ function heroVideo(){
     requestAnimationFrame(loop);
   }
 
-  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene();
+  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts();
 })();

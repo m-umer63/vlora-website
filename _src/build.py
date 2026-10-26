@@ -263,6 +263,45 @@ def gem_svg(cls):
     return f'<svg class="{cls}" viewBox="658 44 342 420" aria-hidden="true" focusable="false">{out}</svg>'
 
 
+def build_promise():
+    def ico(path):
+        return f'<svg viewBox="0 0 40 40" aria-hidden="true">{path}</svg>'
+    promise_items = [
+        ('A Lifetime of Care', 'Complimentary cleaning, polishing and routine checks, for years of lasting brilliance.',
+         '<path d="M20 20c-3-5-6-7-9.5-7a7 7 0 0 0 0 14c3.5 0 6.5-2 9.5-7zm0 0c3 5 6 7 9.5 7a7 7 0 0 0 0-14c-3.5 0-6.5 2-9.5 7z"/>'),
+        ('Expert Craftsmanship', 'Thoughtfully made, carefully finished, and shaped by decades of jewellery expertise.',
+         '<path d="M9 14l9-7 6 6-3 3 13 13a2.6 2.6 0 0 1-3.7 3.7L18 19l-3 3-6-6z"/>'),
+        ('Best Price Promise', 'Found identical piece for less? Share the details and we&rsquo;ll match it.',
+         '<path d="M6 6h14l14 14-14 14L6 20z"/><circle cx="13" cy="13" r="2"/><path d="M15 25l3.5 3.5L26 21"/>'),
+        ('Certified Brilliance', 'Independent grading reports for eligible diamonds and gemstones.',
+         '<path d="M12 8h16l6 8-14 17L6 16z"/><path d="M6 16h28M15 8l5 8 5-8M20 16v17"/>'),
+        ('Responsible Sourcing', 'Gems and materials selected through trusted and certified supplier relationships.',
+         '<path d="M8 32C8 18 16 8 32 8c0 16-10 24-24 24z"/><path d="M8 32l14-14"/>'),
+    ]
+    promise = ('<section class="promise"><div class="wrap"><p class="eyebrow reveal">The VLOR&Aacute; promise</p><div class="promise-row reveal">'
+        + ''.join(f'<div>{ico(path)}<h3>{t}</h3><p>{dsc}</p></div>' for t, dsc, path in promise_items)
+        + '</div></div></section>')
+    return promise
+
+
+def build_partners(d):
+    def plogo(p):
+        im = f'<img src="{asset(d, "assets/img/partners/" + p["logo"])}" alt="{esc(p["name"])}" width="{p["w"]}" height="{p["ht"]}" style="--h:{p["h"]}px" loading="lazy" decoding="async">'
+        return f'<li>{("<a href=" + chr(34) + esc(p["url"]) + chr(34) + " rel=noopener target=_blank>" + im + "</a>") if p.get("url") else im}</li>'
+    partners = (f'<section class="partners" aria-label="Our partners and certifications"><div class="wrap"><ul class="partners-row">{"".join(plogo(p) for p in PARTNERS)}</ul></div></section>') if PARTNERS else ''
+    return partners
+
+
+def build_visit():
+    mq = urllib.parse.quote_plus(SITE.get('map_query', 'Gold Souq, Deira, Dubai'))
+    visit = (f'<section class="visit"><div class="wrap visit-grid"><div class="visit-t"><p class="eyebrow">The showroom</p><h2 class="h-md">See it in person</h2>'
+             f'<dl><dt>Address</dt><dd>{esc(SITE["address"])}</dd><dt>Hours</dt><dd>{esc(SITE["hours"]).replace("\n", "<br>")}</dd><dt>Phone</dt><dd>{esc(SITE["phone_display"])}<br>{esc(SITE["phone2_display"])}</dd></dl>'
+             f'<div class="visit-btns"><a class="btn btn-gold" href="https://www.google.com/maps/dir/?api=1&amp;destination={SITE["geo"]["lat"]},{SITE["geo"]["lng"]}" rel="noopener" target="_blank">Get directions</a>'
+             f'<a class="btn btn-ghost-light" href="{wa_link("Hello VLORÁ, I would like to visit the showroom.")}" rel="noopener">WhatsApp us</a></div></div>'
+             f'<div class="visit-map"><a class="visit-fb" href="{esc(SITE.get("google_maps_url", "#"))}" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>Open in Google Maps</span></a><iframe title="VLORÁ on Google Maps" src="{esc(SITE.get("map_embed") or "https://www.google.com/maps?q=" + mq + "&output=embed")}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div></section>')
+    return visit
+
+
 def story_section(d):
     # "years" story: huge numerals roll from 1983 to 2026 with the photographs living inside the digits (canvas, see site.js initYears)
     years = [
@@ -311,33 +350,7 @@ def page_home():
         stg += f'<img class="{"on" if n == 0 else ""}" src="{asset(d, "assets/img/categories/" + slug + ".jpg")}" alt="{c}" width="900" height="1125" loading="lazy" decoding="async">'
     coll = (f'<section class="coll" data-coll-sec><div class="wrap coll-grid"><div class="coll-list"><p class="eyebrow">Shop by category</p><ul>{lis}</ul></div>'
             f'<div class="coll-stage" aria-hidden="true">{stg}</div></div></section>')
-    def ico(path):
-        return f'<svg viewBox="0 0 40 40" aria-hidden="true">{path}</svg>'
-    promise_items = [
-        ('A Lifetime of Care', 'Complimentary cleaning, polishing and routine checks, for years of lasting brilliance.',
-         '<path d="M20 20c-3-5-6-7-9.5-7a7 7 0 0 0 0 14c3.5 0 6.5-2 9.5-7zm0 0c3 5 6 7 9.5 7a7 7 0 0 0 0-14c-3.5 0-6.5 2-9.5 7z"/>'),
-        ('Expert Craftsmanship', 'Thoughtfully made, carefully finished, and shaped by decades of jewellery expertise.',
-         '<path d="M9 14l9-7 6 6-3 3 13 13a2.6 2.6 0 0 1-3.7 3.7L18 19l-3 3-6-6z"/>'),
-        ('Best Price Promise', 'Found identical piece for less? Share the details and we&rsquo;ll match it.',
-         '<path d="M6 6h14l14 14-14 14L6 20z"/><circle cx="13" cy="13" r="2"/><path d="M15 25l3.5 3.5L26 21"/>'),
-        ('Certified Brilliance', 'Independent grading reports for eligible diamonds and gemstones.',
-         '<path d="M12 8h16l6 8-14 17L6 16z"/><path d="M6 16h28M15 8l5 8 5-8M20 16v17"/>'),
-        ('Responsible Sourcing', 'Gems and materials selected through trusted and certified supplier relationships.',
-         '<path d="M8 32C8 18 16 8 32 8c0 16-10 24-24 24z"/><path d="M8 32l14-14"/>'),
-    ]
-    promise = ('<section class="promise"><div class="wrap"><p class="eyebrow reveal">The VLOR&Aacute; promise</p><div class="promise-row reveal">'
-        + ''.join(f'<div>{ico(path)}<h3>{t}</h3><p>{dsc}</p></div>' for t, dsc, path in promise_items)
-        + '</div></div></section>')
-    def plogo(p):
-        im = f'<img src="{asset(d, "assets/img/partners/" + p["logo"])}" alt="{esc(p["name"])}" width="{p["w"]}" height="{p["ht"]}" style="--h:{p["h"]}px" loading="lazy" decoding="async">'
-        return f'<li>{("<a href=" + chr(34) + esc(p["url"]) + chr(34) + " rel=noopener target=_blank>" + im + "</a>") if p.get("url") else im}</li>'
-    partners = (f'<section class="partners" aria-label="Our partners and certifications"><div class="wrap"><ul class="partners-row">{"".join(plogo(p) for p in PARTNERS)}</ul></div></section>') if PARTNERS else ''
-    mq = urllib.parse.quote_plus(SITE.get('map_query', 'Gold Souq, Deira, Dubai'))
-    visit = (f'<section class="visit"><div class="wrap visit-grid"><div class="visit-t"><p class="eyebrow">The showroom</p><h2 class="h-md">See it in person</h2>'
-             f'<dl><dt>Address</dt><dd>{esc(SITE["address"])}</dd><dt>Hours</dt><dd>{esc(SITE["hours"]).replace("\n", "<br>")}</dd><dt>Phone</dt><dd>{esc(SITE["phone_display"])}<br>{esc(SITE["phone2_display"])}</dd></dl>'
-             f'<div class="visit-btns"><a class="btn btn-gold" href="https://www.google.com/maps/dir/?api=1&amp;destination={SITE["geo"]["lat"]},{SITE["geo"]["lng"]}" rel="noopener" target="_blank">Get directions</a>'
-             f'<a class="btn btn-ghost-light" href="{wa_link("Hello VLORÁ, I would like to visit the showroom.")}" rel="noopener">WhatsApp us</a></div></div>'
-             f'<div class="visit-map"><a class="visit-fb" href="{esc(SITE.get("google_maps_url", "#"))}" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>Open in Google Maps</span></a><iframe title="VLORÁ on Google Maps" src="{esc(SITE.get("map_embed") or "https://www.google.com/maps?q=" + mq + "&output=embed")}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div></section>')
+    promise = build_promise(); partners = build_partners(d); visit = build_visit()
     star = '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M10 1.5l2.5 5.4 5.9.6-4.4 4 1.3 5.8L10 14.3 4.7 17.3 6 11.5 1.6 7.5l5.9-.6z" fill="currentColor"/></svg>'
     def rcard(r):
         smp = '<span class="rev-sample">Sample</span>' if r.get('sample') else ''
@@ -488,13 +501,73 @@ def simple_page(slug, title, desc, inner, noindex=False):
 def page_about():
     path = 'pages/about/index.html'
     d = depth_of(path)
-    intro = f'''<p class="lede">VLORÁ is a family-run jewellery retail and manufacturing business based in Dubai, United Arab Emirates. Our mark carries the year {SITE["since"]}.</p>'''
-    rest = f'''<p>We offer fine jewellery and watches chosen for how they look and how they last. Every piece is made to be worn often and kept for a long time.</p>
-<p class="draft">Draft text. Please replace this page with your own story: how the business began, who runs it, what you are proud of and how your pieces are made.</p>
-<h2>Visit or get in touch</h2><p>Our team is happy to help you choose, answer questions about a piece, or arrange a visit. <a href="{link(d, "pages/contact/")}">Contact us</a>.</p>'''
-    body = (f'<section class="page-head"><div class="wrap">{crumbs(d, [("About", None)])}<h1 class="h-xl">About</h1><div class="prose">{intro}</div></div></section>'
-            + story_section(d) + f'<section class="section tight"><div class="wrap prose">{rest}</div></section>')
-    shell(path, 'About', 'VLORÁ is a family-run jewellery retail and manufacturing business based in Dubai, United Arab Emirates.', body)
+    steps = [('Design', 'An idea is drawn on paper.'), ('3D model', 'The drawing becomes a precise digital model.'), ('Wax', 'The model is turned into a wax piece.'),
+             ('Casting', 'The wax is cast in gold.'), ('Setting', 'Each gem is set with care.'), ('Finishing', 'A final polish, then handover.')]
+    steps_html = ''.join(f'<li class="reveal" style="--i:{i}"><b>{i + 1:02d}</b><h3>{t}</h3><p>{x}</p></li>' for i, (t, x) in enumerate(steps))
+    figs = [('1983', 'Since', 'In the Gold Souq from the first day.', None), ('50', 'People in our workshop', 'Designers, setters, polishers and more, working under one roof.', '+'),
+            ('1000000', 'Pieces made', 'Since we opened.', '+'), ('100000', 'Customers', 'Who consider us their family jeweller.', '+')]
+    figs_html = ''.join(
+        f'<div class="ab-fig reveal" style="--i:{i}"><span class="ab-num" data-count="{n}"' + (f' data-suf="{s}"' if s else '') + f'>{int(n):,}{s or ""}</span><b>{lab}</b><p>{tx}</p></div>' if n != '1983' else
+        f'<div class="ab-fig reveal" style="--i:{i}"><span class="ab-num">1983</span><b>{lab}</b><p>{tx}</p></div>' for i, (n, lab, tx, s) in enumerate(figs))
+    body = f"""
+<section class="ab-hero"><div class="ab-hero-n" aria-hidden="true">1983</div><div class="wrap">{crumbs(d, [("About", None)])}
+  <p class="eyebrow">Our story</p>
+  <h1 class="ab-h1"><span class="line"><span>Four decades of gold,</span></span><span class="line gold"><span>made in Dubai.</span></span></h1>
+  <p class="ab-lede">From a bench in Karachi to the Gold Souq in 1983, VLOR&Aacute; has been one family&rsquo;s work, and still is.</p>
+</div></section>
+
+{story_section(d)}
+
+<section class="ab-sec ab-founder"><div class="wrap ab-two">
+  <figure class="ab-photo reveal"><img src="{asset(d, "assets/img/story/y1997.jpg")}" alt="Akbar Khan, founder of VLORÁ" width="1600" height="900" loading="lazy" decoding="async"><figcaption>Akbar Khan, our founder</figcaption></figure>
+  <div class="ab-text reveal"><p class="eyebrow">The founder</p><h2 class="h-md">From the streets of Karachi to the Gold Souq.</h2>
+    <p>Akbar Khan began working with gold long before Dubai, on the streets of Karachi, where our family is from. He learned the craft by doing it, and in the 1980s he brought it to Dubai.</p>
+    <p>In 1983 he started our parent company in the Gold Souq, and the idea that became VLOR&Aacute; was born with it. We have been in the Gold Souq since the first day.</p>
+    <p>In those early years, the Sheikh&rsquo;s office approached us with a one-of-one commission for the Sheikha. Gemstones worth millions were placed in our hands to be made into her jewellery. We have worked that way ever since: trusted with the stones, and answerable for every detail.</p>
+  </div>
+</div></section>
+
+<section class="ab-sec ab-sand ab-iqbal"><div class="wrap">
+  <p class="eyebrow reveal">The words he lives by</p>
+  <blockquote class="reveal"><p class="ab-ur" lang="ur" dir="rtl">خودی کو کر بلند اتنا کہ ہر تقدیر سے پہلے<br>خدا بندے سے خود پوچھے بتا تیری رضا کیا ہے</p>
+  <p class="ab-en">&ldquo;Elevate your selfhood so high that before every destiny is ordained, God Himself asks His servant: Tell me, what is your wish?&rdquo;</p>
+  <footer>Allama Iqbal</footer></blockquote>
+</div></section>
+
+<section class="ab-sec ab-next"><div class="wrap ab-two ab-two-r">
+  <div class="ab-text reveal"><p class="eyebrow">The next chapter</p><h2 class="h-md">A second generation, a clearer direction.</h2>
+    <p>Umer joined the business in 2016, after studying aeronautical engineering. He went on to train in gemology and now works with us as a certified gemologist.</p>
+    <p>In 2023 the whole company was reshaped around what VLOR&Aacute; stands for: the family&rsquo;s craft, presented as one brand, in the same Gold Souq where it began.</p>
+  </div>
+  <div class="ab-years reveal" aria-hidden="true"><div><b>2016</b><span>Joins the business</span></div><div><b>2023</b><span>A new direction</span></div></div>
+</div></section>
+
+<section class="ab-sec ab-sand ab-process"><div class="wrap">
+  <header class="reveal"><p class="eyebrow">How it&rsquo;s made</p><h2 class="h-md">Everything under one roof.</h2>
+  <p class="ab-sub">Every VLOR&Aacute; piece is designed, crafted and finished in our own workshop in Dubai, by people we work beside every day. Nothing leaves the building until it is ready.</p></header>
+  <ol class="ab-steps">{steps_html}</ol>
+  <p class="ab-sub reveal">We are experts in diamond jewellery, and we can make whatever you can imagine. <a class="more" href="{link(d, "pages/bespoke/")}">Start a conversation</a></p>
+</div></section>
+
+<section class="ab-sec ab-navy ab-figs"><div class="wrap">
+  <header class="reveal"><p class="eyebrow">Made to last</p><h2 class="h-md">Still worn. Still cherished.</h2>
+  <p class="ab-sub">Many of the large gold necklaces we made for Emirati families have come back to us, brought in by the next generation to be refreshed. After all these years, they are still loved.</p></header>
+  <div class="ab-figrow">{figs_html}</div>
+</div></section>
+
+{build_promise()}
+
+{build_partners(d)}
+
+<section class="ab-sec ab-sand ab-close"><div class="wrap reveal">
+  <p class="eyebrow">What we hope you remember</p>
+  <p class="ab-big">Care, before, during and after your jewellery is made.</p>
+  <div class="cta-row"><a class="btn btn-primary" href="{link(d, "pages/contact/")}">Talk to us</a><a class="btn btn-ghost" href="{link(d, "collections/gold/")}">Discover the collections</a></div>
+</div></section>
+
+{build_visit()}
+"""
+    shell(path, 'About', 'The VLORÁ story: a family jewellery business in Dubai\'s Gold Souq since 1983, with everything designed, crafted and finished in our own workshop.', body)
 
 
 def page_contact():
