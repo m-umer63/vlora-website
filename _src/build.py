@@ -501,9 +501,20 @@ def simple_page(slug, title, desc, inner, noindex=False):
 def page_about():
     path = 'pages/about/index.html'
     d = depth_of(path)
-    steps = [('Design', 'An idea is drawn on paper.'), ('3D model', 'The drawing becomes a precise digital model.'), ('Wax', 'The model is turned into a wax piece.'),
-             ('Casting', 'The wax is cast in gold.'), ('Setting', 'Each gem is set with care.'), ('Finishing', 'A final polish, then handover.')]
-    steps_html = ''.join(f'<li class="reveal" style="--i:{i}"><b>{i + 1:02d}</b><h3>{t}</h3><p>{x}</p></li>' for i, (t, x) in enumerate(steps))
+    steps = [
+        ('Design', 'Every piece begins as an idea: a sketch on paper, shaped around the person who will wear it, the stones, and how it will be worn. Proportion, weight and comfort are settled here, before any gold is touched.',
+         '<path d="M8 32l2-8L26 8l6 6L16 30z"/><path d="M22 12l6 6"/>'),
+        ('3D model', 'The sketch is built as a precise 3D model. We study every angle, the fit of each stone and the balance of the piece on screen, and refine it with you before anything is made.',
+         '<path d="M20 5l13 7v16l-13 7-13-7V12z"/><path d="M7 12l13 7 13-7M20 19v16"/>'),
+        ('Wax master', 'The model is turned into a wax master, the first physical form of the piece. It can be held and checked, and adjusted easily, while it is still wax.',
+         '<path d="M20 6c6 8 10 12 10 18a10 10 0 0 1-20 0c0-6 4-10 10-18z"/><path d="M15 25a5 5 0 0 0 5 5"/>'),
+        ('Casting', 'The wax is set in a mould and replaced by molten gold, in the age-old lost-wax method. The cast comes out in gold, ready for the bench.',
+         '<path d="M7 11h18l-3 15H10z"/><path d="M25 13l8 8"/><path d="M34 24c2.5 3 2.5 5 0 7-2.500-2-2.500-4 0-7z"/>'),
+        ('Setting', 'Each stone is chosen and matched, then set by a specialist, secured so that it sits cleanly and stays safe through years of wear.',
+         '<circle cx="20" cy="26" r="9"/><path d="M15 12l5-6 5 6-5 5z"/>'),
+        ('Finishing', 'The piece is filed, smoothed and polished to its final finish, then inspected closely. Only when we are happy with it is it cleaned, presented and handed to you.',
+         '<path d="M20 5v9M20 26v9M5 20h9M26 20h9"/><path d="M11 11l5 5M24 24l5 5M29 11l-5 5M16 24l-5 5"/>')]
+    steps_html = ''.join(f'<li class="reveal"><span class="ab-st-n">{i + 1:02d}</span><svg class="ab-st-i" viewBox="0 0 40 40" aria-hidden="true">{ic}</svg><div><h3>{t}</h3><p>{x}</p></div></li>' for i, (t, x, ic) in enumerate(steps))
     figs = [('1983', 'Since', 'In the Gold Souq from the first day.', None), ('50', 'People in our workshop', 'Designers, setters, polishers and more, working under one roof.', '+'),
             ('1000000', 'Pieces made', 'Since we opened.', '+'), ('100000', 'Customers', 'Who consider us their family jeweller.', '+')]
     figs_html = ''.join(
@@ -512,8 +523,8 @@ def page_about():
     body = f"""
 <section class="ab-hero"><div class="ab-hero-n" aria-hidden="true">1983</div><div class="wrap">{crumbs(d, [("About", None)])}
   <p class="eyebrow">Our story</p>
-  <h1 class="ab-h1"><span class="line"><span>Four decades of gold,</span></span><span class="line gold"><span>made in Dubai.</span></span></h1>
-  <p class="ab-lede">From a bench in Karachi to the Gold Souq in 1983, VLOR&Aacute; has been one family&rsquo;s work, and still is.</p>
+  <h1 class="ab-h1"><span class="line"><span>One family. One craft.</span></span><span class="line gold"><span>Since 1983.</span></span></h1>
+  <p class="ab-lede">Akbar Khan opened our parent company in Dubai&rsquo;s Gold Souq in 1983. More than forty years on, every piece is still designed, crafted and finished by our own team.</p>
 </div></section>
 
 {story_section(d)}
@@ -535,19 +546,19 @@ def page_about():
 </div></section>
 
 <section class="ab-sec ab-next"><div class="wrap ab-two ab-two-l">
-  <figure class="ab-photo ab-photo-p reveal"><img src="{asset(d, "assets/img/story/umer.jpg")}" alt="Umer, director and certified gemologist at VLORÁ" width="1000" height="1426" loading="lazy" decoding="async"><figcaption>Umer, Director &amp; Certified Gemologist</figcaption></figure>
+  <figure class="ab-photo ab-photo-p reveal"><img src="{asset(d, "assets/img/story/umer.jpg")}" alt="Muhammad Umer, director and certified gemologist at VLORÁ" width="1000" height="1426" loading="lazy" decoding="async"><figcaption><span class="nm-full">Muhammad Umer</span><span class="nm-short">M. Umer</span>, Director &amp; Certified Gemologist</figcaption></figure>
   <div class="ab-text reveal"><p class="eyebrow">The second generation</p><h2 class="h-md">The craft, carried forward.</h2>
-    <p>Umer studied aeronautical engineering before joining the family business in 2016. He went on to qualify as a gemologist, and today he is a certified gemologist working alongside his father.</p>
+    <p>Muhammad Umer studied aeronautical engineering before joining the family business in 2016. He went on to qualify as a gemologist, and today he is a certified gemologist working alongside his father.</p>
     <p>In 2023 he led a complete rethink of the company, bringing everything we do together as one brand, built on the craft and the values we began with.</p>
     <dl class="ab-marks"><div><dt>2016</dt><dd>Joins the business</dd></div><div><dt>2023</dt><dd>Brings it together as one brand</dd></div></dl>
   </div>
 </div></section>
 
-<section class="ab-sec ab-sand ab-process"><div class="wrap">
-  <header class="reveal"><p class="eyebrow">How it&rsquo;s made</p><h2 class="h-md">Everything under one roof.</h2>
-  <p class="ab-sub">Every VLOR&Aacute; piece is designed, crafted and finished in our own workshop in Dubai, by people we work beside every day. Nothing leaves the building until it is ready.</p></header>
-  <ol class="ab-steps">{steps_html}</ol>
-  <p class="ab-sub reveal">We are experts in diamond jewellery, and we can make whatever you can imagine. <a class="more" href="{link(d, "pages/bespoke/")}">Start a conversation</a></p>
+<section class="ab-sec ab-sand ab-process"><div class="wrap ab-proc-grid">
+  <header class="ab-proc-head reveal"><p class="eyebrow">How it&rsquo;s made</p><h2 class="h-md">Everything under one roof.</h2>
+  <p class="ab-sub">Every VLOR&Aacute; piece is designed, crafted and finished in our own workshop in Dubai, by more than fifty people who work side by side. Nothing leaves the building until it is ready.</p>
+  <p class="ab-sub">We are experts in diamond jewellery, and we can make whatever you can imagine. <a class="more" href="{link(d, "pages/bespoke/")}">Start a conversation</a></p></header>
+  <ol class="ab-steps2">{steps_html}</ol>
 </div></section>
 
 <section class="ab-sec ab-navy ab-figs"><div class="wrap">
@@ -557,8 +568,6 @@ def page_about():
 </div></section>
 
 {build_promise()}
-
-{build_partners(d)}
 
 <section class="ab-sec ab-sand ab-care"><div class="wrap">
   <header class="reveal"><p class="eyebrow">Our service</p><h2 class="h-md">Care at every stage.</h2>
