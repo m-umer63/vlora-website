@@ -292,9 +292,9 @@ def build_partners(d):
     return partners
 
 
-def build_visit():
+def build_visit(title="See it in person"):
     mq = urllib.parse.quote_plus(SITE.get('map_query', 'Gold Souq, Deira, Dubai'))
-    visit = (f'<section class="visit"><div class="wrap visit-grid"><div class="visit-t"><p class="eyebrow">The showroom</p><h2 class="h-md">See it in person</h2>'
+    visit = (f'<section class="visit"><div class="wrap visit-grid"><div class="visit-t"><p class="eyebrow">The showroom</p><h2 class="h-md">{title}</h2>'
              f'<dl><dt>Address</dt><dd>{esc(SITE["address"])}</dd><dt>Hours</dt><dd>{esc(SITE["hours"]).replace("\n", "<br>")}</dd><dt>Phone</dt><dd>{esc(SITE["phone_display"])}<br>{esc(SITE["phone2_display"])}</dd></dl>'
              f'<div class="visit-btns"><a class="btn btn-gold" href="https://www.google.com/maps/dir/?api=1&amp;destination={SITE["geo"]["lat"]},{SITE["geo"]["lng"]}" rel="noopener" target="_blank">Get directions</a>'
              f'<a class="btn btn-ghost-light" href="{wa_link("Hello VLORÁ, I would like to visit the showroom.")}" rel="noopener">WhatsApp us</a></div></div>'
@@ -524,17 +524,17 @@ def page_about():
 <section class="ab-hero"><div class="ab-hero-n" aria-hidden="true">1983</div><div class="wrap">{crumbs(d, [("About", None)])}
   <p class="eyebrow">Our story</p>
   <h1 class="ab-h1"><span class="line"><span>One family. One craft.</span></span><span class="line gold"><span>Four decades.</span></span></h1>
-  <p class="ab-lede">Akbar Khan opened our parent company in Dubai&rsquo;s Gold Souq in 1983. Today, every piece is still designed, crafted and finished by our own team.</p>
+  <p class="ab-lede">Akbar Khan started with a goldsmithing workshop in Dubai&rsquo;s Gold Souq, over forty years ago. Today, jewellery crafted by VLOR&Aacute; is part of more than 100,000 stories.</p>
 </div></section>
 
 {story_section(d)}
 
 <section class="ab-sec ab-founder"><div class="wrap ab-two">
   <figure class="ab-photo reveal"><img src="{asset(d, "assets/img/story/y1997.jpg")}" alt="Akbar Khan, founder of VLORÁ" width="1600" height="900" loading="lazy" decoding="async"><figcaption>Akbar Khan, our founder</figcaption></figure>
-  <div class="ab-text reveal"><p class="eyebrow">The founder</p><h2 class="h-md">Learned in Karachi. Built in the Gold Souq.</h2>
-    <p>Akbar Khan came to gold young. On the streets of Karachi, where our family is from, he learned the trade the way it was taught then: by doing the work, day after day.</p>
-    <p>In the 1980s he brought that skill to Dubai, and in 1983 he opened our parent company in the Gold Souq. The idea that would become VLOR&Aacute; began there, and the Gold Souq has been our home ever since.</p>
-    <p>Our early years brought a defining trust. The Sheikh&rsquo;s office asked us to create a one-of-one piece for the Sheikha, and gemstones worth millions were placed in our care. It remains the standard we hold every commission to: a customer&rsquo;s trust, kept in every detail.</p>
+  <div class="ab-text reveal"><p class="eyebrow">The founder</p><h2 class="h-md">A goldsmith&rsquo;s eye. A founder&rsquo;s standards.</h2>
+    <p>Akbar Khan is a goldsmith first. He learned the craft early and mastered it at the bench, and that hands-on knowledge has shaped everything we make.</p>
+    <p>In 1983 he started our parent company in the Gold Souq, building it on exacting standards of workmanship. The idea that would become VLOR&Aacute; began there.</p>
+    <p>His skill earned trust early. The Sheikh&rsquo;s office asked us to create a one-of-one piece for the Sheikha, and gemstones worth millions were placed in our care. It remains the standard we hold every commission to.</p>
   </div>
 </div></section>
 
@@ -547,11 +547,11 @@ def page_about():
 
 <section class="ab-sec ab-next"><div class="wrap ab-two ab-two-l">
   <figure class="ab-photo ab-photo-p reveal"><img src="{asset(d, "assets/img/story/umer.jpg")}" alt="Muhammad Umer, Managing Director of VLORÁ" width="1000" height="1426" loading="lazy" decoding="async"><figcaption><span class="nm-full">Muhammad Umer</span><span class="nm-short">M. Umer</span>, Managing Director</figcaption></figure>
-  <div class="ab-text reveal"><p class="eyebrow">The second generation</p><h2 class="h-md">Precision, brought to the craft.</h2>
-    <p>Muhammad Umer trained as an aeronautical engineer and is also a certified pilot, two disciplines built on precision, planning and care. He joined the family business in 2016 and went on to earn a diploma in gemology.</p>
-    <p>Today, as Managing Director, he leads the whole company and oversees the design of every piece that leaves our workshop. In 2023 he reshaped VLOR&Aacute; from the ground up, bringing everything we do together as one brand, built on the craft and values we began with.</p>
-    <ul class="ab-creds"><li>Aeronautical engineer</li><li>Certified pilot</li><li>Diploma in gemology</li></ul>
-    <dl class="ab-marks"><div><dt>2016</dt><dd>Joins the business</dd></div><div><dt>2023</dt><dd>Brings it together as one brand</dd></div></dl>
+  <div class="ab-text reveal"><p class="eyebrow">The second generation</p><h2 class="h-md">Leading VLOR&Aacute; into its next chapter.</h2>
+    <p>Muhammad Umer joined VLOR&Aacute; in 2016 and holds a diploma in gemology. As Managing Director, he leads the whole company and oversees the design of every piece that leaves our workshop.</p>
+    <p>In 2023 he reshaped the brand from the ground up, bringing everything we do together as one. In 2024 he took VLOR&Aacute; into designer villa development and construction under VLORA Estate, and he continues to grow the brand worldwide, with expansion into food &amp; beverage and hospitality planned.</p>
+    <ul class="ab-creds"><li>Managing Director</li><li>Certified gemologist</li></ul>
+    <dl class="ab-marks"><div><dt>2016</dt><dd>Joins VLOR&Aacute;</dd></div><div><dt>2023</dt><dd>One brand</dd></div><div><dt>2024</dt><dd>VLORA Estate</dd></div></dl>
   </div>
 </div></section>
 
@@ -563,8 +563,8 @@ def page_about():
 </div></section>
 
 <section class="ab-sec ab-navy ab-figs"><div class="wrap">
-  <header class="reveal"><p class="eyebrow">Made to last</p><h2 class="h-md">Passed down, and brought back.</h2>
-  <p class="ab-sub">For decades, Emirati families have commissioned heavy gold necklaces from us. Many of those pieces have come back to our workshop, brought in by the next generation to be refurbished. The gold has outlasted the years, and so has the trust of the families who wear it.</p></header>
+  <header class="reveal"><p class="eyebrow">Made to last</p><h2 class="h-md">Made to be passed on.</h2>
+  <p class="ab-sub">Jewellery should outlast the day it is bought. Over the years, pieces we made have come back to our workshop, from heavy gold necklaces to everyday rings, to be cleaned, restored and worn again. Many are brought in by the next generation.</p><p class="ab-sub">We treat each one as a new commission and send it home as it was on the first day. That is what we mean by a lifetime of care.</p></header>
   <div class="ab-figrow">{figs_html}</div>
 </div></section>
 
@@ -581,7 +581,7 @@ def page_about():
   <div class="cta-row reveal"><a class="btn btn-primary" href="{link(d, "pages/contact/")}">Talk to us</a><a class="btn btn-ghost" href="{link(d, "collections/gold/")}">Discover the collections</a></div>
 </div></section>
 
-{build_visit()}
+{build_visit("Hope to see you soon")}
 """
     shell(path, 'About', 'The VLORÁ story: a family jewellery business in Dubai\'s Gold Souq since 1983, with everything designed, crafted and finished in our own workshop.', body)
 
