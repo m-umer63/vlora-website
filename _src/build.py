@@ -596,15 +596,11 @@ def page_contact():
     def card(k, label, big, sub, href, ext=''):
         return (f'<a class="ct-card reveal" href="{href}"{ext}><svg viewBox="0 0 40 40" aria-hidden="true">{ic[k]}</svg><b>{label}</b><span class="ct-big">{big}</span><em>{sub}</em></a>')
     cards = (card('wa', 'WhatsApp', esc(SITE["whatsapp_display"]), 'The fastest way to reach us', wa, ' rel="noopener" target="_blank"')
-             + card('tel', 'Call', esc(SITE["phone_display"]), esc(SITE["phone2_display"]), f'tel:{tel1}')
+             + card('tel', 'Call', esc(SITE["whatsapp_display"]), esc(SITE["phone_display"]), f'tel:{tel2}')
              + card('mail', 'Email', esc(SITE["email"]), 'For longer questions', f'mailto:{esc(SITE["email"])}')
              + card('pin', 'Showroom', 'Gold Souq, Deira', 'Shop 1, Halo Al Obaid Building', f'https://www.google.com/maps/dir/?api=1&amp;destination={SITE["geo"]["lat"]},{SITE["geo"]["lng"]}', ' rel="noopener" target="_blank"'))
     topics = ['Choosing a piece', 'Bespoke or custom design', 'Care, cleaning or repair', 'An order or delivery', 'Something else']
     opts = ''.join(f'<option>{t}</option>' for t in topics)
-    steps = [('Tell us what you need', 'Choose a topic and write a few lines. A photo of a piece you like can be sent on WhatsApp afterwards.'),
-             ('We reply personally', 'Our team answers on WhatsApp or by email, with advice and options.'),
-             ('Visit, or we arrange it', 'Come and see the pieces in the showroom, or we arrange delivery for you.')]
-    steps_html = ''.join(f'<li class="reveal" style="--i:{i}"><b>{i + 1:02d}</b><div><h3>{t}</h3><p>{x}</p></div></li>' for i, (t, x) in enumerate(steps))
     body = f"""
 <section class="ab-hero ct-hero"><div class="wrap">{crumbs(d, [("Contact", None)])}
   <p class="eyebrow">Contact</p>
@@ -617,15 +613,16 @@ def page_contact():
 
 <section class="ab-sec ab-sand ct-form-sec"><div class="wrap ct-two">
   <div class="reveal"><p class="eyebrow">Write to us</p><h2 class="h-md">Send us a message.</h2>
-    <p class="ab-sub">Fill in the form and choose how you would like to send it. It opens WhatsApp or your email app with everything written out, ready for you to send.</p>
-    <ol class="ct-steps">{steps_html}</ol></div>
-  <form class="ct-form reveal" id="contact-form" data-wa="{SITE["whatsapp"]}" data-email="{esc(SITE["email"])}" novalidate>
-    <div class="ct-row"><label>Your name<input name="name" required autocomplete="name"></label>
-    <label>Phone or WhatsApp<input name="phone" required autocomplete="tel" inputmode="tel"></label></div>
+    <p class="ct-sla"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Our team will get back to you within 24 hours.</p></div>
+  <form class="ct-form reveal" id="contact-form" data-action="{asset(d, "contact-send.php")}" data-preview="{1 if ARGS.preview else 0}" data-wa="{SITE["whatsapp"]}" data-email="{esc(SITE["email"])}" novalidate>
+    <div class="ct-hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+    <input type="hidden" name="t" value="">
+    <div class="ct-row"><label><span>Your name</span><input name="name" required autocomplete="name"></label>
+    <label><span>Phone or WhatsApp</span><input name="phone" required autocomplete="tel" inputmode="tel"></label></div>
     <div class="ct-row"><label><span>Email <span class="opt">(optional)</span></span><input name="email" type="email" autocomplete="email"></label>
-    <label>What is it about?<select name="topic">{opts}</select></label></div>
-    <label>Your message<textarea name="msg" rows="5" required></textarea></label>
-    <div class="form-actions"><button class="btn btn-primary" type="submit" data-via="wa">Send on WhatsApp</button><button class="btn btn-ghost" type="submit" data-via="mail">Send by email</button></div>
+    <label><span>What is it about?</span><select name="topic">{opts}</select></label></div>
+    <label><span>Your message</span><textarea name="msg" rows="5" required></textarea></label>
+    <div class="form-actions"><button class="btn btn-primary" type="submit">Send message</button></div>
     <p class="ct-status" id="ct-status" role="status" aria-live="polite"></p>
     <p class="fine">We use your details only to reply to you. See our <a href="{link(d, "pages/privacy/")}">privacy policy</a>.</p>
   </form>
@@ -837,6 +834,7 @@ def build():
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'<url><loc>{esc(u)}</loc><lastmod>{today}</lastmod></url>\n' for u in sorted(set(PAGES))) + '</urlset>\n'
     write('sitemap.xml', sm)
     write('robots.txt', f"User-agent: *\nAllow: /\nDisallow: /_src/\nDisallow: /checkout/\nSitemap: {SITE['domain']}/sitemap.xml\n")
+    write('contact-send.php', open(os.path.join(HERE, 'contact-send.php'), encoding='utf-8').read())
     if not ARGS.preview:
         write('.htaccess', open(os.path.join(HERE, 'htaccess.txt')).read())
     print(f"Built {len(PRODUCTS)} products, {len(PAGES)} indexable pages into {OUT}")

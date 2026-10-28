@@ -234,14 +234,37 @@
   var via = 'wa';
   document.addEventListener('click', function (e) { var b = e.target.closest('button[data-via]'); if (b) via = b.getAttribute('data-via'); });
   var cf = $('#contact-form');
-  if (cf) cf.addEventListener('submit', function (e) {
-    e.preventDefault(); var f = new FormData(cf), st = $('#ct-status');
-    var name = (f.get('name') || '').trim(), phone = (f.get('phone') || '').trim(), msg = (f.get('msg') || '').trim();
-    if (!name || !phone || !msg) { if (st) st.textContent = 'Please add your name, phone number and a short message.'; return; }
-    var text = 'Hello VLORÁ,\n\nTopic: ' + (f.get('topic') || 'General') + '\n\n' + msg + '\n\n' + name + '\n' + phone + (f.get('email') ? '\n' + f.get('email') : '');
-    send(cf, text, 'Website enquiry: ' + (f.get('topic') || 'General'), via);
-    if (st) st.textContent = via === 'wa' ? 'Opening WhatsApp with your message. If nothing opens, message us directly on WhatsApp.' : 'Opening your email app with your message. If nothing opens, email us directly.';
-  });
+  if (cf) {
+    var tf = cf.querySelector('[name=t]'); if (tf) tf.value = String(Date.now());
+    cf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var st = $('#ct-status'), btn = cf.querySelector('button[type=submit]'), f = new FormData(cf);
+      var name = (f.get('name') || '').trim(), phone = (f.get('phone') || '').trim(), msg = (f.get('msg') || '').trim();
+      function say(t) { if (st) st.innerHTML = t; }
+      if (!name || !phone || !msg) { say('Please add your name, phone number and a short message.'); return; }
+      function done() {
+        var first = name.split(' ')[0].replace(/[<>&"]/g, '');
+        cf.innerHTML = '<div class="ct-done"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16"/><path d="M12 20.5l5.5 5.5L28 15"/></svg><h3>Thank you, ' + first + '.</h3><p>Your message has reached us. Our team will get back to you within 24 hours.</p>' +
+          (cf.getAttribute('data-preview') === '1' ? '<p class="fine">Preview only: nothing was sent. On the live site this goes straight to the team inbox.</p>' : '') + '</div>';
+        cf.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      function fail() {
+        var wa = 'https://wa.me/' + cf.getAttribute('data-wa'), em = cf.getAttribute('data-email');
+        say('We could not send that just now. Please try again, or message us on <a href="' + wa + '" rel="noopener">WhatsApp</a> or at <a href="mailto:' + em + '">' + em + '</a>.');
+        btn.disabled = false; btn.textContent = 'Send message';
+      }
+      btn.disabled = true; btn.textContent = 'Sending\u2026'; say('');
+      if (cf.getAttribute('data-preview') === '1') { setTimeout(done, 700); return; }
+      fetch(cf.getAttribute('data-action'), { method: 'POST', body: f, credentials: 'same-origin' })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }).then(function (d) { return { r: r, d: d }; }); })
+        .then(function (x) {
+          if (x.d && x.d.ok) done();
+          else if (x.r.status === 422 || x.r.status === 429) { say((x.d && x.d.message) || 'Please check the form and try again.'); btn.disabled = false; btn.textContent = 'Send message'; }
+          else fail();
+        })
+        .catch(fail);
+    });
+  }
   var ck = $('#checkout-form');
   if (ck) {
     renderSummary();
