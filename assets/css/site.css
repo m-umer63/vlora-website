@@ -821,3 +821,9 @@ input,select,textarea,button{font-family:inherit}
 @keyframes cgDraw{to{stroke-dashoffset:0}}
 @media (prefers-reduced-motion:reduce){.cg-panel.is-on .cg-art svg *{animation:none;stroke-dashoffset:0}}
 @media (max-width:900px){.cg-art{aspect-ratio:16/9}.cg-art svg{width:auto;height:84%}}
+.cg-photo{margin:0;overflow:hidden;background:var(--navy)}
+.cg-photo img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.cg-panel.is-on .cg-photo img{animation:cgZoom 1.4s var(--ease) both}
+@keyframes cgZoom{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:none}}
+@media (max-width:900px){.cg-photo{max-width:440px}.cg-photo img{aspect-ratio:1/1}}
+@media (prefers-reduced-motion:reduce){.cg-panel.is-on .cg-photo img{animation:none}}

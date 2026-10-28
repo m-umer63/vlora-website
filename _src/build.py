@@ -624,7 +624,9 @@ def page_bespoke():
 <p class="draft">Draft text. Please review and adjust to match how your bespoke service really works, including timelines.</p>''')
 
 
-CG_ART = {'Gold': '<circle cx="100" cy="125" r="70"/><circle cx="100" cy="125" r="56"/><path d="M52 92a58 58 0 0 1 30-30M148 158a58 58 0 0 1-30 30"/><path d="M40 125a60 60 0 0 1 4-22"/>', 'Silver': '<ellipse cx="72" cy="96" rx="38" ry="22" transform="rotate(-35 72 96)"/><ellipse cx="112" cy="128" rx="38" ry="22" transform="rotate(35 112 128)"/><ellipse cx="78" cy="164" rx="38" ry="22" transform="rotate(-35 78 164)"/>', 'Diamonds': '<path d="M38 92L68 58H132L162 92L100 192Z"/><path d="M38 92H162M68 58L84 92 100 58 116 92 132 58M84 92L100 192 116 92"/>', 'Coloured gems': '<path d="M68 58H132L158 84V166L132 192H68L42 166V84Z"/><path d="M80 76H120L140 96V154L120 174H80L60 154V96Z"/><path d="M68 58L80 76M132 58L120 76M158 84L140 96M158 166L140 154M132 192L120 174M68 192L80 174M42 166L60 154M42 84L60 96"/>', 'Watches': '<path d="M80 80L84 36H116L120 80M80 170L84 214H116L120 170"/><circle cx="100" cy="125" r="52"/><circle cx="100" cy="125" r="44"/><path d="M100.0 89.0L100.0 97.0"/><path d="M118.0 93.8L115.0 99.0"/><path d="M131.2 107.0L126.0 110.0"/><path d="M136.0 125.0L128.0 125.0"/><path d="M131.2 143.0L126.0 140.0"/><path d="M118.0 156.2L115.0 151.0"/><path d="M100.0 161.0L100.0 153.0"/><path d="M82.0 156.2L85.0 151.0"/><path d="M68.8 143.0L74.0 140.0"/><path d="M64.0 125.0L72.0 125.0"/><path d="M68.8 107.0L74.0 110.0"/><path d="M82.0 93.8L85.0 99.0"/><path d="M100 125V100M100 125L118 134"/><circle cx="100" cy="125" r="2.500"/>'}
+CG_IMG = {'Gold': 'gold', 'Silver': 'silver', 'Diamonds': 'diamond', 'Coloured gems': 'gems', 'Watches': 'watch'}
+CG_ALT = {'Gold': 'Polishing a gold bangle with a soft cloth', 'Silver': 'Polishing a silver bangle with a polishing cloth', 'Diamonds': 'A round brilliant diamond held in tweezers',
+          'Coloured gems': 'A sapphire, an emerald and a ruby beside a jeweller\'s loupe and tweezers', 'Watches': 'A watchmaker servicing a watch with tweezers'}
 
 
 def page_care():
@@ -664,7 +666,7 @@ def page_care():
     panels = ''
     for i, (n, img, lead, do, av, tip) in enumerate(mats):
         panels += (f'<div class="cg-panel{" is-on" if i == 0 else ""}" role="tabpanel" id="cgp{i}" aria-labelledby="cgt{i}"{"" if i == 0 else " hidden"}>'
-                   f'<figure class="cg-art" aria-hidden="true"><svg viewBox="0 0 200 250">{CG_ART[n]}</svg></figure>'
+                   f'<figure class="cg-photo"><img src="{asset(d, "assets/img/care-" + CG_IMG[n] + ".jpg")}" alt="{CG_ALT[n]}" width="900" height="1125" loading="lazy" decoding="async"></figure>'
                    f'<div class="cg-body"><h3>{n}</h3><p class="cg-lead">{lead}</p>'
                    f'<div class="cg-cols"><div><h4>Do</h4><ul>{"".join(f"<li>{x}</li>" for x in do)}</ul></div><div><h4>Avoid</h4><ul>{"".join(f"<li>{x}</li>" for x in av)}</ul></div></div>'
                    f'<p class="cg-tip"><b>Good to know</b>{tip}</p></div></div>')
