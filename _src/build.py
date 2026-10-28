@@ -625,7 +625,7 @@ def page_bespoke():
 
 
 CG_IMG = {'Gold': 'gold', 'Silver': 'silver', 'Diamonds': 'diamond', 'Coloured gems': 'gems', 'Watches': 'watch'}
-CG_ALT = {'Gold': 'Polishing a gold bangle with a soft cloth', 'Silver': 'Polishing a silver bangle with a polishing cloth', 'Diamonds': 'A round brilliant diamond held in tweezers',
+CG_ALT = {'Gold': 'Cleaning a gold chain with a soft polishing cloth', 'Silver': 'A silver chain beside a folded silver polishing cloth', 'Diamonds': 'A round brilliant diamond held in tweezers',
           'Coloured gems': 'A sapphire, an emerald and a ruby beside a jeweller\'s loupe and tweezers', 'Watches': 'A watchmaker servicing a watch with tweezers'}
 
 
