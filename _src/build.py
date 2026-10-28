@@ -613,7 +613,15 @@ def page_contact():
 
 <section class="ab-sec ab-sand ct-form-sec"><div class="wrap ct-two">
   <div class="reveal"><p class="eyebrow">Write to us</p><h2 class="h-md">Send us a message.</h2>
-    <p class="ct-sla"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Our team will get back to you within 24 hours.</p></div>
+    <p class="ct-lede">Tell us what you are looking for and we will take it from there.</p>
+    <p class="ct-sla"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Our team will get back to you within 24 hours.</p>
+    <div class="ct-help"><h3>We can help with</h3><ul>
+      <li>Choosing the right piece, for yourself or as a gift</li>
+      <li>Designing something custom, from first sketch to finished piece</li>
+      <li>Cleaning, repairs and routine checks for jewellery you own</li>
+      <li>Orders, delivery and anything else</li></ul></div>
+    <p class="ct-talk">Prefer to talk? Call or WhatsApp <a href="tel:{tel2}">{esc(SITE["whatsapp_display"])}</a>.</p>
+  </div>
   <form class="ct-form reveal" id="contact-form" data-action="{asset(d, "contact-send.php")}" data-preview="{1 if ARGS.preview else 0}" data-wa="{SITE["whatsapp"]}" data-email="{esc(SITE["email"])}" novalidate>
     <div class="ct-hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
     <input type="hidden" name="t" value="">

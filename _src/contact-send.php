@@ -3,13 +3,13 @@
  * VLORÁ contact form: receives the enquiry from /pages/contact/ and emails it to the team.
  * Upload this file to the website root (next to index.html). No database, no third-party service.
  *
- * Settings: change TO_EMAIL to change where enquiries land. FROM_EMAIL must be an address on vlora.ae
- * (create a mailbox such as no-reply@vlora.ae in Hostinger, or use info@vlora.ae) so the mail is not marked as spam.
+ * Settings: change TO_EMAIL to change where enquiries land. FROM_EMAIL must be a real mailbox on vlora.ae
+ * (info@vlora.ae) so the mail is not marked as spam.
  */
 declare(strict_types=1);
 
 const TO_EMAIL   = 'info@vlora.ae';
-const FROM_EMAIL = 'no-reply@vlora.ae';
+const FROM_EMAIL = 'info@vlora.ae';
 const FROM_NAME  = 'VLORA Website';
 const TOPICS     = ['Choosing a piece', 'Bespoke or custom design', 'Care, cleaning or repair', 'An order or delivery', 'Something else'];
 const MAX_PER_HOUR = 5;   // per visitor
