@@ -336,6 +336,24 @@ function heroVideo(){
     }, { threshold: .4 });
     els.forEach(function (el) { io.observe(el); });
   }
+  function initCareTabs() {
+    $$('[data-cg-tabs]').forEach(function (root) {
+      var tabs = $$('[role=tab]', root), panels = $$('[role=tabpanel]', root);
+      function show(i, focus) {
+        tabs.forEach(function (t, k) { t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; });
+        panels.forEach(function (p, k) { p.hidden = k !== i; p.classList.toggle('is-on', k === i); });
+        if (focus) tabs[i].focus();
+      }
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { show(i); });
+        t.addEventListener('keydown', function (e) {
+          var k = e.key, n = tabs.length;
+          if (k === 'ArrowRight' || k === 'ArrowDown') { e.preventDefault(); show((i + 1) % n, true); }
+          else if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); show((i + n - 1) % n, true); }
+        });
+      });
+    });
+  }
   function initGemScene() {
     var sec = $('[data-gs3]'); if (!sec) return;
     var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -458,5 +476,5 @@ function heroVideo(){
     requestAnimationFrame(loop);
   }
 
-  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts();
+  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs();
 })();

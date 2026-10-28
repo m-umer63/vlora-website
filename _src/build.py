@@ -624,15 +624,80 @@ def page_bespoke():
 <p class="draft">Draft text. Please review and adjust to match how your bespoke service really works, including timelines.</p>''')
 
 
+CG_ART = {'Gold': '<circle cx="100" cy="125" r="70"/><circle cx="100" cy="125" r="56"/><path d="M52 92a58 58 0 0 1 30-30M148 158a58 58 0 0 1-30 30"/><path d="M40 125a60 60 0 0 1 4-22"/>', 'Diamonds': '<path d="M38 92L68 58H132L162 92L100 192Z"/><path d="M38 92H162M68 58L84 92 100 58 116 92 132 58M84 92L100 192 116 92"/>', 'Coloured gems': '<path d="M68 58H132L158 84V166L132 192H68L42 166V84Z"/><path d="M80 76H120L140 96V154L120 174H80L60 154V96Z"/><path d="M68 58L80 76M132 58L120 76M158 84L140 96M158 166L140 154M132 192L120 174M68 192L80 174M42 166L60 154M42 84L60 96"/>', 'Pearls': '<g><circle cx="177.3" cy="84.6" r="15"/><path d="M170.3 81.6a8 8 0 0 1 6-6"/><circle cx="161.3" cy="121.1" r="15"/><path d="M154.3 118.1a8 8 0 0 1 6-6"/><circle cx="133.8" cy="146.1" r="15"/><path d="M126.8 143.1a8 8 0 0 1 6-6"/><circle cx="100.0" cy="155.0" r="15"/><path d="M93.0 152.0a8 8 0 0 1 6-6"/><circle cx="66.2" cy="146.1" r="15"/><path d="M59.2 143.1a8 8 0 0 1 6-6"/><circle cx="38.7" cy="121.1" r="15"/><path d="M31.7 118.1a8 8 0 0 1 6-6"/><circle cx="22.7" cy="84.6" r="15"/><path d="M15.7 81.6a8 8 0 0 1 6-6"/></g>', 'Watches': '<path d="M80 80L84 36H116L120 80M80 170L84 214H116L120 170"/><circle cx="100" cy="125" r="52"/><circle cx="100" cy="125" r="44"/><path d="M100.0 89.0L100.0 97.0"/><path d="M118.0 93.8L115.0 99.0"/><path d="M131.2 107.0L126.0 110.0"/><path d="M136.0 125.0L128.0 125.0"/><path d="M131.2 143.0L126.0 140.0"/><path d="M118.0 156.2L115.0 151.0"/><path d="M100.0 161.0L100.0 153.0"/><path d="M82.0 156.2L85.0 151.0"/><path d="M68.8 143.0L74.0 140.0"/><path d="M64.0 125.0L72.0 125.0"/><path d="M68.8 107.0L74.0 110.0"/><path d="M82.0 93.8L85.0 99.0"/><path d="M100 125V100M100 125L118 134"/><circle cx="100" cy="125" r="2.500"/>'}
+
+
 def page_care():
-    simple_page('care-guide', 'Care guide', 'Simple habits that keep gold, diamonds and watches looking their best.', '''
-<p class="lede">A little care goes a long way. These habits suit most fine jewellery.</p>
-<h2>Everyday wear</h2><p>Put jewellery on last, after perfume, creams and hairspray, and take it off first at the end of the day.</p>
-<h2>Keep it away from</h2><p>Chlorine, harsh cleaning products, and heavy exercise or gardening. Chemicals and knocks can dull metal and loosen settings.</p>
-<h2>Cleaning</h2><p>Soak in lukewarm water with a drop of mild soap, brush gently with a soft brush, rinse, and pat dry with a soft cloth.</p>
-<h2>Storage</h2><p>Store each piece separately in a soft pouch or lined box so pieces do not scratch each other.</p>
-<h2>Check-ups</h2><p>Have settings and clasps checked from time to time. Ask us if you would like a piece inspected.</p>
-<p class="draft">Draft text. Please review and adjust to match your own advice, especially for watches and coloured stones.</p>''')
+    path = 'pages/care-guide/index.html'
+    d = depth_of(path)
+    rules = [('Last on, first off', 'Put jewellery on after perfume, lotion and hairspray, and take it off before you change or wash.',
+              '<path d="M8 20h24M24 12l8 8-8 8"/>'),
+             ('Keep it from chemicals', 'Chlorine, bleach and strong cleaners dull metal and can damage stones. Remove it before swimming, cleaning or the gym.',
+              '<path d="M20 6c6 8 10 12 10 18a10 10 0 0 1-20 0c0-6 4-10 10-18z"/><path d="M8 8l24 24"/>'),
+             ('Store each piece apart', 'Give every piece its own soft pouch or lined box, so harder stones never scratch softer ones.',
+              '<rect x="6" y="14" width="28" height="18" rx="2"/><path d="M6 20h28M17 20v4h6v-4"/><path d="M12 14V9h16v5"/>'),
+             ('Check it regularly', 'Have settings, clasps and prongs looked at from time to time. A small fix early prevents a big loss later.',
+              '<circle cx="18" cy="18" r="9"/><path d="M25 25l9 9"/><path d="M14 18l3 3 5-6"/>')]
+    rules_html = ''.join(f'<div class="cg-rule reveal" style="--i:{i}"><svg viewBox="0 0 40 40" aria-hidden="true">{ic}</svg><h3>{t}</h3><p>{x}</p></div>' for i, (t, x, ic) in enumerate(rules))
+    mats = [
+        ('Gold', 'bangles', 'Gold is soft, so it scratches long before it wears out.',
+         ['Soak in lukewarm water with a drop of mild soap, brush gently with a soft brush, rinse and pat dry.', 'Buff lightly with a jewellery cloth to bring back the shine.', 'Keep chains and bangles apart: gold scratches against gold.'],
+         ['Chlorine, bleach and harsh cleaners.', 'Heavy knocks, gardening and weight training.'],
+         'White gold gets its bright finish from a rhodium plating that slowly wears. We can refresh it whenever it starts to look warm.'),
+        ('Diamonds', 'rings', 'Very hard, but not indestructible. A sharp knock can still chip the edge.',
+         ['Soak in warm soapy water and brush gently behind the stone, where dirt gathers. Rinse well.', 'Have the prongs checked now and then, as they hold the stone.', 'Wear it with care, and remove it for heavy work.'],
+         ['Touching the stone: skin oils cloud it.', 'Storing it loose. A diamond scratches everything it touches.'],
+         'A diamond that looks dull is almost always dirty, not damaged.'),
+        ('Coloured gems', 'pendants', 'Emerald, ruby, sapphire: each stone has its own limits.',
+         ['Ruby and sapphire are tough: warm soapy water and a soft brush are fine.', 'Wipe emerald gently with a soft, damp cloth.', 'Keep all coloured stones away from sudden temperature changes.'],
+         ['Ultrasonic and steam cleaners on emeralds. They are often oil-treated and have natural inclusions.', 'Harsh chemicals, and hard knocks.'],
+         'Not sure which stone you have? Ask us before you clean it.'),
+        ('Pearls', 'necklaces', 'Pearls are organic, and the softest of all gems.',
+         ['Wipe with a soft, damp cloth after each wear.', 'Store flat in a soft pouch, away from harder jewellery.', 'Have worn strands restrung from time to time, as the thread stretches.'],
+         ['Perfume, hairspray, vinegar and other acids.', 'Soaking, and ultrasonic cleaners. Hanging them up for long.'],
+         'Put pearls on last, and take them off first.'),
+        ('Watches', 'watches', 'A watch is a small machine. Treat it like one.',
+         ['Check its water-resistance rating, and make sure the crown is pushed or screwed in before any contact with water.', 'Wipe with a soft, dry cloth.', 'Have it serviced every few years.'],
+         ['Hot showers, saunas and sudden temperature swings.', 'Strong magnets, and heavy knocks.'],
+         'Water resistance fades as seals age, so have it tested whenever the watch is serviced.')]
+    tabs = ''.join(f'<button type="button" role="tab" id="cgt{i}" aria-controls="cgp{i}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{n}</button>' for i, (n, *_r) in enumerate(mats))
+    panels = ''
+    for i, (n, img, lead, do, av, tip) in enumerate(mats):
+        panels += (f'<div class="cg-panel{" is-on" if i == 0 else ""}" role="tabpanel" id="cgp{i}" aria-labelledby="cgt{i}"{"" if i == 0 else " hidden"}>'
+                   f'<figure class="cg-art" aria-hidden="true"><svg viewBox="0 0 200 250">{CG_ART[n]}</svg></figure>'
+                   f'<div class="cg-body"><h3>{n}</h3><p class="cg-lead">{lead}</p>'
+                   f'<div class="cg-cols"><div><h4>Do</h4><ul>{"".join(f"<li>{x}</li>" for x in do)}</ul></div><div><h4>Avoid</h4><ul>{"".join(f"<li>{x}</li>" for x in av)}</ul></div></div>'
+                   f'<p class="cg-tip"><b>Good to know</b>{tip}</p></div></div>')
+    signs = ['A stone that moves or rattles', 'A bent or worn prong', 'A clasp that opens by itself', 'A chain that kinks or stretches', 'Dullness that cleaning will not fix']
+    body = f"""
+<section class="ab-hero cg-hero"><div class="wrap">{crumbs(d, [("Care guide", None)])}
+  <p class="eyebrow">Care guide</p>
+  <h1 class="ab-h1"><span class="line"><span>Made to last.</span></span><span class="line gold"><span>Cared for to shine.</span></span></h1>
+  <p class="ab-lede">A few simple habits, and the right care for each metal and stone, keep your jewellery looking as it did on the first day.</p>
+</div></section>
+
+<section class="ab-sec cg-rules"><div class="wrap">
+  <header class="reveal"><p class="eyebrow">Everyday habits</p><h2 class="h-md">Four rules for everything you own.</h2></header>
+  <div class="cg-rules-row">{rules_html}</div>
+</div></section>
+
+<section class="ab-sec ab-sand cg-mat"><div class="wrap">
+  <header class="reveal"><p class="eyebrow">Know your piece</p><h2 class="h-md">Care, material by material.</h2></header>
+  <div class="cg-tabs" data-cg-tabs>
+    <div class="cg-tablist" role="tablist" aria-label="Choose a material">{tabs}</div>
+    <div class="cg-panels">{panels}</div>
+  </div>
+  <p class="cg-note">This is general guidance. If you are unsure about a particular piece, ask us.</p>
+</div></section>
+
+<section class="ab-sec cg-bring"><div class="wrap ab-two">
+  <div class="reveal"><p class="eyebrow">Time for a check?</p><h2 class="h-md">Bring it to us if you notice&hellip;</h2>
+    <ul class="cg-signs">{"".join(f"<li>{x}</li>" for x in signs)}</ul></div>
+  <div class="cg-card reveal"><h3>A lifetime of care</h3><p>Every VLOR&Aacute; piece is entitled to complimentary cleaning, polishing and routine checks. Bring it in, or message us and we will arrange it.</p>
+    <div class="cta-row"><a class="btn btn-primary" href="{link(d, "pages/contact/")}">Book a check</a><a class="btn btn-ghost" href="{wa_link("Hello VLORÁ, I would like to arrange a care check for my jewellery.")}" rel="noopener">WhatsApp us</a></div></div>
+</div></section>
+"""
+    shell(path, 'Care guide', 'Simple habits and material-by-material advice for caring for gold, diamonds, coloured gemstones, pearls and watches.', body)
 
 
 def page_shipping():
