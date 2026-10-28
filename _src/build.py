@@ -549,9 +549,7 @@ def page_about():
   <figure class="ab-photo ab-photo-p reveal"><img src="{asset(d, "assets/img/story/umer.jpg")}" alt="Muhammad Umer, Managing Director of VLORÁ" width="1000" height="1426" loading="lazy" decoding="async"><figcaption><span class="nm-full">Muhammad Umer</span><span class="nm-short">M. Umer</span>, Managing Director</figcaption></figure>
   <div class="ab-text reveal"><p class="eyebrow">The second generation</p><h2 class="h-md">Leading VLOR&Aacute; into its next chapter.</h2>
     <p>Muhammad Umer joined VLOR&Aacute; in 2016 and holds a diploma in gemology. As Managing Director, he leads the whole company and oversees the design of every piece that leaves our workshop.</p>
-    <p>In 2023 he reshaped the brand from the ground up, bringing everything we do together as one. In 2024 he took VLOR&Aacute; into designer villa development and construction under VLORA Estate, and he continues to grow the brand worldwide, with expansion into food &amp; beverage and hospitality planned.</p>
-    <ul class="ab-creds"><li>Managing Director</li><li>Certified gemologist</li></ul>
-    <dl class="ab-marks"><div><dt>2016</dt><dd>Joins VLOR&Aacute;</dd></div><div><dt>2023</dt><dd>One brand</dd></div><div><dt>2024</dt><dd>VLORA Estate</dd></div></dl>
+    <p>In 2023 he reshaped the brand from the ground up, bringing everything we do together as one. In 2024 he took VLOR&Aacute; into real estate, designing and developing luxury villas under VLORA Estate. He continues to grow the brand worldwide, with expansion into other industries planned.</p>
   </div>
 </div></section>
 
