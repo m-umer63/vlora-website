@@ -759,3 +759,5 @@ input,select,textarea,button{font-family:inherit}
 .ab-steps2 h3{font-family:var(--display);font-weight:400;font-size:clamp(1.3rem,2.2vw,1.75rem);margin:0 0 .5rem}
 .ab-steps2 p{margin:0;font-size:.94rem;line-height:1.65;max-width:36em}
 @media (max-width:900px){.ab-proc-grid{grid-template-columns:1fr}.ab-proc-head{position:static}.ab-steps2 li{grid-template-columns:auto 1fr}.ab-st-i{display:none}}
+.ab-creds{list-style:none;margin:1.6rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 10px}
+.ab-creds li{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);border:1px solid rgba(12,25,59,.28);border-radius:999px;padding:7px 14px}

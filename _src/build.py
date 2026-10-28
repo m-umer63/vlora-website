@@ -523,18 +523,18 @@ def page_about():
     body = f"""
 <section class="ab-hero"><div class="ab-hero-n" aria-hidden="true">1983</div><div class="wrap">{crumbs(d, [("About", None)])}
   <p class="eyebrow">Our story</p>
-  <h1 class="ab-h1"><span class="line"><span>One family. One craft.</span></span><span class="line gold"><span>Since 1983.</span></span></h1>
-  <p class="ab-lede">Akbar Khan opened our parent company in Dubai&rsquo;s Gold Souq in 1983. More than forty years on, every piece is still designed, crafted and finished by our own team.</p>
+  <h1 class="ab-h1"><span class="line"><span>One family. One craft.</span></span><span class="line gold"><span>Four decades.</span></span></h1>
+  <p class="ab-lede">Akbar Khan opened our parent company in Dubai&rsquo;s Gold Souq in 1983. Today, every piece is still designed, crafted and finished by our own team.</p>
 </div></section>
 
 {story_section(d)}
 
 <section class="ab-sec ab-founder"><div class="wrap ab-two">
   <figure class="ab-photo reveal"><img src="{asset(d, "assets/img/story/y1997.jpg")}" alt="Akbar Khan, founder of VLORÁ" width="1600" height="900" loading="lazy" decoding="async"><figcaption>Akbar Khan, our founder</figcaption></figure>
-  <div class="ab-text reveal"><p class="eyebrow">The founder</p><h2 class="h-md">From the streets of Karachi to the Gold Souq.</h2>
-    <p>Akbar Khan began working with gold long before Dubai, on the streets of Karachi, where our family is from. He learned the craft by doing it, and in the 1980s he brought it to Dubai.</p>
-    <p>In 1983 he started our parent company in the Gold Souq, and the idea that became VLOR&Aacute; was born with it. We have been in the Gold Souq since the first day.</p>
-    <p>In those early years, the Sheikh&rsquo;s office approached us with a one-of-one commission for the Sheikha. Gemstones worth millions were placed in our hands to be made into her jewellery. We have worked that way ever since: trusted with the stones, and answerable for every detail.</p>
+  <div class="ab-text reveal"><p class="eyebrow">The founder</p><h2 class="h-md">Learned in Karachi. Built in the Gold Souq.</h2>
+    <p>Akbar Khan came to gold young. On the streets of Karachi, where our family is from, he learned the trade the way it was taught then: by doing the work, day after day.</p>
+    <p>In the 1980s he brought that skill to Dubai, and in 1983 he opened our parent company in the Gold Souq. The idea that would become VLOR&Aacute; began there, and the Gold Souq has been our home ever since.</p>
+    <p>Our early years brought a defining trust. The Sheikh&rsquo;s office asked us to create a one-of-one piece for the Sheikha, and gemstones worth millions were placed in our care. It remains the standard we hold every commission to: a customer&rsquo;s trust, kept in every detail.</p>
   </div>
 </div></section>
 
@@ -546,10 +546,11 @@ def page_about():
 </div></section>
 
 <section class="ab-sec ab-next"><div class="wrap ab-two ab-two-l">
-  <figure class="ab-photo ab-photo-p reveal"><img src="{asset(d, "assets/img/story/umer.jpg")}" alt="Muhammad Umer, director and certified gemologist at VLORÁ" width="1000" height="1426" loading="lazy" decoding="async"><figcaption><span class="nm-full">Muhammad Umer</span><span class="nm-short">M. Umer</span>, Director &amp; Certified Gemologist</figcaption></figure>
-  <div class="ab-text reveal"><p class="eyebrow">The second generation</p><h2 class="h-md">The craft, carried forward.</h2>
-    <p>Muhammad Umer studied aeronautical engineering before joining the family business in 2016. He went on to qualify as a gemologist, and today he is a certified gemologist working alongside his father.</p>
-    <p>In 2023 he led a complete rethink of the company, bringing everything we do together as one brand, built on the craft and the values we began with.</p>
+  <figure class="ab-photo ab-photo-p reveal"><img src="{asset(d, "assets/img/story/umer.jpg")}" alt="Muhammad Umer, Managing Director of VLORÁ" width="1000" height="1426" loading="lazy" decoding="async"><figcaption><span class="nm-full">Muhammad Umer</span><span class="nm-short">M. Umer</span>, Managing Director</figcaption></figure>
+  <div class="ab-text reveal"><p class="eyebrow">The second generation</p><h2 class="h-md">Precision, brought to the craft.</h2>
+    <p>Muhammad Umer trained as an aeronautical engineer and is also a certified pilot, two disciplines built on precision, planning and care. He joined the family business in 2016 and went on to earn a diploma in gemology.</p>
+    <p>Today, as Managing Director, he leads the whole company and oversees the design of every piece that leaves our workshop. In 2023 he reshaped VLOR&Aacute; from the ground up, bringing everything we do together as one brand, built on the craft and values we began with.</p>
+    <ul class="ab-creds"><li>Aeronautical engineer</li><li>Certified pilot</li><li>Diploma in gemology</li></ul>
     <dl class="ab-marks"><div><dt>2016</dt><dd>Joins the business</dd></div><div><dt>2023</dt><dd>Brings it together as one brand</dd></div></dl>
   </div>
 </div></section>
@@ -562,8 +563,8 @@ def page_about():
 </div></section>
 
 <section class="ab-sec ab-navy ab-figs"><div class="wrap">
-  <header class="reveal"><p class="eyebrow">Made to last</p><h2 class="h-md">Still worn. Still cherished.</h2>
-  <p class="ab-sub">Many of the large gold necklaces we made for Emirati families have come back to us, brought in by the next generation to be refreshed. After all these years, they are still loved.</p></header>
+  <header class="reveal"><p class="eyebrow">Made to last</p><h2 class="h-md">Passed down, and brought back.</h2>
+  <p class="ab-sub">For decades, Emirati families have commissioned heavy gold necklaces from us. Many of those pieces have come back to our workshop, brought in by the next generation to be refurbished. The gold has outlasted the years, and so has the trust of the families who wear it.</p></header>
   <div class="ab-figrow">{figs_html}</div>
 </div></section>
 
