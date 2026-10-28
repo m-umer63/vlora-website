@@ -235,8 +235,12 @@
   document.addEventListener('click', function (e) { var b = e.target.closest('button[data-via]'); if (b) via = b.getAttribute('data-via'); });
   var cf = $('#contact-form');
   if (cf) cf.addEventListener('submit', function (e) {
-    e.preventDefault(); var f = new FormData(cf);
-    send(cf, 'Hello VLORÁ,\n\n' + f.get('msg') + '\n\n' + f.get('name') + '\n' + f.get('phone'), 'Website enquiry', via);
+    e.preventDefault(); var f = new FormData(cf), st = $('#ct-status');
+    var name = (f.get('name') || '').trim(), phone = (f.get('phone') || '').trim(), msg = (f.get('msg') || '').trim();
+    if (!name || !phone || !msg) { if (st) st.textContent = 'Please add your name, phone number and a short message.'; return; }
+    var text = 'Hello VLORÁ,\n\nTopic: ' + (f.get('topic') || 'General') + '\n\n' + msg + '\n\n' + name + '\n' + phone + (f.get('email') ? '\n' + f.get('email') : '');
+    send(cf, text, 'Website enquiry: ' + (f.get('topic') || 'General'), via);
+    if (st) st.textContent = via === 'wa' ? 'Opening WhatsApp with your message. If nothing opens, message us directly on WhatsApp.' : 'Opening your email app with your message. If nothing opens, email us directly.';
   });
   var ck = $('#checkout-form');
   if (ck) {
@@ -353,6 +357,23 @@ function heroVideo(){
         });
       });
     });
+  }
+  function initOpenNow() {
+    var els = $$('[data-open-now]');
+    if (!els.length || !window.Intl) return;
+    function fmt(h, m) { var ap = h >= 12 ? 'pm' : 'am', hh = h % 12 || 12; return hh + ':' + (m < 10 ? '0' : '') + m + ' ' + ap; }
+    function tick() {
+      var p = {};
+      new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Dubai', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+      var day = p.weekday, mins = (+p.hour % 24) * 60 + +p.minute;
+      function open(d) { return d === 'Fri' ? 14 * 60 + 30 : 10 * 60 + 30; }
+      var close = 22 * 60, order = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], next = order[(order.indexOf(day) + 1) % 7], txt, on = false;
+      if (mins >= open(day) && mins < close) { on = true; txt = 'Open now \u00b7 until 10:00 pm'; }
+      else if (mins < open(day)) txt = 'Closed \u00b7 opens today at ' + fmt(Math.floor(open(day) / 60), open(day) % 60);
+      else txt = 'Closed \u00b7 opens tomorrow at ' + fmt(Math.floor(open(next) / 60), open(next) % 60);
+      els.forEach(function (el) { el.classList.toggle('is-open', on); var t = el.querySelector('[data-open-text]'); if (t) t.textContent = txt; });
+    }
+    tick(); setInterval(tick, 60000);
   }
   function initGemScene() {
     var sec = $('[data-gs3]'); if (!sec) return;
@@ -476,5 +497,5 @@ function heroVideo(){
     requestAnimationFrame(loop);
   }
 
-  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs();
+  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs(); initOpenNow();
 })();

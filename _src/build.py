@@ -585,24 +585,55 @@ def page_about():
 
 
 def page_contact():
-    d = 2
-    wa = wa_link()
-    simple_page('contact', 'Contact', 'Contact VLORÁ in Dubai by WhatsApp, phone or email, or visit our showroom.', f'''
-<div class="contact-grid"><div>
-<h2>Talk to us</h2>
-<ul class="plain big">
-<li><strong>WhatsApp</strong><br><a href="{wa}" rel="noopener">{esc(SITE["whatsapp_display"])}</a></li>
-<li><strong>Phone</strong><br><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone_display"])}">{esc(SITE["phone_display"])}</a> &middot; <a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone2_display"])}">{esc(SITE["phone2_display"])}</a></li>
-<li><strong>Email</strong><br><a href="mailto:{esc(SITE["email"])}">{esc(SITE["email"])}</a></li>
-<li><strong>Showroom</strong><br>{esc(SITE["address"])}</li>
-<li><strong>Hours</strong><br>{esc(SITE["hours"]).replace("\n", "<br>")}</li></ul></div>
-<form class="form" id="contact-form" data-wa="{SITE["whatsapp"]}" data-email="{esc(SITE["email"])}">
-<h2>Send an enquiry</h2>
-<label>Your name<input name="name" required autocomplete="name"></label>
-<label>Phone or WhatsApp<input name="phone" required autocomplete="tel"></label>
-<label>Your message<textarea name="msg" rows="5" required></textarea></label>
-<div class="form-actions"><button class="btn btn-primary" type="submit" data-via="wa">Send on WhatsApp</button><button class="btn btn-ghost" type="submit" data-via="mail">Send by email</button></div>
-<p class="fine">This opens WhatsApp or your email app with your message ready to send.</p></form></div>''')
+    path = 'pages/contact/index.html'
+    d = depth_of(path)
+    wa = wa_link("Hello VLORÁ, I would like to ask about ")
+    tel1 = re.sub(r"[^+0-9]", "", SITE["phone_display"]); tel2 = re.sub(r"[^+0-9]", "", SITE["phone2_display"])
+    ic = {'wa': '<path d="M20 5a11 11 0 0 0-17 14l-1 7 7-1a11 11 0 0 0 11-20z"/><path d="M14 22c-4 0-9-5-9-9 0-1 1-3 2-3l2 3-1 2c1 2 3 4 5 5l2-1 3 2c0 1-2 1-4 1z"/>',
+          'tel': '<path d="M8 6l4 7-3 2c2 4 5 7 9 9l2-3 7 4-2 5c-2 1-5 1-9-1C9 25 3 18 3 11c0-3 1-5 5-5z"/>',
+          'mail': '<rect x="4" y="8" width="32" height="24" rx="2"/><path d="M4 10l16 12 16-12"/>',
+          'pin': '<path d="M20 36s11-9.5 11-19a11 11 0 0 0-22 0c0 9.500 11 19 11 19z"/><circle cx="20" cy="17" r="4"/>'}
+    def card(k, label, big, sub, href, ext=''):
+        return (f'<a class="ct-card reveal" href="{href}"{ext}><svg viewBox="0 0 40 40" aria-hidden="true">{ic[k]}</svg><b>{label}</b><span class="ct-big">{big}</span><em>{sub}</em></a>')
+    cards = (card('wa', 'WhatsApp', esc(SITE["whatsapp_display"]), 'The fastest way to reach us', wa, ' rel="noopener" target="_blank"')
+             + card('tel', 'Call', esc(SITE["phone_display"]), esc(SITE["phone2_display"]), f'tel:{tel1}')
+             + card('mail', 'Email', esc(SITE["email"]), 'For longer questions', f'mailto:{esc(SITE["email"])}')
+             + card('pin', 'Showroom', 'Gold Souq, Deira', 'Shop 1, Halo Al Obaid Building', f'https://www.google.com/maps/dir/?api=1&amp;destination={SITE["geo"]["lat"]},{SITE["geo"]["lng"]}', ' rel="noopener" target="_blank"'))
+    topics = ['Choosing a piece', 'Bespoke or custom design', 'Care, cleaning or repair', 'An order or delivery', 'Something else']
+    opts = ''.join(f'<option>{t}</option>' for t in topics)
+    steps = [('Tell us what you need', 'Choose a topic and write a few lines. A photo of a piece you like can be sent on WhatsApp afterwards.'),
+             ('We reply personally', 'Our team answers on WhatsApp or by email, with advice and options.'),
+             ('Visit, or we arrange it', 'Come and see the pieces in the showroom, or we arrange delivery for you.')]
+    steps_html = ''.join(f'<li class="reveal" style="--i:{i}"><b>{i + 1:02d}</b><div><h3>{t}</h3><p>{x}</p></div></li>' for i, (t, x) in enumerate(steps))
+    body = f"""
+<section class="ab-hero ct-hero"><div class="wrap">{crumbs(d, [("Contact", None)])}
+  <p class="eyebrow">Contact</p>
+  <h1 class="ab-h1"><span class="line"><span>We would love</span></span><span class="line gold"><span>to hear from you.</span></span></h1>
+  <p class="ab-lede">Choosing a piece, planning something custom, or caring for one you own: ask us anything, and we will help.</p>
+  <p class="ct-open" data-open-now><span class="dot" aria-hidden="true"></span><span data-open-text>{esc(SITE["hours"]).replace(chr(10), " &middot; ")}</span></p>
+</div></section>
+
+<section class="ab-sec ct-cards"><div class="wrap"><div class="ct-grid">{cards}</div></div></section>
+
+<section class="ab-sec ab-sand ct-form-sec"><div class="wrap ct-two">
+  <div class="reveal"><p class="eyebrow">Write to us</p><h2 class="h-md">Send us a message.</h2>
+    <p class="ab-sub">Fill in the form and choose how you would like to send it. It opens WhatsApp or your email app with everything written out, ready for you to send.</p>
+    <ol class="ct-steps">{steps_html}</ol></div>
+  <form class="ct-form reveal" id="contact-form" data-wa="{SITE["whatsapp"]}" data-email="{esc(SITE["email"])}" novalidate>
+    <div class="ct-row"><label>Your name<input name="name" required autocomplete="name"></label>
+    <label>Phone or WhatsApp<input name="phone" required autocomplete="tel" inputmode="tel"></label></div>
+    <div class="ct-row"><label><span>Email <span class="opt">(optional)</span></span><input name="email" type="email" autocomplete="email"></label>
+    <label>What is it about?<select name="topic">{opts}</select></label></div>
+    <label>Your message<textarea name="msg" rows="5" required></textarea></label>
+    <div class="form-actions"><button class="btn btn-primary" type="submit" data-via="wa">Send on WhatsApp</button><button class="btn btn-ghost" type="submit" data-via="mail">Send by email</button></div>
+    <p class="ct-status" id="ct-status" role="status" aria-live="polite"></p>
+    <p class="fine">We use your details only to reply to you. See our <a href="{link(d, "pages/privacy/")}">privacy policy</a>.</p>
+  </form>
+</div></section>
+
+{build_visit("Find us in the Gold Souq")}
+"""
+    shell(path, 'Contact', 'Contact VLORÁ in Dubai by WhatsApp, phone or email, or visit our showroom in the Gold Souq.', body)
 
 
 def page_faq():

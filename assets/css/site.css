@@ -827,3 +827,38 @@ input,select,textarea,button{font-family:inherit}
 @keyframes cgZoom{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:none}}
 @media (max-width:900px){.cg-photo{max-width:440px}.cg-photo img{aspect-ratio:1/1}}
 @media (prefers-reduced-motion:reduce){.cg-panel.is-on .cg-photo img{animation:none}}
+
+/* ---------- Contact ---------- */
+.ct-open{display:inline-flex;align-items:center;gap:10px;margin:1.6rem 0 0;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,251,238,.85);border:1px solid rgba(250,251,238,.25);padding:9px 16px;border-radius:999px;position:relative}
+.ct-open .dot{width:8px;height:8px;border-radius:50%;background:rgba(250,251,238,.45)}
+.ct-open.is-open .dot{background:#6fcf97;box-shadow:0 0 0 0 rgba(111,207,151,.6);animation:ctPulse 2.2s infinite}
+@keyframes ctPulse{70%{box-shadow:0 0 0 8px rgba(111,207,151,0)}100%{box-shadow:0 0 0 0 rgba(111,207,151,0)}}
+.ct-hero .ab-hero-n{display:none}
+.ct-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,28px)}
+.ct-card{display:flex;flex-direction:column;gap:6px;text-decoration:none;border:1px solid rgba(12,25,59,.2);padding:26px 24px;background:var(--cream);transition:transform .45s var(--ease),border-color .35s,background .35s,box-shadow .45s}
+.ct-card:hover{transform:translateY(-4px);border-color:var(--gold-bright);background:#fff;box-shadow:0 14px 34px -18px rgba(12,25,59,.35)}
+.ct-card svg{width:40px;height:40px;fill:none;stroke:var(--navy);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;margin-bottom:10px;transition:stroke .3s}
+.ct-card:hover svg{stroke:var(--gold)}
+.ct-card b{font-family:var(--cinzel);font-weight:400;font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.ct-big{font-family:var(--display);font-size:clamp(1.05rem,1.5vw,1.3rem);line-height:1.25;overflow-wrap:anywhere}
+.ct-card em{font-style:normal;font-size:.84rem;color:rgba(12,25,59,.7)}
+.ct-two{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,6vw,96px);align-items:start}
+.ct-steps{list-style:none;margin:2rem 0 0;padding:0}
+.ct-steps li{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:18px 0;border-top:1px solid rgba(12,25,59,.2)}
+.ct-steps li:last-child{border-bottom:1px solid rgba(12,25,59,.2)}
+.ct-steps b{font-family:var(--cinzel);font-weight:400;font-size:1.4rem;color:var(--gold-bright);line-height:1.1}
+.ct-steps h3{font-family:var(--display);font-weight:400;font-size:1.2rem;margin:0 0 .25rem}
+.ct-steps p{margin:0;font-size:.9rem;line-height:1.55}
+.ct-form{background:var(--cream);padding:clamp(22px,3.4vw,44px);display:grid;gap:18px}
+.ct-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ct-form label{display:grid;gap:8px;font-family:var(--cinzel);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.ct-form .opt{text-transform:none;letter-spacing:.04em;opacity:.7}
+.ct-form input,.ct-form select,.ct-form textarea{font:inherit;font-family:var(--ui);font-size:.95rem;letter-spacing:0;text-transform:none;color:var(--navy);background:transparent;border:0;border-bottom:1px solid rgba(12,25,59,.35);border-radius:0;padding:10px 0;width:100%;transition:border-color .3s,box-shadow .3s}
+.ct-form textarea{border:1px solid rgba(12,25,59,.3);padding:12px;resize:vertical;min-height:130px}
+.ct-form input:focus,.ct-form select:focus,.ct-form textarea:focus{outline:none;border-color:var(--gold-bright);box-shadow:0 1px 0 0 var(--gold-bright)}
+.ct-form select{appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%230c193b' stroke-width='1.4'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 4px center}
+.ct-form .form-actions{margin-top:4px}
+.ct-status{min-height:1.4em;margin:0;font-size:.88rem;color:var(--navy)}
+.ct-form .fine{margin:0;font-size:.78rem;color:rgba(12,25,59,.65)}
+@media (max-width:980px){.ct-grid{grid-template-columns:1fr 1fr}.ct-two{grid-template-columns:1fr}}
+@media (max-width:560px){.ct-grid{grid-template-columns:1fr}.ct-row{grid-template-columns:1fr}}
