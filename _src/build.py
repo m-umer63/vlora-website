@@ -624,7 +624,7 @@ def page_bespoke():
 <p class="draft">Draft text. Please review and adjust to match how your bespoke service really works, including timelines.</p>''')
 
 
-CG_ART = {'Gold': '<circle cx="100" cy="125" r="70"/><circle cx="100" cy="125" r="56"/><path d="M52 92a58 58 0 0 1 30-30M148 158a58 58 0 0 1-30 30"/><path d="M40 125a60 60 0 0 1 4-22"/>', 'Diamonds': '<path d="M38 92L68 58H132L162 92L100 192Z"/><path d="M38 92H162M68 58L84 92 100 58 116 92 132 58M84 92L100 192 116 92"/>', 'Coloured gems': '<path d="M68 58H132L158 84V166L132 192H68L42 166V84Z"/><path d="M80 76H120L140 96V154L120 174H80L60 154V96Z"/><path d="M68 58L80 76M132 58L120 76M158 84L140 96M158 166L140 154M132 192L120 174M68 192L80 174M42 166L60 154M42 84L60 96"/>', 'Pearls': '<g><circle cx="177.3" cy="84.6" r="15"/><path d="M170.3 81.6a8 8 0 0 1 6-6"/><circle cx="161.3" cy="121.1" r="15"/><path d="M154.3 118.1a8 8 0 0 1 6-6"/><circle cx="133.8" cy="146.1" r="15"/><path d="M126.8 143.1a8 8 0 0 1 6-6"/><circle cx="100.0" cy="155.0" r="15"/><path d="M93.0 152.0a8 8 0 0 1 6-6"/><circle cx="66.2" cy="146.1" r="15"/><path d="M59.2 143.1a8 8 0 0 1 6-6"/><circle cx="38.7" cy="121.1" r="15"/><path d="M31.7 118.1a8 8 0 0 1 6-6"/><circle cx="22.7" cy="84.6" r="15"/><path d="M15.7 81.6a8 8 0 0 1 6-6"/></g>', 'Watches': '<path d="M80 80L84 36H116L120 80M80 170L84 214H116L120 170"/><circle cx="100" cy="125" r="52"/><circle cx="100" cy="125" r="44"/><path d="M100.0 89.0L100.0 97.0"/><path d="M118.0 93.8L115.0 99.0"/><path d="M131.2 107.0L126.0 110.0"/><path d="M136.0 125.0L128.0 125.0"/><path d="M131.2 143.0L126.0 140.0"/><path d="M118.0 156.2L115.0 151.0"/><path d="M100.0 161.0L100.0 153.0"/><path d="M82.0 156.2L85.0 151.0"/><path d="M68.8 143.0L74.0 140.0"/><path d="M64.0 125.0L72.0 125.0"/><path d="M68.8 107.0L74.0 110.0"/><path d="M82.0 93.8L85.0 99.0"/><path d="M100 125V100M100 125L118 134"/><circle cx="100" cy="125" r="2.500"/>'}
+CG_ART = {'Gold': '<circle cx="100" cy="125" r="70"/><circle cx="100" cy="125" r="56"/><path d="M52 92a58 58 0 0 1 30-30M148 158a58 58 0 0 1-30 30"/><path d="M40 125a60 60 0 0 1 4-22"/>', 'Silver': '<ellipse cx="72" cy="96" rx="38" ry="22" transform="rotate(-35 72 96)"/><ellipse cx="112" cy="128" rx="38" ry="22" transform="rotate(35 112 128)"/><ellipse cx="78" cy="164" rx="38" ry="22" transform="rotate(-35 78 164)"/>', 'Diamonds': '<path d="M38 92L68 58H132L162 92L100 192Z"/><path d="M38 92H162M68 58L84 92 100 58 116 92 132 58M84 92L100 192 116 92"/>', 'Coloured gems': '<path d="M68 58H132L158 84V166L132 192H68L42 166V84Z"/><path d="M80 76H120L140 96V154L120 174H80L60 154V96Z"/><path d="M68 58L80 76M132 58L120 76M158 84L140 96M158 166L140 154M132 192L120 174M68 192L80 174M42 166L60 154M42 84L60 96"/>', 'Watches': '<path d="M80 80L84 36H116L120 80M80 170L84 214H116L120 170"/><circle cx="100" cy="125" r="52"/><circle cx="100" cy="125" r="44"/><path d="M100.0 89.0L100.0 97.0"/><path d="M118.0 93.8L115.0 99.0"/><path d="M131.2 107.0L126.0 110.0"/><path d="M136.0 125.0L128.0 125.0"/><path d="M131.2 143.0L126.0 140.0"/><path d="M118.0 156.2L115.0 151.0"/><path d="M100.0 161.0L100.0 153.0"/><path d="M82.0 156.2L85.0 151.0"/><path d="M68.8 143.0L74.0 140.0"/><path d="M64.0 125.0L72.0 125.0"/><path d="M68.8 107.0L74.0 110.0"/><path d="M82.0 93.8L85.0 99.0"/><path d="M100 125V100M100 125L118 134"/><circle cx="100" cy="125" r="2.500"/>'}
 
 
 def page_care():
@@ -644,6 +644,10 @@ def page_care():
          ['Soak in lukewarm water with a drop of mild soap, brush gently with a soft brush, rinse and pat dry.', 'Buff lightly with a jewellery cloth to bring back the shine.', 'Keep chains and bangles apart: gold scratches against gold.'],
          ['Chlorine, bleach and harsh cleaners.', 'Heavy knocks, gardening and weight training.'],
          'White gold gets its bright finish from a rhodium plating that slowly wears. We can refresh it whenever it starts to look warm.'),
+        ('Silver', 'bracelets', 'Silver is bright and easy to love, and it tarnishes with time. That is normal, and easy to undo.',
+         ['Wash in warm water with mild soap, rinse and dry fully with a soft cloth.', 'Remove tarnish with a silver polishing cloth, rubbing gently along the piece.', 'Store in an airtight pouch or anti-tarnish bag, away from air and humidity.'],
+         ['Rubber, wool and wearing it in the sea or a swimming pool.', 'Perfume and lotion: apply them first.', 'Rough cloths and abrasive polishes, which scratch the surface.'],
+         'Silver stays brighter when it is worn often, and tarnishes faster when it is left sitting in humid air.'),
         ('Diamonds', 'rings', 'Very hard, but not indestructible. A sharp knock can still chip the edge.',
          ['Soak in warm soapy water and brush gently behind the stone, where dirt gathers. Rinse well.', 'Have the prongs checked now and then, as they hold the stone.', 'Wear it with care, and remove it for heavy work.'],
          ['Touching the stone: skin oils cloud it.', 'Storing it loose. A diamond scratches everything it touches.'],
@@ -652,10 +656,6 @@ def page_care():
          ['Ruby and sapphire are tough: warm soapy water and a soft brush are fine.', 'Wipe emerald gently with a soft, damp cloth.', 'Keep all coloured stones away from sudden temperature changes.'],
          ['Ultrasonic and steam cleaners on emeralds. They are often oil-treated and have natural inclusions.', 'Harsh chemicals, and hard knocks.'],
          'Not sure which stone you have? Ask us before you clean it.'),
-        ('Pearls', 'necklaces', 'Pearls are organic, and the softest of all gems.',
-         ['Wipe with a soft, damp cloth after each wear.', 'Store flat in a soft pouch, away from harder jewellery.', 'Have worn strands restrung from time to time, as the thread stretches.'],
-         ['Perfume, hairspray, vinegar and other acids.', 'Soaking, and ultrasonic cleaners. Hanging them up for long.'],
-         'Put pearls on last, and take them off first.'),
         ('Watches', 'watches', 'A watch is a small machine. Treat it like one.',
          ['Check its water-resistance rating, and make sure the crown is pushed or screwed in before any contact with water.', 'Wipe with a soft, dry cloth.', 'Have it serviced every few years.'],
          ['Hot showers, saunas and sudden temperature swings.', 'Strong magnets, and heavy knocks.'],
@@ -697,7 +697,7 @@ def page_care():
     <div class="cta-row"><a class="btn btn-primary" href="{link(d, "pages/contact/")}">Book a check</a><a class="btn btn-ghost" href="{wa_link("Hello VLORÁ, I would like to arrange a care check for my jewellery.")}" rel="noopener">WhatsApp us</a></div></div>
 </div></section>
 """
-    shell(path, 'Care guide', 'Simple habits and material-by-material advice for caring for gold, diamonds, coloured gemstones, pearls and watches.', body)
+    shell(path, 'Care guide', 'Simple habits and material-by-material advice for caring for gold, silver, diamonds, coloured gemstones and watches.', body)
 
 
 def page_shipping():
