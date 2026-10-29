@@ -630,6 +630,11 @@ def page_contact():
     <div class="ct-row"><label><span>Email <span class="opt">(optional)</span></span><input name="email" type="email" autocomplete="email"></label>
     <label><span>What is it about?</span><select name="topic">{opts}</select></label></div>
     <label><span>Your message</span><textarea name="msg" rows="5" required></textarea></label>
+    <div class="ct-file" data-file>
+      <input type="file" id="ct-photo" accept="image/jpeg,image/png,image/webp,image/heic" hidden>
+      <button type="button" class="ct-attach" data-attach><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12l-8 8a5 5 0 0 1-7-7l9-9a3.500 3.500 0 0 1 5 5l-9 9a2 2 0 0 1-3-3l8-8"/></svg><span><b>Attach a photo</b> <em>(optional)</em><small>A piece you like, a sketch or a design idea. JPG, PNG or WebP.</small></span></button>
+      <div class="ct-picked" data-picked hidden><img alt="" data-thumb><span data-fname></span><button type="button" data-remove aria-label="Remove photo">&times;</button></div>
+    </div>
     <div class="form-actions"><button class="btn btn-primary" type="submit">Send message</button></div>
     <p class="ct-status" id="ct-status" role="status" aria-live="polite"></p>
     <p class="fine">We use your details only to reply to you. See our <a href="{link(d, "pages/privacy/")}">privacy policy</a>.</p>

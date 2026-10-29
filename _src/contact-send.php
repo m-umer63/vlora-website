@@ -13,6 +13,7 @@ const FROM_EMAIL = 'info@vlora.ae';
 const FROM_NAME  = 'VLORA Website';
 const TOPICS     = ['Choosing a piece', 'Bespoke or custom design', 'Care, cleaning or repair', 'An order or delivery', 'Something else'];
 const MAX_PER_HOUR = 5;   // per visitor
+const MAX_PHOTO    = 5 * 1024 * 1024;  // one photo, up to 5 MB
 const MIN_SECONDS  = 4;   // a real person needs a few seconds to fill the form
 
 header('Content-Type: application/json; charset=utf-8');
@@ -74,6 +75,19 @@ if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) reply(422, fals
 if (!in_array($topic, TOPICS, true)) $topic = 'Something else';
 if (mb_strlen($msg) < 5) reply(422, false, 'Please write a short message.');
 
+// Optional single photo.
+$att = null;
+if (isset($_FILES['photo']) && (int)($_FILES['photo']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+    $pf = $_FILES['photo'];
+    if ((int)$pf['error'] !== UPLOAD_ERR_OK || !is_uploaded_file((string)$pf['tmp_name'])) reply(422, false, 'The photo could not be uploaded. Please try a smaller image.');
+    if ((int)$pf['size'] > MAX_PHOTO) reply(422, false, 'Please choose a photo under 5 MB.');
+    $mime = (new finfo(FILEINFO_MIME_TYPE))->file((string)$pf['tmp_name']);
+    $ext = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/heic' => 'heic', 'image/heif' => 'heic'][$mime] ?? null;
+    if ($ext === null) reply(422, false, 'Please attach a JPG, PNG or WebP photo.');
+    if ($ext !== 'heic' && @getimagesize((string)$pf['tmp_name']) === false) reply(422, false, 'That file does not look like a photo.');
+    $att = ['data' => (string)file_get_contents((string)$pf['tmp_name']), 'mime' => $mime, 'name' => 'enquiry-photo.' . $ext];
+}
+
 $when = (new DateTime('now', new DateTimeZone('Asia/Dubai')))->format('D j M Y, H:i') . ' (Dubai)';
 $body = "New enquiry from the VLORA website\r\n"
       . "-----------------------------------\r\n"
@@ -81,7 +95,8 @@ $body = "New enquiry from the VLORA website\r\n"
       . "Name:    $name\r\n"
       . "Phone:   $phone\r\n"
       . "Email:   " . ($email !== '' ? $email : '(not given)') . "\r\n"
-      . "Sent:    $when\r\n\r\n"
+      . "Sent:    $when\r\n"
+      . "Photo:   " . ($att ? 'attached (' . $att['name'] . ')' : 'none') . "\r\n\r\n"
       . "Message:\r\n" . str_replace(["\r\n", "\r"], "\n", $msg) . "\r\n\r\n"
       . "-----------------------------------\r\n"
       . "Reply to this email to answer the customer" . ($email === '' ? ", or call or WhatsApp them on the number above." : ".") . "\r\n";
@@ -91,11 +106,20 @@ $subject = mb_encode_mimeheader('Website enquiry: ' . $topic . ' - ' . $name, 'U
 $headers = [
     'From: ' . mb_encode_mimeheader(FROM_NAME, 'UTF-8', 'B') . ' <' . FROM_EMAIL . '>',
     'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'Content-Transfer-Encoding: 8bit',
     'X-Mailer: vlora-contact-form',
 ];
 if ($email !== '') $headers[] = 'Reply-To: ' . $email;
+if ($att) {
+    $b = 'vlora-' . bin2hex(random_bytes(12));
+    $headers[] = 'Content-Type: multipart/mixed; boundary="' . $b . '"';
+    $body = "--$b\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n" . $body . "\r\n"
+          . "--$b\r\nContent-Type: {$att['mime']}; name=\"{$att['name']}\"\r\nContent-Transfer-Encoding: base64\r\n"
+          . "Content-Disposition: attachment; filename=\"{$att['name']}\"\r\n\r\n"
+          . chunk_split(base64_encode($att['data']), 76, "\r\n") . "--$b--\r\n";
+} else {
+    $headers[] = 'Content-Type: text/plain; charset=UTF-8';
+    $headers[] = 'Content-Transfer-Encoding: 8bit';
+}
 
 $sent = @mail(TO_EMAIL, $subject, $body, implode("\r\n", $headers), '-f' . FROM_EMAIL);
 if (!$sent) {

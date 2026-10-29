@@ -236,6 +236,41 @@
   var cf = $('#contact-form');
   if (cf) {
     var tf = cf.querySelector('[name=t]'); if (tf) tf.value = String(Date.now());
+    var photo = null, fin = cf.querySelector('#ct-photo'), pk = cf.querySelector('[data-picked]'), MAXB = 5 * 1024 * 1024;
+    function sayNow(t) { var s = $('#ct-status'); if (s) s.textContent = t; }
+    function clearPhoto() {
+      photo = null; if (fin) fin.value = ''; if (pk) { pk.hidden = true; var im = pk.querySelector('[data-thumb]'); if (im.src) URL.revokeObjectURL(im.src); im.removeAttribute('src'); }
+      var at = cf.querySelector('[data-attach]'); if (at) at.hidden = false;
+    }
+    function showPhoto(blob, name) {
+      photo = blob; var im = pk.querySelector('[data-thumb]'); im.src = URL.createObjectURL(blob);
+      pk.querySelector('[data-fname]').textContent = name + ' \u00b7 ' + (blob.size > 1048576 ? (blob.size / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(blob.size / 1024)) + ' KB');
+      pk.hidden = false; cf.querySelector('[data-attach]').hidden = true; sayNow('');
+    }
+    function shrink(file) {
+      return new Promise(function (res, rej) {
+        if (!window.createImageBitmap) return rej();
+        createImageBitmap(file).then(function (bm) {
+          var m = 1800, k = Math.min(1, m / Math.max(bm.width, bm.height)), c = document.createElement('canvas');
+          c.width = Math.round(bm.width * k); c.height = Math.round(bm.height * k);
+          var x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(bm, 0, 0, c.width, c.height);
+          c.toBlob(function (b) { b ? res(b) : rej(); }, 'image/jpeg', .86);
+        }, rej);
+      });
+    }
+    var atBtn = cf.querySelector('[data-attach]');
+    if (atBtn && fin) {
+      atBtn.addEventListener('click', function () { fin.click(); });
+      fin.addEventListener('change', function () {
+        var f = fin.files && fin.files[0]; if (!f) return;
+        if (!/^image\//.test(f.type) && !/\.(jpe?g|png|webp|heic|heif)$/i.test(f.name)) { clearPhoto(); sayNow('Please choose a JPG, PNG or WebP photo.'); return; }
+        if (f.size > 40 * 1048576) { clearPhoto(); sayNow('That photo is too large. Please choose one under 40 MB.'); return; }
+        shrink(f).then(function (b) { showPhoto(b, f.name.replace(/\.[^.]+$/, '') + '.jpg'); }, function () {
+          if (f.size <= MAXB) showPhoto(f, f.name); else { clearPhoto(); sayNow('We could not prepare that photo. Please choose a smaller one (under 5 MB).'); }
+        });
+      });
+      cf.querySelector('[data-remove]').addEventListener('click', clearPhoto);
+    }
     cf.addEventListener('submit', function (e) {
       e.preventDefault();
       var st = $('#ct-status'), btn = cf.querySelector('button[type=submit]'), f = new FormData(cf);
@@ -253,6 +288,7 @@
         say('We could not send that just now. Please try again, or message us on <a href="' + wa + '" rel="noopener">WhatsApp</a> or at <a href="mailto:' + em + '">' + em + '</a>.');
         btn.disabled = false; btn.textContent = 'Send message';
       }
+      if (photo) f.set('photo', photo, photo.name || 'photo.jpg');
       btn.disabled = true; btn.textContent = 'Sending\u2026'; say('');
       if (cf.getAttribute('data-preview') === '1') { setTimeout(done, 700); return; }
       fetch(cf.getAttribute('data-action'), { method: 'POST', body: f, credentials: 'same-origin' })

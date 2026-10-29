@@ -878,3 +878,15 @@ input,select,textarea,button{font-family:inherit}
 .ct-help li::before{content:"";position:absolute;left:2px;top:.5em;width:10px;height:6px;border-left:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold);transform:rotate(-45deg)}
 .ct-talk{margin:1.2rem 0 0;padding:16px 18px;background:var(--cream);border-left:2px solid var(--gold-bright);font-size:.92rem}
 .ct-talk a{font-weight:600;text-decoration:none;border-bottom:1px solid var(--gold-bright)}
+.ct-attach{appearance:none;display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:transparent;border:1px dashed rgba(12,25,59,.4);padding:16px 18px;color:var(--navy);cursor:pointer;font:inherit;transition:border-color .3s,background .3s}
+.ct-attach:hover,.ct-attach:focus-visible{border-color:var(--gold-bright);background:rgba(198,167,94,.08);outline:none}
+.ct-attach svg{flex:none;width:26px;height:26px;fill:none;stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.ct-attach b{font-family:var(--cinzel);font-weight:400;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.ct-attach em{font-style:normal;font-size:.8rem;opacity:.7}
+.ct-attach small{display:block;font-size:.8rem;color:rgba(12,25,59,.7);margin-top:2px}
+.ct-picked{display:flex;align-items:center;gap:14px;border:1px solid rgba(12,25,59,.25);padding:10px 12px}
+.ct-picked[hidden],.ct-attach[hidden]{display:none}
+.ct-picked img{width:56px;height:56px;object-fit:cover;flex:none}
+.ct-picked span{flex:1;min-width:0;font-size:.88rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct-picked button{appearance:none;background:none;border:0;font-size:1.6rem;line-height:1;color:var(--navy);cursor:pointer;padding:4px 10px}
+.ct-picked button:hover{color:var(--gold)}
