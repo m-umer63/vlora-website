@@ -20,7 +20,10 @@ SITE = json.load(open(os.path.join(HERE, 'data', 'site.json'), encoding='utf-8')
 PRODUCTS = json.load(open(os.path.join(HERE, 'data', 'products.json'), encoding='utf-8'))
 PARTNERS = [p for p in (json.load(open(os.path.join(HERE, 'data', 'partners.json'), encoding='utf-8')) if os.path.exists(os.path.join(HERE, 'data', 'partners.json')) else []) if ARGS.preview or not p.get('sample')]
 REVIEWS = json.load(open(os.path.join(HERE, 'data', 'reviews.json'), encoding='utf-8')) if os.path.exists(os.path.join(HERE, 'data', 'reviews.json')) else []
-CATEGORIES = ['Rings', 'Earrings', 'Necklaces', 'Bracelets', 'Bangles', 'Pendants', 'Watches']
+CATEGORIES = ['Rings', 'Earrings', 'Necklaces', 'Bracelets', 'Accessories', 'Bullion']
+# Bangles fold into Bracelets, Pendants into Necklaces; watches are added later (sample watches hidden for now)
+_MAP = {'Bangles': 'Bracelets', 'Pendants': 'Necklaces'}
+PRODUCTS = [dict(p, category=_MAP.get(p['category'], p['category'])) for p in PRODUCTS if p['category'] != 'Watches']
 CAT_SLUG = {c: c.lower() for c in CATEGORIES}
 METAL_COL = {'Yellow Gold': '#C6A75E', 'White Gold': '#d6dae4', 'Rose Gold': '#C5A28C', 'Platinum': '#d9dce3',
              'Silver': '#cfd3da', 'Titanium': '#8f98a8', 'Other': '#C6A75E'}
@@ -132,7 +135,7 @@ def wa_link(text=''):
 
 
 def header(d, current=''):
-    cats = ''.join(f'<li><a href="{link(d, "collections/" + CAT_SLUG[c] + "/")}">{c}</a></li>' for c in CATEGORIES if c != 'Watches')
+    cats = ''.join(f'<li><a href="{link(d, "collections/" + CAT_SLUG[c] + "/")}">{c}</a></li>' for c in CATEGORIES)
     mobcats = ''.join(f'<a href="{link(d, "collections/" + CAT_SLUG[c] + "/")}">{c}</a>' for c in CATEGORIES)
     return f'''<a class="skip" href="#main">Skip to content</a>
 <div class="announce"><span>Expert Craftsmanship since {SITE["since"]} &middot; Dubai</span></div>
@@ -141,12 +144,13 @@ def header(d, current=''):
     <div class="hdr-left"><button class="icon-btn menu-btn" data-open="menu" aria-label="Open menu">{ICON["menu"]}</button>
     <nav class="nav nav-left" aria-label="Main">
       <a href="{link(d, "collections/gold/")}">Gold</a>
+      <a href="{link(d, "collections/silver/")}">Silver</a>
       <a href="{link(d, "collections/diamond/")}">Diamond</a>
-      <a href="{link(d, "pages/bespoke/")}">Bespoke</a>
+      <a href="{link(d, "pages/customise/")}">Customise</a>
     </nav></div>
     <a class="brand" href="{link(d)}" aria-label="VLORÁ home"><img src="{asset(d, "assets/img/vlora-logo-navy.svg")}" alt="VLORÁ" width="176" height="56"><span class="brand-year">{SITE["since"]}</span></a>
     <div class="hdr-right"><nav class="nav nav-right" aria-label="Secondary">
-      <a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/contact/")}">Contact</a>
+      <a href="{link(d, "pages/services/")}">Services</a><a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/contact/")}">Contact</a>
     </nav>
     <div class="tools">
       <button class="icon-btn" data-open="search" aria-label="Search">{ICON["search"]}</button>
@@ -158,8 +162,9 @@ def header(d, current=''):
 <div class="scrim" data-close></div>
 <aside class="drawer drawer-left" id="menu-drawer" aria-label="Menu" aria-hidden="true">
   <div class="drawer-head"><span class="eyebrow">Menu</span><button class="icon-btn" data-close aria-label="Close">{ICON["close"]}</button></div>
-  <nav class="mob-nav"><a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/diamond/")}">Diamond</a><a href="{link(d, "pages/bespoke/")}">Bespoke</a><hr><a href="{link(d, "collections/all/")}">All jewellery</a>{mobcats}
-  <a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/care-guide/")}">Care guide</a><a href="{link(d, "pages/faq/")}">FAQ</a><a href="{link(d, "pages/contact/")}">Contact</a><a href="{link(d, "wishlist/")}">Wishlist</a></nav>
+  <nav class="mob-nav"><p class="mob-h">Shop</p><a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/silver/")}">Silver</a><a href="{link(d, "collections/diamond/")}">Diamond</a><a href="{link(d, "collections/all/")}">All jewellery</a>{mobcats}
+  <p class="mob-h">Services</p><a href="{link(d, "pages/customise/")}">Customise</a><a href="{link(d, "pages/services/")}">Services</a><a href="{link(d, "pages/care-guide/")}">Care guide</a>
+  <p class="mob-h">The house</p><a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/contact/")}">Contact</a><a href="{link(d, "pages/faq/")}">FAQ</a><a href="{link(d, "wishlist/")}">Wishlist</a></nav>
 </aside>
 <div class="search-panel" id="search-panel" aria-hidden="true">
   <div class="search-in"><form role="search" onsubmit="return false"><input id="search-input" type="search" placeholder="Search by name, metal or reference" autocomplete="off" aria-label="Search"><button class="icon-btn" type="button" data-close aria-label="Close search">{ICON["close"]}</button></form>
@@ -380,7 +385,7 @@ def page_home():
     <div class="hero2-copy">
       <h1 class="h-hero"><span class="line" style="--i:0"><span>Where imagination</span></span><span class="line gold" style="--i:1"><span>finds form.</span></span></h1>
       <p class="lede rise" style="--i:3"><span class="nb">Your vision, our craftsmanship.</span> <span class="nb">Let&rsquo;s create something extraordinary.</span></p>
-      <div class="cta-row rise" style="--i:4"><a class="btn btn-gold" href="{link(d, "pages/bespoke/")}">Discover Bespoke</a><a class="link-light" href="{link(d, "pages/about/")}">Our story</a></div>
+      <div class="cta-row rise" style="--i:4"><a class="btn btn-gold" href="{link(d, "pages/customise/")}">Discover Customise</a><a class="link-light" href="{link(d, "pages/about/")}">Our story</a></div>
     </div>
   </div>
   <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
@@ -446,6 +451,9 @@ def page_collection(slug, title, intro, items):
   <div class="more-wrap"><button class="btn" id="load-more" hidden>Show more</button></div>
 </div></section>
 '''
+    if not items:
+        body = body.replace('<div class="toolbar" id="toolbar"', '<div class="toolbar" id="toolbar" hidden', 1)
+        body = body.replace('New pieces are coming soon.', 'This collection is being prepared. Ask us in the showroom or on WhatsApp.', 1)
     shell(path, title, intro, body)
 
 
@@ -556,7 +564,7 @@ def page_about():
 <section class="ab-sec ab-sand ab-process"><div class="wrap ab-proc-grid">
   <header class="ab-proc-head reveal"><p class="eyebrow">How it&rsquo;s made</p><h2 class="h-md">Everything under one roof.</h2>
   <p class="ab-sub">Every VLOR&Aacute; piece is designed, crafted and finished in our own workshop in Dubai, by more than fifty people who work side by side. Nothing leaves the building until it is ready.</p>
-  <p class="ab-sub">We are experts in diamond jewellery, and we can make whatever you can imagine. <a class="more" href="{link(d, "pages/bespoke/")}">Start a conversation</a></p></header>
+  <p class="ab-sub">We are experts in diamond jewellery, and we can make whatever you can imagine. <a class="more" href="{link(d, "pages/customise/")}">Start a conversation</a></p></header>
   <ol class="ab-steps2">{steps_html}</ol>
 </div></section>
 
@@ -599,7 +607,7 @@ def page_contact():
              + card('tel', 'Call', esc(SITE["whatsapp_display"]), esc(SITE["phone_display"]), f'tel:{tel2}')
              + card('mail', 'Email', esc(SITE["email"]), 'For longer questions', f'mailto:{esc(SITE["email"])}')
              + card('pin', 'Showroom', 'Gold Souq, Deira', 'Shop 1, Halo Al Obaid Building', f'https://www.google.com/maps/dir/?api=1&amp;destination={SITE["geo"]["lat"]},{SITE["geo"]["lng"]}', ' rel="noopener" target="_blank"'))
-    topics = ['Choosing a piece', 'Bespoke or custom design', 'Care, cleaning or repair', 'An order or delivery', 'Something else']
+    topics = ['Choosing a piece', 'Customise a piece', 'Care, cleaning or repair', 'An order or delivery', 'Something else']
     opts = ''.join(f'<option>{t}</option>' for t in topics)
     body = f"""
 <section class="ab-hero ct-hero"><div class="wrap">{crumbs(d, [("Contact", None)])}
@@ -656,13 +664,23 @@ def page_faq():
     simple_page('faq', 'FAQ', 'Answers to common questions about ordering from VLORÁ.', inner)
 
 
-def page_bespoke():
-    simple_page('bespoke', 'Bespoke', 'Have a piece made for you, from first sketch to final polish.', f'''
+def page_customise():
+    simple_page('customise', 'Customise', 'Have a piece made for you, from first sketch to final polish.', f'''
 <p class="lede">Your idea, made by our own hands in Dubai.</p>
 <h2>How it works</h2><p>Tell us what you have in mind: a sketch, a photo, a stone you already own. We discuss design, metal and budget, then agree a final drawing before anything is made.</p>
 <h2>Making and finishing</h2><p>Your piece is crafted, set and polished in our workshop, and checked before it reaches you.</p>
 <h2>Start a conversation</h2><p><a href="{link(2, "pages/contact/")}">Contact us</a> to arrange a consultation.</p>
-<p class="draft">Draft text. Please review and adjust to match how your bespoke service really works, including timelines.</p>''')
+<p class="draft">Draft text. Please review and adjust to match how your customise service really works, including timelines.</p>''')
+
+
+def page_services():
+    simple_page('services', 'Services', 'Customising, restoring and caring for fine jewellery, at the VLORÁ workshop in Dubai.', f'''
+<p class="lede">Your jewellery should be looked after as well as it was made.</p>
+<h2>Customise</h2><p>Bring an idea, a sketch or a stone of your own. Our designers and workshop turn it into a finished piece. <a href="{link(2, "pages/customise/")}">Read how customising works</a>.</p>
+<h2>Restore and refurbish</h2><p>A necklace passed down in the family can be brought back to life: re-polished, repaired, reset or redesigned for the next generation to wear.</p>
+<h2>Lifetime care</h2><p>Complimentary cleaning, polishing and routine checks on every piece you buy from us. Our <a href="{link(2, "pages/care-guide/")}">care guide</a> covers looking after it at home.</p>
+<h2>Talk to us</h2><p>Not sure which service you need? <a href="{link(2, "pages/contact/")}">Contact us</a> or visit the showroom in the Gold Souq.</p>
+<p class="draft">Draft text. Please confirm the list of services (for example resizing, valuation, engraving) and what is complimentary.</p>''')
 
 
 CG_IMG = {'Gold': 'gold', 'Silver': 'silver', 'Diamonds': 'diamond', 'Coloured gems': 'gems', 'Watches': 'watch'}
@@ -832,16 +850,17 @@ def build():
     page_home()
     page_collection('all', 'All jewellery & watches', 'Every piece in the VLORÁ collection.', PRODUCTS)
     page_collection('gold', 'Gold', 'Fine jewellery in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])
+    page_collection('silver', 'Silver', 'Silver jewellery, crafted and polished by hand.', [p for p in PRODUCTS if 'Silver' in p['metal']])
     page_collection('diamond', 'Diamond', 'Diamond jewellery, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond'])
     blurbs = {'Rings': 'Solitaires, bands and statement rings.', 'Earrings': 'Studs, drops and hoops for every day and every occasion.',
-              'Necklaces': 'Pendants, chains and rivières.', 'Bracelets': 'Tennis, link and chain bracelets.',
-              'Bangles': 'Slim bangles and cuffs in gold and diamonds.', 'Pendants': 'Pendants to wear alone or layered.',
-              'Watches': 'Dress watches and jeweled watches.'}
+              'Necklaces': 'Necklaces, pendants and chains.', 'Bracelets': 'Bracelets and bangles in gold and diamonds.',
+              'Accessories': 'Leather bands and finishing touches. Coming soon.',
+              'Bullion': 'Gold and silver bars and coins. Coming soon.'}
     for c in CATEGORIES:
-        page_collection(CAT_SLUG[c], c, blurbs[c], [p for p in PRODUCTS if p['category'] == c])
+        page_collection(CAT_SLUG[c], 'Gold & Silver Bars and Coins' if c == 'Bullion' else c, blurbs[c], [p for p in PRODUCTS if p['category'] == c])
     for p in PRODUCTS:
         page_product(p)
-    page_about(); page_bespoke(); page_contact(); page_faq(); page_care(); page_shipping(); page_privacy(); page_terms()
+    page_about(); page_customise(); page_services(); page_contact(); page_faq(); page_care(); page_shipping(); page_privacy(); page_terms()
     page_wishlist(); page_checkout(); page_404()
     today = datetime.date.today().isoformat()
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'<url><loc>{esc(u)}</loc><lastmod>{today}</lastmod></url>\n' for u in sorted(set(PAGES))) + '</urlset>\n'
