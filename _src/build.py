@@ -194,7 +194,7 @@ def footer(d):
     <div class="foot-brand"><img src="{asset(d, "assets/img/vlora-logo-footer.png")}" alt="VLORÁ Jewelry &amp; Watches" width="900" height="368">
       <p class="foot-note">{esc(SITE["company_full"])}<br>Dubai, United Arab Emirates</p>{social}</div>
     <div><h4>The house</h4><ul><li><a href="{link(d, "pages/about/")}">About</a></li><li><a href="{link(d, "pages/care-guide/")}">Care guide</a></li><li><a href="{link(d, "pages/faq/")}">FAQ</a></li>{soc}</ul></div>
-    <div><h4>Client services</h4><ul><li><a href="{link(d, "pages/contact/")}">Contact</a></li><li><a href="{link(d, "pages/shipping-returns/")}">Shipping &amp; returns</a></li><li><a href="{link(d, "wishlist/")}">Wishlist</a></li></ul></div>
+    <div><h4>Client services</h4><ul><li><a href="{link(d, "pages/services/")}">Services</a></li><li><a href="{link(d, "pages/contact/")}">Contact</a></li><li><a href="{link(d, "pages/shipping-returns/")}">Shipping &amp; returns</a></li><li><a href="{link(d, "wishlist/")}">Wishlist</a></li></ul></div>
     <div><h4>Shop</h4><ul>{cat}</ul></div>
     <div><h4>Visit &amp; contact</h4><ul class="plain"><li>{esc(SITE["address"])}</li><li>{esc(SITE["hours"]).replace("\n", "<br>")}</li>
       <li><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone_display"])}">{esc(SITE["phone_display"])}</a></li><li><a href="tel:{re.sub(r"[^+0-9]", "", SITE["phone2_display"])}">{esc(SITE["phone2_display"])}</a></li><li><a href="mailto:{esc(SITE["email"])}">{esc(SITE["email"])}</a></li>
@@ -673,14 +673,64 @@ def page_customise():
 <p class="draft">Draft text. Please review and adjust to match how your customise service really works, including timelines.</p>''')
 
 
+SERVICE_GROUPS = [
+    ('engraving', 'Engraving', 'A name, a date or a few words, engraved cleanly by hand or machine.', [
+        ('Ring engraving', 25), ('Necklace and pendant engraving', 25), ('Bracelet and anklet engraving', 25),
+        ('Watch or gift engraving', 25), ('Engraving removal', 20)]),
+    ('rings', 'Ring sizing and repair', 'Your ring, made to fit and made good as new.', [
+        ('Ring sizing up', 35), ('Ring sizing down', 49), ('Ring reshaping', 39), ('Ring shank repair', 49),
+        ('Ring soldering', 39), ('Ring unsoldering', 39)]),
+    ('stones', 'Stones and settings', 'Loose, lost or damaged stones, reset securely.', [
+        ('Diamond setting', 15), ('Gemstone replacement and setting', 15), ('Prong rebuilding', 35), ('Prong retipping', 35)]),
+    ('chains', 'Chains, clasps and parts', 'The small parts that keep a piece wearable.', [
+        ('Chain repair and soldering', 25), ('Chain lengthening', 10), ('Chain shortening and resizing', 10),
+        ('Clasp repair or replacement', 10), ('Jump ring repair or replacement', 25), ('Bail repair and replacement', 35),
+        ('Hinge repair', 35), ('Earring back conversion', 25), ('Earring back soldering', 25)]),
+    ('care', 'Cleaning and finishing', 'Bring back the shine, the colour and the finish.', [
+        ('Jewellery polishing', 25), ('Jewellery spa service', 59), ('Untangling', 20), ('Rhodium plating', 49),
+        ('Gold plating', 39), ('Enamel repair', 35), ('Pearl and bead restringing', 25)]),
+    ('watches', 'Watch services', 'Quick, careful work on the watch you wear every day.', [
+        ('Watch battery replacement', 35), ('Shorten watch band', 15)]),
+]
+
+
 def page_services():
-    simple_page('services', 'Services', 'Customising, restoring and caring for fine jewellery, at the VLORÁ workshop in Dubai.', f'''
-<p class="lede">Your jewellery should be looked after as well as it was made.</p>
-<h2>Customise</h2><p>Bring an idea, a sketch or a stone of your own. Our designers and workshop turn it into a finished piece. <a href="{link(2, "pages/customise/")}">Read how customising works</a>.</p>
-<h2>Restore and refurbish</h2><p>A necklace passed down in the family can be brought back to life: re-polished, repaired, reset or redesigned for the next generation to wear.</p>
-<h2>Lifetime care</h2><p>Complimentary cleaning, polishing and routine checks on every piece you buy from us. Our <a href="{link(2, "pages/care-guide/")}">care guide</a> covers looking after it at home.</p>
-<h2>Talk to us</h2><p>Not sure which service you need? <a href="{link(2, "pages/contact/")}">Contact us</a> or visit the showroom in the Gold Souq.</p>
-<p class="draft">Draft text. Please confirm the list of services (for example resizing, valuation, engraving) and what is complimentary.</p>''')
+    path = 'pages/services/index.html'
+    d = depth_of(path)
+    wa = wa_link("Hello VLORÁ, I would like to ask about your services: ")
+    chips = ''.join(f'<a href="#sv-{k}">{t}</a>' for k, t, _, _ in SERVICE_GROUPS)
+    groups = ''
+    for n, (k, t, blurb, rows) in enumerate(SERVICE_GROUPS):
+        li = ''.join(f'<li><span class="sv-n">{esc(nm)}</span><i aria-hidden="true"></i><span class="sv-p"><small>from AED</small> {pr}</span></li>' for nm, pr in rows)
+        groups += (f'<div class="sv-grp reveal" id="sv-{k}"><div class="sv-gh"><span class="sv-no">{n + 1:02d}</span><div><h3>{t}</h3><p>{blurb}</p></div></div>'
+                   f'<ul class="sv-list">{li}</ul></div>')
+    body = f"""
+<section class="ab-hero sv-hero"><div class="wrap">{crumbs(d, [("Services", None)])}
+  <p class="eyebrow">Services</p>
+  <h1 class="ab-h1"><span class="line"><span>Made with care.</span></span><span class="line gold"><span>Looked after for life.</span></span></h1>
+  <p class="ab-lede">Our workshop is in the Gold Souq, so repairs, resizing and restoration are done by the same hands that make our jewellery.</p>
+</div></section>
+
+<section class="ab-sec"><div class="wrap sv-pill">
+  <a class="sv-card reveal" style="--i:0" href="{link(d, "pages/customise/")}"><b>Customise</b><span>Bring an idea, a sketch or a stone of your own. We design and make it.</span><em>How customising works</em></a>
+  <div class="sv-card reveal" style="--i:1"><b>Restore</b><span>A necklace from your mother or grandmother can be brought back to life, repaired, reset or redesigned.</span></div>
+  <a class="sv-card reveal" style="--i:2" href="{link(d, "pages/care-guide/")}"><b>Lifetime care</b><span>Complimentary cleaning, polishing and routine checks on every piece you buy from us.</span><em>Read the care guide</em></a>
+</div></section>
+
+<section class="ab-sec ab-sand sv-prices"><div class="wrap">
+  <header class="sv-head reveal"><p class="eyebrow">Price list</p><h2 class="h-md">Repairs and finishing.</h2>
+    <p class="ab-sub">Prices start from the amounts shown, in UAE dirhams. The final price depends on your piece and the work needed, and we confirm it before we begin.</p></header>
+  <nav class="sv-chips reveal" aria-label="Service groups">{chips}</nav>
+  {groups}
+</div></section>
+
+<section class="ab-hero sv-cta"><div class="wrap">
+  <p class="eyebrow">Not sure what your piece needs?</p>
+  <h2 class="ab-h1 sv-cta-h">Show us. We will tell you honestly.</h2>
+  <p class="ab-lede">Send a photo on WhatsApp or bring it to the showroom and we will advise you, with no obligation.</p>
+  <p class="sv-cta-row"><a class="btn btn-gold" href="{wa}" rel="noopener" target="_blank">Message us on WhatsApp</a><a class="link-light" href="{link(d, "pages/contact/")}">Contact us</a></p>
+</div></section>"""
+    shell(path, 'Services', 'Engraving, ring sizing, repairs, stone setting, plating and watch services at the VLORÁ workshop in Dubai Gold Souq.', body)
 
 
 CG_IMG = {'Gold': 'gold', 'Silver': 'silver', 'Diamonds': 'diamond', 'Coloured gems': 'gems', 'Watches': 'watch'}
