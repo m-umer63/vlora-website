@@ -914,7 +914,7 @@ a.sv-card:hover{transform:translateY(-4px);border-color:var(--gold-bright);backg
 .sv-gh h3{font-family:var(--display);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.15;margin:0 0 .5rem}
 .sv-gh p{margin:0;color:rgba(12,25,59,.72);max-width:24em}
 .sv-list{list-style:none;margin:0;padding:0}
-.sv-list li{display:flex;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid rgba(12,25,59,.14)}
+.sv-list li{padding:14px 0;border-bottom:1px solid rgba(12,25,59,.14)}.sv-r{display:flex;align-items:baseline;gap:12px}.sv-d{margin:.35rem 0 0;font-size:.86rem;line-height:1.5;color:rgba(12,25,59,.68);max-width:34em}
 .sv-list li:first-child{padding-top:0}
 .sv-n{font-size:1rem}
 .sv-list i{flex:1;border-bottom:1px dotted rgba(12,25,59,.35);transform:translateY(-4px);min-width:16px}

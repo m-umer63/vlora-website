@@ -674,23 +674,45 @@ def page_customise():
 
 
 SERVICE_GROUPS = [
-    ('engraving', 'Engraving', 'A name, a date or a few words, engraved cleanly by hand or machine.', [
-        ('Ring engraving', 25), ('Necklace and pendant engraving', 25), ('Bracelet and anklet engraving', 25),
-        ('Watch or gift engraving', 25), ('Engraving removal', 20)]),
+    ('engraving', 'Engraving', 'A name, a date or a few words, engraved cleanly.', [
+        ('Ring engraving', 25, 'A message, monogram or date inside or outside your ring.'),
+        ('Necklace and pendant engraving', 25, 'A signature, initials or short message on a pendant or charm.'),
+        ('Bracelet and anklet engraving', 25, 'A few words engraved on a bracelet, bangle or anklet.'),
+        ('Watch or gift engraving', 25, 'Watch case backs and other keepsakes, personalised.'),
+        ('Engraving removal', 20, 'An old engraving polished away, on rings, bracelets, pendants or watches.')]),
     ('rings', 'Ring sizing and repair', 'Your ring, made to fit and made good as new.', [
-        ('Ring sizing up', 35), ('Ring sizing down', 49), ('Ring reshaping', 39), ('Ring shank repair', 49),
-        ('Ring soldering', 39), ('Ring unsoldering', 39)]),
+        ('Ring sizing up', 35, 'Made larger to any size, including half sizes.'),
+        ('Ring sizing down', 49, 'Made smaller to any size, including half sizes.'),
+        ('Ring reshaping', 39, 'A bent or squashed ring returned to a true round.'),
+        ('Ring shank repair', 49, 'Worn or damaged band at the back of the ring rebuilt.'),
+        ('Ring soldering', 39, 'Rings joined into one, such as a wedding set that sits together.'),
+        ('Ring unsoldering', 39, 'Rings that were joined together carefully separated.')]),
     ('stones', 'Stones and settings', 'Loose, lost or damaged stones, reset securely.', [
-        ('Diamond setting', 15), ('Gemstone replacement and setting', 15), ('Prong rebuilding', 35), ('Prong retipping', 35)]),
+        ('Diamond setting', 15, 'Setting of one diamond, coloured diamond, CZ or moissanite, per stone.'),
+        ('Gemstone replacement and setting', 15, 'A new stone set into an empty setting.'),
+        ('Prong rebuilding', 35, 'Broken or missing prongs rebuilt so the stone sits securely.'),
+        ('Prong retipping', 35, 'Worn prong tips built back up before a stone is lost.')]),
     ('chains', 'Chains, clasps and parts', 'The small parts that keep a piece wearable.', [
-        ('Chain repair and soldering', 25), ('Chain lengthening', 10), ('Chain shortening and resizing', 10),
-        ('Clasp repair or replacement', 10), ('Jump ring repair or replacement', 25), ('Bail repair and replacement', 35),
-        ('Hinge repair', 35), ('Earring back conversion', 25), ('Earring back soldering', 25)]),
+        ('Chain repair and soldering', 25, 'A broken chain joined and finished invisibly.'),
+        ('Chain lengthening', 10, 'Extra length added to a chain.'),
+        ('Chain shortening and resizing', 10, 'Necklaces, bracelets and anklets altered to the length you like.'),
+        ('Clasp repair or replacement', 10, 'Broken or worn clasps and locks fixed or replaced.'),
+        ('Jump ring repair or replacement', 25, 'A broken or missing jump ring replaced.'),
+        ('Bail repair and replacement', 35, 'The loop that holds a pendant to its chain, repaired or replaced.'),
+        ('Hinge repair', 35, 'Bracelet, anklet and hoop earring hinges repaired.'),
+        ('Earring back conversion', 25, 'Earring backs changed to the style you prefer.'),
+        ('Earring back soldering', 25, 'A lost earring post or back replaced.')]),
     ('care', 'Cleaning and finishing', 'Bring back the shine, the colour and the finish.', [
-        ('Jewellery polishing', 25), ('Jewellery spa service', 59), ('Untangling', 20), ('Rhodium plating', 49),
-        ('Gold plating', 39), ('Enamel repair', 35), ('Pearl and bead restringing', 25)]),
+        ('Jewellery polishing', 25, 'Scratches and dullness removed for a fresh finish.'),
+        ('Jewellery spa service', 59, 'A full refresh: cleaning, stone tightening and polishing.'),
+        ('Untangling', 20, 'Knotted necklaces and bracelets patiently freed.'),
+        ('Rhodium plating', 49, 'The bright white finish of white gold restored.'),
+        ('Gold plating', 39, 'Thinning or faded gold plating renewed.'),
+        ('Enamel repair', 35, 'Chipped or missing enamel replaced.'),
+        ('Pearl and bead restringing', 25, 'Tired strings replaced on pearl and bead necklaces.')]),
     ('watches', 'Watch services', 'Quick, careful work on the watch you wear every day.', [
-        ('Watch battery replacement', 35), ('Shorten watch band', 15)]),
+        ('Watch battery replacement', 35, 'A new battery fitted while you wait.'),
+        ('Shorten watch band', 15, 'Links removed so the watch fits your wrist.')]),
 ]
 
 
@@ -701,7 +723,7 @@ def page_services():
     chips = ''.join(f'<a href="#sv-{k}">{t}</a>' for k, t, _, _ in SERVICE_GROUPS)
     groups = ''
     for n, (k, t, blurb, rows) in enumerate(SERVICE_GROUPS):
-        li = ''.join(f'<li><span class="sv-n">{esc(nm)}</span><i aria-hidden="true"></i><span class="sv-p"><small>from AED</small> {pr}</span></li>' for nm, pr in rows)
+        li = ''.join(f'<li><div class="sv-t"><div class="sv-r"><span class="sv-n">{esc(nm)}</span><i aria-hidden="true"></i><span class="sv-p"><small>from AED</small> {pr}</span></div><p class="sv-d">{esc(ds)}</p></div></li>' for nm, pr, ds in rows)
         groups += (f'<div class="sv-grp reveal" id="sv-{k}"><div class="sv-gh"><span class="sv-no">{n + 1:02d}</span><div><h3>{t}</h3><p>{blurb}</p></div></div>'
                    f'<ul class="sv-list">{li}</ul></div>')
     body = f"""
