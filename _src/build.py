@@ -723,8 +723,9 @@ def page_services():
     chips = ''.join(f'<a href="#sv-{k}">{t}</a>' for k, t, _, _ in SERVICE_GROUPS)
     groups = ''
     for n, (k, t, blurb, rows) in enumerate(SERVICE_GROUPS):
+        alt = {'engraving': 'Gold signet rings engraved with a date and initials', 'rings': 'Rings before and after repair and refinishing', 'stones': 'A jeweller setting diamonds in a ring', 'chains': 'A gold rope chain with a broken link and clasp', 'care': 'Rings restored to a bright finish', 'watches': 'A watchmaker replacing a watch battery'}[k]
         li = ''.join(f'<li><div class="sv-t"><div class="sv-r"><span class="sv-n">{esc(nm)}</span><i aria-hidden="true"></i><span class="sv-p"><small>from AED</small> {pr}</span></div><p class="sv-d">{esc(ds)}</p></div></li>' for nm, pr, ds in rows)
-        groups += (f'<div class="sv-grp reveal" id="sv-{k}"><div class="sv-gh"><span class="sv-no">{n + 1:02d}</span><div><h3>{t}</h3><p>{blurb}</p></div></div>'
+        groups += (f'<div class="sv-grp reveal" id="sv-{k}"><div class="sv-left"><div class="sv-gh"><span class="sv-no">{n + 1:02d}</span><div><h3>{t}</h3><p>{blurb}</p></div></div><figure class="sv-fig"><img src="{asset(d, "assets/img/services/" + k + ".jpg")}" alt="{alt}" width="900" height="600" loading="lazy" decoding="async"></figure></div>'
                    f'<ul class="sv-list">{li}</ul></div>')
     body = f"""
 <section class="ab-hero sv-hero"><div class="wrap">{crumbs(d, [("Services", None)])}
