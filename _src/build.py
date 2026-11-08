@@ -679,9 +679,9 @@ CUSTOM_STEPS = [
      ('img', 'delivery.jpg', 'Every piece leaves in a VLORÁ box and bag.')),
 ]
 CUSTOM_CASES = [
-    ('A princess-cut diamond ring', 'The client brought a princess-cut diamond.',
-     'He wanted it set as a solitaire. We drew the ring in 3D, adjusted it with him, then made it by hand.',
-     [('video', 'cu-p1-3d', 'The 3D design', 'The 3D design of the ring turning'), ('video', 'cu-p1-final', 'The finished ring', 'The finished princess-cut diamond ring')]),
+    ('A princess-cut diamond ring', 'He wanted to propose.',
+     'We helped him choose the best diamond within his budget, then drew the ring around it in 3D. He approved every detail before we made it by hand.',
+     [('img', 'p1-diamond.jpg', 'The diamond we chose', 'The princess-cut diamond held in tweezers'), ('img', 'p1-3d.jpg', 'The 3D design', 'The 3D design of the ring'), ('img', 'p1-final-poster.jpg', 'The finished ring', 'The finished princess-cut diamond ring')]),
     ('The same earrings, in emerald', 'He saw them in ruby, in another store.',
      'He loved the design but wanted emeralds. We drew the same earrings in 3D with the stone he preferred, then made them exactly as he pictured.',
      [('img', 'p2-ref.jpg', 'The design he liked', 'Ruby earrings the client liked'), ('img', 'p2-3d.jpg', 'Our 3D design', 'The 3D design of the earrings'), ('img', 'p2-final.jpg', 'Made in emerald', 'The finished emerald earrings in a VLORÁ box')]),
