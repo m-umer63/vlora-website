@@ -665,18 +665,29 @@ def page_faq():
 
 
 CUSTOM_STEPS = [
-    ('Share your idea', 'A photo, a sketch, a design you saw online, or a stone you already own. Send it to us or bring it to the showroom.'),
-    ('We design it in 3D', 'Our designer builds your piece on screen, from every angle, in the metal and stones you want. You approve it before anything is made.'),
-    ('We make it', 'Cast, set and finished by hand in our own workshop in Dubai.'),
-    ('You collect it', 'Your piece is ready in a VLORÁ gift box, exactly as you approved it.'),
+    ('Share your idea', 'It starts with anything you can show us.',
+     'A photo, a sketch, a design you saw online, or a stone you already own. Send it to us on WhatsApp or bring it to the showroom, and tell us what you would change.',
+     ('img', 'dp-draw.jpg', 'A sketch is enough to begin.')),
+    ('We design it in 3D', 'You see it before it exists.',
+     'Our designer builds your piece on screen and turns it through every angle, in the metal and stones you want. We change it until it is right. Nothing is made before you approve it.',
+     ('video3d', 'cu-p1-3d', 'A client’s ring, turning on screen.')),
+    ('We make it by hand', 'Cast, set and finished in our own workshop.',
+     'Once you approve the design, it is cast in your metal, the stones are set and every surface is polished by hand in Dubai.',
+     ('img', 'dp-wax.jpg', 'From the screen to the bench.')),
+    ('It is ready for you', 'In a VLORÁ box, exactly as approved.',
+     'Collect it from us, or we deliver it to you, in a VLORÁ gift box and bag, ready to give.',
+     ('img', 'delivery.jpg', 'Every piece leaves in a VLORÁ box and bag.')),
 ]
 CUSTOM_CASES = [
-    ('A princess-cut diamond ring', 'A client chose a princess-cut diamond and asked us to make it into a solitaire ring. We drew it in 3D, then made it.',
-     [('img', 'p1-3d.jpg', 'The 3D design', 'The 3D design of the ring'), ('video', 'cu-p1-final', 'The finished ring', 'The finished princess-cut diamond ring')]),
-    ('The same earrings, in emerald', 'A client saw ruby earrings in another store and loved the design, but wanted emeralds. We drew the design and made it as he wished.',
+    ('A princess-cut diamond ring', 'The client brought a princess-cut diamond.',
+     'He wanted it set as a solitaire. We drew the ring in 3D, adjusted it with him, then made it by hand.',
+     [('video', 'cu-p1-3d', 'The 3D design', 'The 3D design of the ring turning'), ('video', 'cu-p1-final', 'The finished ring', 'The finished princess-cut diamond ring')]),
+    ('The same earrings, in emerald', 'He saw them in ruby, in another store.',
+     'He loved the design but wanted emeralds. We drew the same earrings in 3D with the stone he preferred, then made them exactly as he pictured.',
      [('img', 'p2-ref.jpg', 'The design he liked', 'Ruby earrings the client liked'), ('img', 'p2-3d.jpg', 'Our 3D design', 'The 3D design of the earrings'), ('img', 'p2-final.jpg', 'Made in emerald', 'The finished emerald earrings in a VLORÁ box')]),
-    ('A ring from a photo', 'A client found a ring design online and wanted it as an engagement ring for her husband. We made exactly that design.',
-     [('img', 'p3-3d.jpg', 'The 3D design', 'The 3D design of the ring'), ('img', 'p3-final.jpg', 'The finished ring', 'The finished ring in a VLORÁ box')]),
+    ('A ring from a photo', 'She found a ring online and wanted it for her husband.',
+     'It was a design she had only seen in a picture. We rebuilt it in 3D as an engagement ring for him, then made exactly that design.',
+     [('img', 'p3-ref.jpg', 'The ring she found', 'The reference ring photo the client found online'), ('img', 'p3-3d.jpg', 'Our 3D design', 'The 3D design of the ring'), ('img', 'p3-final.jpg', 'The finished ring', 'The finished ring in a VLORÁ box')]),
 ]
 
 
@@ -684,34 +695,46 @@ def page_customise():
     path = 'pages/customise/index.html'
     d = depth_of(path)
     wa = wa_link("Hello VLORÁ, I would like to customise a piece: ")
-    steps = ''.join(f'<li class="cu-step reveal" style="--i:{n}"><span class="cu-no">{n + 1:02d}</span><h3>{esc(t)}</h3><p>{esc(x)}</p></li>' for n, (t, x) in enumerate(CUSTOM_STEPS))
+    A = lambda f: asset(d, "assets/img/customise/" + f)
+
+    def media(kind, f, alt, lazy=True):
+        if kind in ('video', 'video3d'):
+            poster = 'p1-3d-poster.jpg' if f == 'cu-p1-3d' else 'p1-final-poster.jpg'
+            return (f'<video autoplay muted loop playsinline preload="metadata" poster="{A(poster)}" aria-label="{esc(alt)}">'
+                    f'<source src="{asset(d, "assets/video/" + f + ".mp4")}" type="video/mp4"></video>')
+        return f'<img src="{A(f)}" alt="{esc(alt)}" loading="lazy" decoding="async">'
+
+    chapters = ''
+    for n, (t, lead, x, (kind, f, cap)) in enumerate(CUSTOM_STEPS):
+        chapters += (f'<li class="cu-ch reveal"><span class="cu-no">{n + 1:02d}</span>'
+                     f'<div class="cu-chtxt"><h3>{esc(t)}</h3><p class="cu-lead">{esc(lead)}</p><p>{esc(x)}</p></div>'
+                     f'<figure class="cu-chfig cu-clip">{media(kind, f, cap)}<figcaption>{esc(cap)}</figcaption></figure></li>')
     cases = ''
-    for n, (t, x, media) in enumerate(CUSTOM_CASES):
-        tiles = ''
-        for kind, f, cap, alt in media:
-            if kind == 'video':
-                m = (f'<video autoplay muted loop playsinline preload="metadata" poster="{asset(d, "assets/img/customise/p1-final-poster.jpg")}" aria-label="{esc(alt)}">'
-                     f'<source src="{asset(d, "assets/video/" + f + ".mp4")}" type="video/mp4"></video>')
-            else:
-                m = f'<img src="{asset(d, "assets/img/customise/" + f)}" alt="{esc(alt)}" width="900" height="900" loading="lazy" decoding="async">'
-            tiles += f'<figure class="cu-tile">{m}<figcaption>{esc(cap)}</figcaption></figure>'
-        cases += (f'<article class="cu-case reveal"><div class="cu-txt"><p class="eyebrow">Commission {n + 1:02d}</p><h3>{esc(t)}</h3><p>{esc(x)}</p></div>'
-                  f'<div class="cu-media cu-m{len(media)}">{tiles}</div></article>')
+    for n, (t, lead, x, frames) in enumerate(CUSTOM_CASES):
+        tiles = ''.join(f'<figure class="cu-tile cu-clip"><div class="cu-ph">{media(k, f, alt)}</div><figcaption><span>{i + 1}</span>{esc(cap)}</figcaption></figure>'
+                        for i, (k, f, cap, alt) in enumerate(frames))
+        cases += (f'<article class="cu-case"><header class="cu-casehd reveal"><span class="cu-big">{n + 1:02d}</span>'
+                  f'<div><p class="eyebrow">Commission</p><h3>{esc(t)}</h3><p class="cu-lead">{esc(lead)}</p><p>{esc(x)}</p></div></header>'
+                  f'<div class="cu-strip cu-s{len(frames)}">{tiles}</div></article>')
     body = f"""
-<section class="ab-hero"><div class="wrap">{crumbs(d, [("Customise", None)])}
-  <p class="eyebrow">Customise</p>
-  <h1 class="ab-h1"><span class="line"><span>Your idea.</span></span><span class="line gold"><span>Made by our hands.</span></span></h1>
-  <p class="ab-lede">Bring us a photo, a sketch or a stone. We design it in 3D, you approve it, and we make it in our own workshop in Dubai.</p>
+<section class="cu-hero"><div class="wrap cu-herogrid">
+  <div class="cu-herotxt">{crumbs(d, [("Customise", None)])}
+    <p class="eyebrow">Customise</p>
+    <h1 class="ab-h1"><span class="line"><span>Show us your idea.</span></span><span class="line gold"><span>We make it real.</span></span></h1>
+    <p class="ab-lede">From a photo or a sketch to a finished piece in your hand. We design it in 3D, you approve it, and we make it in our own workshop in Dubai.</p>
+    <p class="sv-cta-row"><a class="btn btn-gold" href="{wa}" rel="noopener" target="_blank">Start on WhatsApp</a><a class="link-light" href="#cu-how">See how it works</a></p>
+  </div>
+  <figure class="cu-heroimg"><img src="{A("dp-hands.jpg")}" alt="A jeweller holding a ring beside its 3D design on screen" data-par="0.08"></figure>
 </div></section>
 
-<section class="ab-sec"><div class="wrap">
-  <header class="sv-head reveal"><p class="eyebrow">How it works</p><h2 class="h-md">Four simple steps.</h2></header>
-  <ol class="cu-steps">{steps}</ol>
+<section class="ab-sec" id="cu-how"><div class="wrap">
+  <header class="sv-head reveal"><p class="eyebrow">How it works</p><h2 class="h-md">Four steps, from idea to box.</h2></header>
+  <ol class="cu-chs" data-line>{chapters}</ol>
 </div></section>
 
 <section class="ab-sec ab-sand"><div class="wrap">
-  <header class="sv-head reveal"><p class="eyebrow">Made for our clients</p><h2 class="h-md">From an idea to the finished piece.</h2>
-    <p class="ab-sub">Three recent commissions, from the first picture to the box.</p></header>
+  <header class="sv-head reveal"><p class="eyebrow">Made for our clients</p><h2 class="h-md">Three real commissions.</h2>
+    <p class="ab-sub">See each one from the first picture to the finished piece.</p></header>
   {cases}
 </div></section>
 

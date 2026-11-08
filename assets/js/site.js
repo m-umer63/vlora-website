@@ -556,5 +556,16 @@ function heroVideo(){
     requestAnimationFrame(loop);
   }
 
-  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs(); initOpenNow();
+  function initCustomise() {
+    var ch = document.querySelector('[data-line]'), par = $$('[data-par]');
+    if (!ch && !par.length) return;
+    function f() {
+      var vh = window.innerHeight;
+      if (ch) { var r = ch.getBoundingClientRect(); ch.style.setProperty('--p', Math.max(0, Math.min(1, (vh * 0.6 - r.top) / r.height)).toFixed(3)); }
+      par.forEach(function (im) { var r = im.parentNode.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; im.style.transform = 'translateY(' + ((r.top + r.height / 2 - vh / 2) * parseFloat(im.getAttribute('data-par'))).toFixed(1) + 'px)'; });
+    }
+    window.addEventListener('scroll', f, { passive: true }); window.addEventListener('resize', f); f();
+  }
+
+  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs(); initOpenNow(); initCustomise();
 })();
