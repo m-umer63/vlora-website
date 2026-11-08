@@ -277,8 +277,9 @@ def mega_diamond(d):
     def col(g, title, vals):
         items = ''.join(f'<li><a href="{base}?{g}={fslug(v)}">{facet_icon(g, v)}<span>{esc(facet_label(g, v))}</span></a></li>' for v in vals)
         return f'<div class="mg mg-{g}"><p class="mega-h">Shop by {title}</p><ul>{items}</ul></div>'
-    lead = (f'<div class="mg mg-lead"><p class="mega-h">Engagement rings</p><ul><li><a href="{base}?for=her">For Her</a></li><li><a href="{base}?for=him">For Him</a></li></ul>'
-            f'<p class="mega-h mega-h2">Wedding &amp; anniversary bands</p><ul><li><a href="{link(d, "collections/wedding-bands/")}">Wedding Band</a></li><li><a href="{link(d, "collections/eternities/")}">Eternities</a></li></ul></div>')
+    cl = [('Engagement rings', 'collections/engagement-rings/'), ('Wedding bands', 'collections/wedding-bands/'), ('Eternities', 'collections/eternities/'),
+          ('Earrings', 'collections/earrings/'), ('Necklaces', 'collections/necklaces/'), ('Bracelets', 'collections/bracelets/')]
+    lead = '<div class="mg mg-lead"><p class="mega-h">Shop by collection</p><ul>' + ''.join(f'<li><a href="{link(d, h)}">{n}</a></li>' for n, h in cl) + '</ul></div>'
     return f'<div class="mega mega-d"><div class="mega-in mega-wide">{lead}{col("shape", "shape", SHAPE_ORDER)}{col("style", "ring style", STYLE_ORDER)}{col("metal", "metal", list(_METAL_SW))}</div></div>'
 
 
