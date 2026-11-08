@@ -670,7 +670,7 @@ CUSTOM_STEPS = [
      ('img', 'dp-draw.jpg', 'A sketch is enough to begin.')),
     ('We design it in 3D', 'You see it before it exists.',
      'Our designer builds your piece on screen and turns it through every angle, in the metal and stones you want. We change it until it is right. Nothing is made before you approve it.',
-     ('video3d', 'cu-p1-3d', 'A client’s ring, turning on screen.')),
+     ('video3d', 'cu-design', 'Your design, turning on screen.')),
     ('We make it by hand', 'Cast, set and finished in our own workshop.',
      'Once you approve the design, it is cast in your metal, the stones are set and every surface is polished by hand in Dubai.',
      ('img', 'dp-wax.jpg', 'From the screen to the bench.')),
@@ -699,7 +699,7 @@ def page_customise():
 
     def media(kind, f, alt, lazy=True):
         if kind in ('video', 'video3d'):
-            poster = 'p1-3d-poster.jpg' if f == 'cu-p1-3d' else 'p1-final-poster.jpg'
+            poster = {'cu-p1-3d': 'p1-3d-poster.jpg', 'cu-design': 'design-poster.jpg'}.get(f, 'p1-final-poster.jpg')
             return (f'<video autoplay muted loop playsinline preload="metadata" poster="{A(poster)}" aria-label="{esc(alt)}">'
                     f'<source src="{asset(d, "assets/video/" + f + ".mp4")}" type="video/mp4"></video>')
         return f'<img src="{A(f)}" alt="{esc(alt)}" loading="lazy" decoding="async">'
@@ -707,11 +707,11 @@ def page_customise():
     chapters = ''
     for n, (t, lead, x, (kind, f, cap)) in enumerate(CUSTOM_STEPS):
         chapters += (f'<li class="cu-ch reveal"><span class="cu-no">{n + 1:02d}</span>'
-                     f'<div class="cu-chtxt"><h3>{esc(t)}</h3><p class="cu-lead">{esc(lead)}</p><p>{esc(x)}</p></div>'
-                     f'<figure class="cu-chfig cu-clip">{media(kind, f, cap)}<figcaption>{esc(cap)}</figcaption></figure></li>')
+                     f'<div class="cu-chtxt"><span class="cu-bg" aria-hidden="true">{n + 1:02d}</span><h3>{esc(t)}</h3><p class="cu-lead">{esc(lead)}</p><p>{esc(x)}</p></div>'
+                     f'<figure class="cu-chfig cu-clip reveal">{media(kind, f, cap)}<figcaption>{esc(cap)}</figcaption></figure></li>')
     cases = ''
     for n, (t, lead, x, frames) in enumerate(CUSTOM_CASES):
-        tiles = ''.join(f'<figure class="cu-tile cu-clip"><div class="cu-ph">{media(k, f, alt)}</div><figcaption><span>{i + 1}</span>{esc(cap)}</figcaption></figure>'
+        tiles = ''.join(f'<figure class="cu-tile cu-clip reveal"><div class="cu-ph">{media(k, f, alt)}</div><figcaption><span>{i + 1}</span>{esc(cap)}</figcaption></figure>'
                         for i, (k, f, cap, alt) in enumerate(frames))
         cases += (f'<article class="cu-case"><header class="cu-casehd reveal"><span class="cu-big">{n + 1:02d}</span>'
                   f'<div><p class="eyebrow">Commission</p><h3>{esc(t)}</h3><p class="cu-lead">{esc(lead)}</p><p>{esc(x)}</p></div></header>'
@@ -725,6 +725,7 @@ def page_customise():
     <p class="sv-cta-row"><a class="btn btn-gold" href="{wa}" rel="noopener" target="_blank">Start on WhatsApp</a><a class="link-light" href="#cu-how">See how it works</a></p>
   </div>
   <figure class="cu-heroimg"><img src="{A("dp-hands.jpg")}" alt="A jeweller holding a ring beside its 3D design on screen" data-par="0.08"></figure>
+  <figure class="cu-inset"><img src="{A("dp-sketch.jpg")}" alt="A ring sketch with a loose diamond held in tweezers" loading="lazy"></figure>
 </div></section>
 
 <section class="ab-sec" id="cu-how"><div class="wrap">
