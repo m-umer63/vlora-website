@@ -109,7 +109,7 @@ def card(d, p):
     two = len(p.get('images', [])) > 1
     sample = '<span class="tag tag-sample">Sample</span>' if p.get('sample') else ''
     newt = '<span class="tag tag-new">New</span>' if p.get('new') and not p.get('sample') else ''
-    return (f'<article class="card" data-sku="{esc(p["sku"])}" data-metal="{esc(p["metal"])}" data-price="{p["price"]}" data-name="{esc(p["name"].lower())}" data-new="{1 if p.get("new") else 0}">'
+    return (f'<article class="card" data-sku="{esc(p["sku"])}" data-metal="{esc(p["metal"])}" data-price="{p["price"]}" data-name="{esc(p["name"].lower())}" data-new="{1 if p.get("new") else 0}"{facet_attrs(p)}>'
             f'<a class="card-media" href="{href}" aria-label="{esc(p["name"])}">{img_tag(d, p, 0)}{img_tag(d, p, 1, "alt") if two else ""}</a>'
             f'<button class="heart" data-wish="{esc(p["sku"])}" aria-label="Save {esc(p["name"])} to wishlist" aria-pressed="false">'
             '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>'
@@ -117,6 +117,84 @@ def card(d, p):
             f'<div class="card-body"><h3><a href="{href}">{esc(p["name"])}</a></h3><p class="sub">{esc(sub_line(p))}</p><p class="price">{money(p["price"])}</p></div>'
             f'<div class="card-actions"><button class="btn btn-small" data-add="{esc(p["sku"])}">Add to bag</button>'
             f'<button class="btn btn-small btn-ghost" data-quick="{esc(p["sku"])}">Quick view</button></div></article>')
+
+
+# ---------------------------------------------------------------- engagement-ring facets
+def fslug(t):
+    return re.sub(r'[^a-z0-9]+', '-', t.lower()).strip('-')
+
+
+def facet_attrs(p):
+    if not p.get('engagement'):
+        return ''
+    return ''.join(f' data-{k}="{esc(fslug(p[f]))}"' for k, f in (('style', 'style'), ('shape', 'shape'), ('stone', 'stone_type')) if p.get(f))
+
+
+_SH = {
+    'Round': '<circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="7"/><path d="M20 6v7M20 27v7M6 20h7M27 20h7"/>',
+    'Princess': '<rect x="7" y="7" width="26" height="26"/><rect x="14" y="14" width="12" height="12"/><path d="M7 7l7 7M33 7l-7 7M7 33l7-7M33 33l-7-7"/>',
+    'Emerald': '<path d="M14 5h12l6 6v18l-6 6H14l-6-6V11z"/><path d="M16 11h8l4 4v10l-4 4h-8l-4-4V15z"/>',
+    'Pear': '<path d="M20 5C20 5 8 18 8 25a12 12 0 0 0 24 0C32 18 20 5 20 5z"/><path d="M20 15c-3 4-5 7-5 10a5 5 0 0 0 10 0c0-3-2-6-5-10z"/>',
+    'Oval': '<ellipse cx="20" cy="20" rx="11" ry="15"/><ellipse cx="20" cy="20" rx="5" ry="8"/>',
+    'Cushion': '<rect x="7" y="7" width="26" height="26" rx="9"/><rect x="14" y="14" width="12" height="12" rx="4"/>',
+    'Asscher': '<path d="M13 6h14l7 7v14l-7 7H13l-7-7V13z"/><path d="M16 12h8l4 4v8l-4 4h-8l-4-4v-8z"/>',
+    'Radiant': '<path d="M13 5h14l6 6v18l-6 6H13l-6-6V11z"/><path d="M15 12h10v16H15z"/>',
+    'Marquise': '<path d="M20 4C27 12 29 17 29 20s-2 8-9 16C13 28 11 23 11 20s2-8 9-16z"/><path d="M20 12c3 5 4 7 4 8s-1 4-4 8c-3-4-4-7-4-8s1-3 4-8z"/>',
+    'Heart': '<path d="M20 34S6 25 6 15a7 7 0 0 1 14-2 7 7 0 0 1 14 2c0 10-14 19-14 19z"/><path d="M20 27s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/>',
+}
+
+
+def _band(r, y=20):
+    return f'<path d="M3 {y}H{40 - r}M{40 + r} {y}H77"/>'
+
+
+def _ethereal():
+    import math
+    return ''.join(f'<circle cx="{40 + 11 * math.cos(a * math.pi / 3):.1f}" cy="{20 + 11 * math.sin(a * math.pi / 3):.1f}" r="3.2"/>' for a in range(6))
+
+
+_ST = {
+    'Solitaire': _band(9) + '<circle cx="40" cy="20" r="9"/><circle cx="40" cy="20" r="4"/>',
+    'Side Stone': _band(9) + '<circle cx="40" cy="20" r="9"/><circle cx="40" cy="20" r="4"/><circle cx="22" cy="20" r="2"/><circle cx="28" cy="20" r="2"/><circle cx="52" cy="20" r="2"/><circle cx="58" cy="20" r="2"/>',
+    'Halo': _band(13) + '<circle cx="40" cy="20" r="13"/><circle cx="40" cy="20" r="8"/><circle cx="40" cy="20" r="3"/>',
+    'Trilogy': _band(14) + '<circle cx="40" cy="20" r="8"/><circle cx="27" cy="20" r="5"/><circle cx="53" cy="20" r="5"/>',
+    'Ethereal': _band(15) + '<circle cx="40" cy="20" r="5.5"/>' + _ethereal(),
+    'Bridal Set': '<path d="M3 15H27M53 15H77M3 26H77"/><circle cx="40" cy="15" r="9"/><circle cx="40" cy="15" r="4"/>',
+}
+_STONE_SW = {'Natural Diamond': 'sw-nat', 'Lab Grown': 'sw-lab', 'Yellow Diamond': 'sw-yel', 'Moissanite': 'sw-moi', 'Black Diamond': 'sw-blk'}
+_METAL_SW = {'White Gold': 'sw-wg', 'Yellow Gold': 'sw-yg', 'Rose Gold': 'sw-rg', 'Platinum': 'sw-pt'}
+FACETS = [('style', 'Style', list(_ST)), ('stone', 'Stone', list(_STONE_SW)), ('shape', 'Shape', list(_SH)), ('metal', 'Metal', list(_METAL_SW))]
+
+
+def facet_icon(group, v):
+    if group == 'style':
+        return f'<svg class="fi-i fi-st" viewBox="0 0 80 40" aria-hidden="true">{_ST[v]}</svg>'
+    if group == 'shape':
+        return f'<svg class="fi-i" viewBox="0 0 40 40" aria-hidden="true">{_SH[v]}</svg>'
+    return f'<span class="fi-i sw {(_STONE_SW if group == "stone" else _METAL_SW)[v]}" aria-hidden="true"></span>'
+
+
+def facet_label(group, v):
+    return {'White Gold': '18K White Gold', 'Yellow Gold': '18K Yellow Gold', 'Rose Gold': '18K Rose Gold'}.get(v, v) if group == 'metal' else v
+
+
+def facet_panel(d):
+    out = ''
+    for g, title, vals in FACETS:
+        items = ''.join('<label class="fi"><input type="checkbox" name="%s" value="%s">%s<span>%s</span></label>' % (g, esc(v if g == 'metal' else fslug(v)), facet_icon(g, v), esc(facet_label(g, v))) for v in vals)
+        out += f'<fieldset class="fc fc-{g}"><legend>{title}</legend><div class="fc-list">{items}</div></fieldset>'
+    return f'<div class="facets">{out}</div>'
+
+
+def mega_diamond(d):
+    base = link(d, 'collections/engagement-rings/')
+    cols = ''
+    for g, title, vals in FACETS:
+        items = ''.join(f'<li><a href="{base}?{g}={fslug(v)}">{facet_icon(g, v)}<span>{esc(facet_label(g, v))}</span></a></li>' for v in vals)
+        cols += f'<div class="mg mg-{g}"><p class="mega-h">Shop by {title.lower()}</p><ul>{items}</ul></div>'
+    return (f'<div class="mega mega-d"><div class="mega-in mega-wide"><div class="mg mg-lead"><p class="mega-h">Engagement rings</p><ul>'
+            f'<li><a class="mg-all" href="{base}">All engagement rings</a></li><li><a class="mg-all" href="{link(d, "collections/diamond/")}">All diamond jewellery</a></li>'
+            f'<li><a class="mg-all" href="{link(d, "pages/customise/")}">Design your own</a></li></ul></div>{cols}</div></div>')
 
 
 ICON = {
@@ -145,7 +223,7 @@ def header(d, current=''):
     <nav class="nav nav-left" aria-label="Main">
       <a href="{link(d, "collections/gold/")}">Gold</a>
       <a href="{link(d, "collections/silver/")}">Silver</a>
-      <a href="{link(d, "collections/diamond/")}">Diamond</a>
+      <div class="has-mega"><a href="{link(d, "collections/diamond/")}">Diamond</a>{mega_diamond(d)}</div>
       <a href="{link(d, "pages/customise/")}">Customise</a>
     </nav></div>
     <a class="brand" href="{link(d)}" aria-label="VLORÁ home"><img src="{asset(d, "assets/img/vlora-logo-navy.svg")}" alt="VLORÁ" width="176" height="56"><span class="brand-year">{SITE["since"]}</span></a>
@@ -162,7 +240,7 @@ def header(d, current=''):
 <div class="scrim" data-close></div>
 <aside class="drawer drawer-left" id="menu-drawer" aria-label="Menu" aria-hidden="true">
   <div class="drawer-head"><span class="eyebrow">Menu</span><button class="icon-btn" data-close aria-label="Close">{ICON["close"]}</button></div>
-  <nav class="mob-nav"><p class="mob-h">Shop</p><a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/silver/")}">Silver</a><a href="{link(d, "collections/diamond/")}">Diamond</a><a href="{link(d, "collections/all/")}">All jewellery</a>{mobcats}
+  <nav class="mob-nav"><p class="mob-h">Shop</p><a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/silver/")}">Silver</a><a href="{link(d, "collections/diamond/")}">Diamond</a><a class="mob-sub" href="{link(d, "collections/engagement-rings/")}">Engagement rings</a><a href="{link(d, "collections/all/")}">All jewellery</a>{mobcats}
   <p class="mob-h">Services</p><a href="{link(d, "pages/customise/")}">Customise</a><a href="{link(d, "pages/services/")}">Services</a><a href="{link(d, "pages/care-guide/")}">Care guide</a>
   <p class="mob-h">The house</p><a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/contact/")}">Contact</a><a href="{link(d, "pages/faq/")}">FAQ</a><a href="{link(d, "wishlist/")}">Wishlist</a></nav>
 </aside>
@@ -421,23 +499,33 @@ def page_home():
           body, f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>', 'home')
 
 
-def page_collection(slug, title, intro, items):
+def page_collection(slug, title, intro, items, eng=False):
     path = f'collections/{slug}/index.html'
     d = depth_of(path)
     metals = sorted({p['metal'] for p in items})
     prices = [p['price'] for p in items] or [0]
     mf = ''.join(f'<label class="chk"><input type="checkbox" name="metal" value="{esc(m)}"> {esc(m)}</label>' for m in metals)
     sub = ''.join(f'<a class="chip{" is-on" if CAT_SLUG.get(c) == slug else ""}" href="{link(d, "collections/" + CAT_SLUG[c] + "/")}">{c}</a>' for c in CATEGORIES)
+    if slug in ('diamond', 'engagement-rings'):
+        chips = (f'<a class="chip{" is-on" if slug == "diamond" else ""}" href="{link(d, "collections/diamond/")}">All diamond</a>'
+                 f'<a class="chip{" is-on" if eng else ""}" href="{link(d, "collections/engagement-rings/")}">Engagement rings</a>')
+        crumb = [("Shop", "collections/all/"), ("Diamond", "collections/diamond/")] + ([("Engagement rings", None)] if eng else [])
+        if not eng: crumb = [("Shop", "collections/all/"), ("Diamond", None)]
+    else:
+        chips = f'<a class="chip{" is-on" if slug == "all" else ""}" href="{link(d, "collections/all/")}">All</a>{sub}'
+        crumb = [("Shop", "collections/all/"), (title, None)] if slug != "all" else [("Shop", None)]
+    facets = facet_panel(d) if eng else ''
+    metal_group = '<div class="f-group"><span class="f-label">Metal</span>' + (mf or '<span class="muted">-</span>') + '</div>'
     body = f'''
-<section class="page-head"><div class="wrap">{crumbs(d, [("Shop", "collections/all/"), (title, None)] if slug != "all" else [("Shop", None)])}
+<section class="page-head"><div class="wrap">{crumbs(d, crumb)}
   <h1 class="h-xl">{esc(title)}</h1><p class="lede">{esc(intro)}</p>
-  <div class="chips"><a class="chip{" is-on" if slug == "all" else ""}" href="{link(d, "collections/all/")}">All</a>{sub}</div></div></section>
+  <div class="chips">{chips}</div></div></section>
 <section class="section tight"><div class="wrap">
   <div class="toolbar" id="toolbar" data-min="{min(prices)}" data-max="{max(prices)}">
     <button class="btn btn-ghost btn-small filter-toggle" id="filter-toggle" aria-expanded="false">Filter &amp; sort</button>
     <p class="result-count" id="result-count" aria-live="polite">{len(items)} pieces</p>
-    <div class="filters" id="filters">
-      <div class="f-group"><span class="f-label">Metal</span>{mf or '<span class="muted">-</span>'}</div>
+    <div class="filters{" filters-eng" if eng else ""}" id="filters">
+      {facets or metal_group}
       <div class="f-group"><label class="f-label" for="f-price">Price</label><select id="f-price"><option value="">Any price</option><option value="0-5000">Under AED 5,000</option>
         <option value="5000-10000">AED 5,000 to 10,000</option><option value="10000-20000">AED 10,000 to 20,000</option><option value="20000-999999">Over AED 20,000</option></select></div>
       <div class="f-group"><label class="f-label" for="f-sort">Sort</label><select id="f-sort"><option value="">Featured</option><option value="new">Newest first</option>
@@ -998,7 +1086,8 @@ def build():
     page_collection('all', 'All jewellery & watches', 'Every piece in the VLORÁ collection.', PRODUCTS)
     page_collection('gold', 'Gold', 'Fine jewellery in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])
     page_collection('silver', 'Silver', 'Silver jewellery, crafted and polished by hand.', [p for p in PRODUCTS if 'Silver' in p['metal']])
-    page_collection('diamond', 'Diamond', 'Diamond jewellery, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond'])
+    page_collection('diamond', 'Diamond', 'Diamond jewellery, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond' or p.get('engagement')])
+    page_collection('engagement-rings', 'Engagement rings', 'Find the ring by style, stone, shape and metal, or have us design it for you.', [p for p in PRODUCTS if p.get('engagement')], eng=True)
     blurbs = {'Rings': 'Solitaires, bands and statement rings.', 'Earrings': 'Studs, drops and hoops for every day and every occasion.',
               'Necklaces': 'Necklaces, pendants and chains.', 'Bracelets': 'Bracelets and bangles in gold and diamonds.',
               'Accessories': 'Leather bands and finishing touches. Coming soon.',
