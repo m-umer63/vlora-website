@@ -929,3 +929,21 @@ a.sv-card:hover{transform:translateY(-4px);border-color:var(--gold-bright);backg
 @media(max-width:860px){.sv-p small{display:inline}}
 .sv-p{display:inline-flex;align-items:baseline;white-space:nowrap;flex:none}.sv-p small{display:inline;margin-right:6px}.sv-p .aed{align-self:center;margin:0 .3em 0 0}
 @media(max-width:860px){.sv-p small{display:inline}}
+
+/* customise page */
+.cu-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,3vw,44px);counter-reset:s}
+.cu-step{position:relative;padding-top:26px;border-top:1px solid rgba(12,25,59,.25)}
+.cu-step::before{content:"";position:absolute;left:0;top:-4px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.cu-no{font-family:var(--cinzel);font-size:.8rem;letter-spacing:.2em;color:var(--gold)}
+.cu-step h3{font-family:var(--display);font-weight:400;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1.2;margin:.7rem 0 .6rem}
+.cu-step p{margin:0;color:rgba(12,25,59,.74);line-height:1.6;font-size:.95rem}
+.cu-case{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(22px,5vw,80px);align-items:center;padding:clamp(30px,5vw,60px) 0;border-top:1px solid rgba(12,25,59,.2)}
+.cu-txt h3{font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1.15;margin:.5rem 0 .9rem}
+.cu-txt p:last-child{margin:0;color:rgba(12,25,59,.74);line-height:1.65;max-width:26em}
+.cu-media{display:grid;gap:clamp(10px,1.6vw,20px)}
+.cu-m2{grid-template-columns:1fr 1fr}.cu-m3{grid-template-columns:repeat(3,1fr)}
+.cu-tile{margin:0}
+.cu-tile img,.cu-tile video{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#fff}
+.cu-tile figcaption{margin-top:10px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(12,25,59,.68)}
+@media(max-width:960px){.cu-steps{grid-template-columns:1fr 1fr}.cu-case{grid-template-columns:1fr}}
+@media(max-width:520px){.cu-steps{grid-template-columns:1fr}.cu-m3{grid-template-columns:1fr 1fr}.cu-m3 .cu-tile:first-child{grid-column:1/-1}}

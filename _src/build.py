@@ -664,13 +664,64 @@ def page_faq():
     simple_page('faq', 'FAQ', 'Answers to common questions about ordering from VLORÁ.', inner)
 
 
+CUSTOM_STEPS = [
+    ('Share your idea', 'A photo, a sketch, a design you saw online, or a stone you already own. Send it to us or bring it to the showroom.'),
+    ('We design it in 3D', 'Our designer builds your piece on screen, from every angle, in the metal and stones you want. You approve it before anything is made.'),
+    ('We make it', 'Cast, set and finished by hand in our own workshop in Dubai.'),
+    ('You collect it', 'Your piece is ready in a VLORÁ gift box, exactly as you approved it.'),
+]
+CUSTOM_CASES = [
+    ('A princess-cut diamond ring', 'A client chose a princess-cut diamond and asked us to make it into a solitaire ring. We drew it in 3D, then made it.',
+     [('img', 'p1-3d.jpg', 'The 3D design', 'The 3D design of the ring'), ('video', 'cu-p1-final', 'The finished ring', 'The finished princess-cut diamond ring')]),
+    ('The same earrings, in emerald', 'A client saw ruby earrings in another store and loved the design, but wanted emeralds. We drew the design and made it as he wished.',
+     [('img', 'p2-ref.jpg', 'The design he liked', 'Ruby earrings the client liked'), ('img', 'p2-3d.jpg', 'Our 3D design', 'The 3D design of the earrings'), ('img', 'p2-final.jpg', 'Made in emerald', 'The finished emerald earrings in a VLORÁ box')]),
+    ('A ring from a photo', 'A client found a ring design online and wanted it as an engagement ring for her husband. We made exactly that design.',
+     [('img', 'p3-3d.jpg', 'The 3D design', 'The 3D design of the ring'), ('img', 'p3-final.jpg', 'The finished ring', 'The finished ring in a VLORÁ box')]),
+]
+
+
 def page_customise():
-    simple_page('customise', 'Customise', 'Have a piece made for you, from first sketch to final polish.', f'''
-<p class="lede">Your idea, made by our own hands in Dubai.</p>
-<h2>How it works</h2><p>Tell us what you have in mind: a sketch, a photo, a stone you already own. We discuss design, metal and budget, then agree a final drawing before anything is made.</p>
-<h2>Making and finishing</h2><p>Your piece is crafted, set and polished in our workshop, and checked before it reaches you.</p>
-<h2>Start a conversation</h2><p><a href="{link(2, "pages/contact/")}">Contact us</a> to arrange a consultation.</p>
-<p class="draft">Draft text. Please review and adjust to match how your customise service really works, including timelines.</p>''')
+    path = 'pages/customise/index.html'
+    d = depth_of(path)
+    wa = wa_link("Hello VLORÁ, I would like to customise a piece: ")
+    steps = ''.join(f'<li class="cu-step reveal" style="--i:{n}"><span class="cu-no">{n + 1:02d}</span><h3>{esc(t)}</h3><p>{esc(x)}</p></li>' for n, (t, x) in enumerate(CUSTOM_STEPS))
+    cases = ''
+    for n, (t, x, media) in enumerate(CUSTOM_CASES):
+        tiles = ''
+        for kind, f, cap, alt in media:
+            if kind == 'video':
+                m = (f'<video autoplay muted loop playsinline preload="metadata" poster="{asset(d, "assets/img/customise/p1-final-poster.jpg")}" aria-label="{esc(alt)}">'
+                     f'<source src="{asset(d, "assets/video/" + f + ".mp4")}" type="video/mp4"></video>')
+            else:
+                m = f'<img src="{asset(d, "assets/img/customise/" + f)}" alt="{esc(alt)}" width="900" height="900" loading="lazy" decoding="async">'
+            tiles += f'<figure class="cu-tile">{m}<figcaption>{esc(cap)}</figcaption></figure>'
+        cases += (f'<article class="cu-case reveal"><div class="cu-txt"><p class="eyebrow">Commission {n + 1:02d}</p><h3>{esc(t)}</h3><p>{esc(x)}</p></div>'
+                  f'<div class="cu-media cu-m{len(media)}">{tiles}</div></article>')
+    body = f"""
+<section class="ab-hero"><div class="wrap">{crumbs(d, [("Customise", None)])}
+  <p class="eyebrow">Customise</p>
+  <h1 class="ab-h1"><span class="line"><span>Your idea.</span></span><span class="line gold"><span>Made by our hands.</span></span></h1>
+  <p class="ab-lede">Bring us a photo, a sketch or a stone. We design it in 3D, you approve it, and we make it in our own workshop in Dubai.</p>
+</div></section>
+
+<section class="ab-sec"><div class="wrap">
+  <header class="sv-head reveal"><p class="eyebrow">How it works</p><h2 class="h-md">Four simple steps.</h2></header>
+  <ol class="cu-steps">{steps}</ol>
+</div></section>
+
+<section class="ab-sec ab-sand"><div class="wrap">
+  <header class="sv-head reveal"><p class="eyebrow">Made for our clients</p><h2 class="h-md">From an idea to the finished piece.</h2>
+    <p class="ab-sub">Three recent commissions, from the first picture to the box.</p></header>
+  {cases}
+</div></section>
+
+<section class="ab-hero sv-cta"><div class="wrap">
+  <p class="eyebrow">Start yours</p>
+  <h2 class="ab-h1 sv-cta-h">Have something in mind?</h2>
+  <p class="ab-lede">Send us a photo or a few words. We will take it from there.</p>
+  <p class="sv-cta-row"><a class="btn btn-gold" href="{wa}" rel="noopener" target="_blank">Message us on WhatsApp</a><a class="link-light" href="{link(d, "pages/contact/")}">Send a photo through the form</a></p>
+</div></section>"""
+    shell(path, 'Customise', 'Have a piece made for you. Share an idea, approve the 3D design, and we make it in our own workshop in Dubai.', body)
 
 
 SERVICE_GROUPS = [
