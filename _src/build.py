@@ -675,11 +675,11 @@ def page_customise():
 
 SERVICE_GROUPS = [
     ('engraving', 'Engraving', 'A name, a date or a few words, engraved cleanly.', [
-        ('Ring engraving', 25, 'A message, monogram or date inside or outside your ring.'),
-        ('Necklace and pendant engraving', 25, 'A signature, initials or short message on a pendant or charm.'),
-        ('Bracelet and anklet engraving', 25, 'A few words engraved on a bracelet, bangle or anklet.'),
-        ('Watch or gift engraving', 25, 'Watch case backs and other keepsakes, personalised.'),
-        ('Engraving removal', 20, 'An old engraving polished away, on rings, bracelets, pendants or watches.')]),
+        ('Ring engraving', 45, 'A message, monogram or date inside or outside your ring.'),
+        ('Necklace and pendant engraving', 45, 'A signature, initials or short message on a pendant or charm.'),
+        ('Bracelet and anklet engraving', 45, 'A few words engraved on a bracelet, bangle or anklet.'),
+        ('Watch or gift engraving', 45, 'Watch case backs and other keepsakes, personalised.'),
+        ('Engraving removal', 19, 'An old engraving polished away, on rings, bracelets, pendants or watches.')]),
     ('rings', 'Ring sizing and repair', 'Your ring, made to fit and made good as new.', [
         ('Ring sizing up', 35, 'Made larger to any size, including half sizes.'),
         ('Ring sizing down', 49, 'Made smaller to any size, including half sizes.'),
@@ -688,30 +688,30 @@ SERVICE_GROUPS = [
         ('Ring soldering', 39, 'Rings joined into one, such as a wedding set that sits together.'),
         ('Ring unsoldering', 39, 'Rings that were joined together carefully separated.')]),
     ('stones', 'Stones and settings', 'Loose, lost or damaged stones, reset securely.', [
-        ('Diamond setting', 15, 'Setting of one diamond, coloured diamond, CZ or moissanite, per stone.'),
-        ('Gemstone replacement and setting', 15, 'A new stone set into an empty setting.'),
+        ('Diamond setting', 19, 'Setting of one diamond, coloured diamond, CZ or moissanite, per stone.'),
+        ('Gemstone replacement and setting', 19, 'A new stone set into an empty setting.'),
         ('Prong rebuilding', 35, 'Broken or missing prongs rebuilt so the stone sits securely.'),
-        ('Prong retipping', 35, 'Worn prong tips built back up before a stone is lost.')]),
+        ('Prong retipping', 49, 'Worn prong tips built back up before a stone is lost.')]),
     ('chains', 'Chains, clasps and parts', 'The small parts that keep a piece wearable.', [
-        ('Chain repair and soldering', 25, 'A broken chain joined and finished invisibly.'),
-        ('Chain lengthening', 10, 'Extra length added to a chain.'),
-        ('Chain shortening and resizing', 10, 'Necklaces, bracelets and anklets altered to the length you like.'),
-        ('Clasp repair or replacement', 10, 'Broken or worn clasps and locks fixed or replaced.'),
+        ('Chain repair and soldering', 39, 'A broken chain joined and finished invisibly.'),
+        ('Chain lengthening', 25, 'Extra length added to a chain.'),
+        ('Chain shortening and resizing', 25, 'Necklaces, bracelets and anklets altered to the length you like.'),
+        ('Clasp repair or replacement', 25, 'Broken or worn clasps and locks fixed or replaced.'),
         ('Jump ring repair or replacement', 25, 'A broken or missing jump ring replaced.'),
         ('Bail repair and replacement', 35, 'The loop that holds a pendant to its chain, repaired or replaced.'),
-        ('Hinge repair', 35, 'Bracelet, anklet and hoop earring hinges repaired.'),
-        ('Earring back conversion', 25, 'Earring backs changed to the style you prefer.'),
-        ('Earring back soldering', 25, 'A lost earring post or back replaced.')]),
+        ('Hinge repair', 45, 'Bracelet, anklet and hoop earring hinges repaired.'),
+        ('Earring back conversion', 39, 'Earring backs changed to the style you prefer.'),
+        ('Earring back soldering', 39, 'A lost earring post or back replaced.')]),
     ('care', 'Cleaning and finishing', 'Bring back the shine, the colour and the finish.', [
         ('Jewellery polishing', 25, 'Scratches and dullness removed for a fresh finish.'),
         ('Jewellery spa service', 59, 'A full refresh: cleaning, stone tightening and polishing.'),
         ('Untangling', 20, 'Knotted necklaces and bracelets patiently freed.'),
         ('Rhodium plating', 49, 'The bright white finish of white gold restored.'),
-        ('Gold plating', 39, 'Thinning or faded gold plating renewed.'),
+        ('Gold plating', 49, 'Thinning or faded gold plating renewed.'),
         ('Enamel repair', 35, 'Chipped or missing enamel replaced.'),
         ('Pearl and bead restringing', 25, 'Tired strings replaced on pearl and bead necklaces.')]),
     ('watches', 'Watch services', 'Quick, careful work on the watch you wear every day.', [
-        ('Watch battery replacement', 35, 'A new battery fitted while you wait.'),
+        ('Quartz watch battery replacement', 45, 'A new battery fitted while you wait.'),
         ('Shorten watch band', 15, 'Links removed so the watch fits your wrist.')]),
 ]
 
