@@ -24,7 +24,8 @@
   "engagement": true,
   "style": "Solitaire",
   "shape": "Emerald",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "her"
  },
  {
   "sku": "RNG-0002",
@@ -51,7 +52,8 @@
   "engagement": true,
   "style": "Halo",
   "shape": "Round",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "her"
  },
  {
   "sku": "RNG-0003",
@@ -101,7 +103,8 @@
   "engagement": true,
   "style": "Trilogy",
   "shape": "Oval",
-  "stone_type": "Lab Grown"
+  "stone_type": "Lab Grown",
+  "audience": "her"
  },
  {
   "sku": "RNG-0005",
@@ -126,9 +129,10 @@
   "supplier_code": "",
   "sample": true,
   "engagement": true,
-  "style": "Side Stone",
+  "style": "Pavé",
   "shape": "Round",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "her"
  },
  {
   "sku": "RNG-0006",
@@ -546,7 +550,8 @@
   "engagement": true,
   "style": "Solitaire",
   "shape": "Princess",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "her"
  },
  {
   "sku": "ENG-0002",
@@ -573,7 +578,8 @@
   "engagement": true,
   "style": "Halo",
   "shape": "Oval",
-  "stone_type": "Lab Grown"
+  "stone_type": "Lab Grown",
+  "audience": "her"
  },
  {
   "sku": "ENG-0003",
@@ -600,7 +606,8 @@
   "engagement": true,
   "style": "Solitaire",
   "shape": "Pear",
-  "stone_type": "Yellow Diamond"
+  "stone_type": "Yellow Diamond",
+  "audience": "her"
  },
  {
   "sku": "ENG-0004",
@@ -624,9 +631,10 @@
   "supplier_code": "",
   "sample": true,
   "engagement": true,
-  "style": "Side Stone",
+  "style": "Pavé",
   "shape": "Cushion",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "him"
  },
  {
   "sku": "ENG-0005",
@@ -653,7 +661,8 @@
   "engagement": true,
   "style": "Trilogy",
   "shape": "Round",
-  "stone_type": "Moissanite"
+  "stone_type": "Moissanite",
+  "audience": "her"
  },
  {
   "sku": "ENG-0006",
@@ -677,9 +686,10 @@
   "supplier_code": "",
   "sample": true,
   "engagement": true,
-  "style": "Bridal Set",
+  "style": "Hidden Halo",
   "shape": "Emerald",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "her"
  },
  {
   "sku": "ENG-0007",
@@ -706,7 +716,8 @@
   "engagement": true,
   "style": "Solitaire",
   "shape": "Round",
-  "stone_type": "Black Diamond"
+  "stone_type": "Black Diamond",
+  "audience": "him"
  },
  {
   "sku": "ENG-0008",
@@ -731,9 +742,10 @@
   "supplier_code": "",
   "sample": true,
   "engagement": true,
-  "style": "Ethereal",
+  "style": "Accent",
   "shape": "Marquise",
-  "stone_type": "Lab Grown"
+  "stone_type": "Lab Grown",
+  "audience": "her"
  },
  {
   "sku": "ENG-0009",
@@ -760,7 +772,8 @@
   "engagement": true,
   "style": "Halo",
   "shape": "Asscher",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "him"
  },
  {
   "sku": "ENG-0010",
@@ -785,9 +798,10 @@
   "supplier_code": "",
   "sample": true,
   "engagement": true,
-  "style": "Side Stone",
+  "style": "Pavé",
   "shape": "Radiant",
-  "stone_type": "Lab Grown"
+  "stone_type": "Lab Grown",
+  "audience": "her"
  },
  {
   "sku": "ENG-0011",
@@ -814,7 +828,8 @@
   "engagement": true,
   "style": "Solitaire",
   "shape": "Heart",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "her"
  },
  {
   "sku": "ENG-0012",
@@ -839,9 +854,10 @@
   "supplier_code": "",
   "sample": true,
   "engagement": true,
-  "style": "Bridal Set",
+  "style": "Hidden Halo",
   "shape": "Round",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "her"
  },
  {
   "sku": "ENG-0013",
@@ -867,7 +883,8 @@
   "engagement": true,
   "style": "Halo",
   "shape": "Princess",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "him"
  },
  {
   "sku": "ENG-0014",
@@ -894,6 +911,7 @@
   "engagement": true,
   "style": "Trilogy",
   "shape": "Oval",
-  "stone_type": "Natural Diamond"
+  "stone_type": "Natural Diamond",
+  "audience": "her"
  }
 ]

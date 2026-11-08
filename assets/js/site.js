@@ -188,10 +188,12 @@
     var cards = $$('.card', grid), size = parseInt(grid.getAttribute('data-page-size'), 10) || 24, shown = size;
     var orig = cards.slice();
     var fMetal = $$('#filters input[type=checkbox]'), fPrice = $('#f-price'), fSort = $('#f-sort'), fQ = $('#f-q');
+    var urlFor = ''; try { urlFor = (new URLSearchParams(location.search).get('for') || '').toLowerCase(); } catch (e) {}
     var apply = function (reset) {
       if (reset) shown = size;
       var sel = {};
       fMetal.forEach(function (c) { if (c.checked) (sel[c.name] = sel[c.name] || []).push(c.value); });
+      if (urlFor) sel['for'] = [urlFor];
       var pr = fPrice.value ? fPrice.value.split('-').map(Number) : null, q = fQ.value.trim().toLowerCase();
       var list = orig.filter(function (c) {
         var price = +c.getAttribute('data-price');
@@ -221,7 +223,7 @@
       var qs = new URLSearchParams(location.search);
       fMetal.forEach(function (c) { var v = qs.get(c.name); if (v && v.split(',').indexOf(c.value.toLowerCase().replace(/[^a-z0-9]+/g, '-')) > -1) c.checked = true; });
     } catch (e) {}
-    var reset = function () { fMetal.forEach(function (c) { c.checked = false; }); fPrice.value = ''; fSort.value = ''; fQ.value = ''; apply(true); };
+    var reset = function () { urlFor = ''; fMetal.forEach(function (c) { c.checked = false; }); fPrice.value = ''; fSort.value = ''; fQ.value = ''; apply(true); };
     $('#f-reset').addEventListener('click', reset); $('#f-reset2').addEventListener('click', reset);
     $('#load-more').addEventListener('click', function () { shown += size; apply(false); });
     var ft = $('#filter-toggle');

@@ -127,7 +127,7 @@ def fslug(t):
 def facet_attrs(p):
     if not p.get('engagement'):
         return ''
-    return ''.join(f' data-{k}="{esc(fslug(p[f]))}"' for k, f in (('style', 'style'), ('shape', 'shape'), ('stone', 'stone_type')) if p.get(f))
+    return ''.join(f' data-{k}="{esc(fslug(p[f]))}"' for k, f in (('style', 'style'), ('shape', 'shape'), ('stone', 'stone_type'), ('for', 'audience')) if p.get(f))
 
 
 _SH = {
@@ -153,17 +153,23 @@ def _ethereal():
     return ''.join(f'<circle cx="{40 + 11 * math.cos(a * math.pi / 3):.1f}" cy="{20 + 11 * math.sin(a * math.pi / 3):.1f}" r="3.2"/>' for a in range(6))
 
 
+def _dots(xs, y=20, r=1.7):
+    return ''.join(f'<circle cx="{x}" cy="{y}" r="{r}"/>' for x in xs)
+
+
 _ST = {
     'Solitaire': _band(9) + '<circle cx="40" cy="20" r="9"/><circle cx="40" cy="20" r="4"/>',
-    'Side Stone': _band(9) + '<circle cx="40" cy="20" r="9"/><circle cx="40" cy="20" r="4"/><circle cx="22" cy="20" r="2"/><circle cx="28" cy="20" r="2"/><circle cx="52" cy="20" r="2"/><circle cx="58" cy="20" r="2"/>',
+    'Pavé': _band(9) + '<circle cx="40" cy="20" r="9"/><circle cx="40" cy="20" r="4"/>' + _dots([8, 14, 20, 26, 54, 60, 66, 72]),
     'Halo': _band(13) + '<circle cx="40" cy="20" r="13"/><circle cx="40" cy="20" r="8"/><circle cx="40" cy="20" r="3"/>',
+    'Hidden Halo': _band(10) + '<circle cx="40" cy="18" r="9"/><circle cx="40" cy="18" r="4"/><path d="M33 29q7 5 14 0"/>' + _dots([34, 40, 46], 31, 1.2),
     'Trilogy': _band(14) + '<circle cx="40" cy="20" r="8"/><circle cx="27" cy="20" r="5"/><circle cx="53" cy="20" r="5"/>',
-    'Ethereal': _band(15) + '<circle cx="40" cy="20" r="5.5"/>' + _ethereal(),
-    'Bridal Set': '<path d="M3 15H27M53 15H77M3 26H77"/><circle cx="40" cy="15" r="9"/><circle cx="40" cy="15" r="4"/>',
+    'Accent': '<rect x="3" y="15" width="74" height="10" rx="5"/>' + _dots([12, 20, 28, 36, 44, 52, 60, 68], 20, 2.2),
 }
 _STONE_SW = {'Natural Diamond': 'sw-nat', 'Lab Grown': 'sw-lab', 'Yellow Diamond': 'sw-yel', 'Moissanite': 'sw-moi', 'Black Diamond': 'sw-blk'}
 _METAL_SW = {'White Gold': 'sw-wg', 'Yellow Gold': 'sw-yg', 'Rose Gold': 'sw-rg', 'Platinum': 'sw-pt'}
-FACETS = [('style', 'Style', list(_ST)), ('stone', 'Stone', list(_STONE_SW)), ('shape', 'Shape', list(_SH)), ('metal', 'Metal', list(_METAL_SW))]
+SHAPE_ORDER = ['Round', 'Pear', 'Princess', 'Radiant', 'Oval', 'Emerald', 'Cushion', 'Asscher', 'Marquise', 'Heart']
+STYLE_ORDER = ['Halo', 'Trilogy', 'Pavé', 'Accent', 'Solitaire', 'Hidden Halo']
+FACETS = [('shape', 'Shape', SHAPE_ORDER), ('style', 'Style', STYLE_ORDER), ('metal', 'Metal', list(_METAL_SW))]
 
 
 def facet_icon(group, v):
@@ -188,13 +194,13 @@ def facet_panel(d):
 
 def mega_diamond(d):
     base = link(d, 'collections/engagement-rings/')
-    cols = ''
-    for g, title, vals in FACETS:
+    def col(g, title, vals):
         items = ''.join(f'<li><a href="{base}?{g}={fslug(v)}">{facet_icon(g, v)}<span>{esc(facet_label(g, v))}</span></a></li>' for v in vals)
-        cols += f'<div class="mg mg-{g}"><p class="mega-h">Shop by {title.lower()}</p><ul>{items}</ul></div>'
-    return (f'<div class="mega mega-d"><div class="mega-in mega-wide"><div class="mg mg-lead"><p class="mega-h">Engagement rings</p><ul>'
-            f'<li><a class="mg-all" href="{base}">All engagement rings</a></li><li><a class="mg-all" href="{link(d, "collections/diamond/")}">All diamond jewellery</a></li>'
-            f'<li><a class="mg-all" href="{link(d, "pages/customise/")}">Design your own</a></li></ul></div>{cols}</div></div>')
+        return f'<div class="mg mg-{g}"><p class="mega-h">Shop by {title}</p><ul>{items}</ul></div>'
+    lead = (f'<div class="mg mg-lead"><p class="mega-h">Engagement rings</p><ul><li><a href="{base}?for=her">For Her</a></li><li><a href="{base}?for=him">For Him</a></li></ul>'
+            f'<p class="mega-h mega-h2">Wedding &amp; anniversary bands</p><ul><li><a href="{link(d, "collections/wedding-bands/")}">Wedding Band</a></li><li><a href="{link(d, "collections/eternities/")}">Eternities</a></li></ul></div>')
+    return f'<div class="mega mega-d"><div class="mega-in mega-wide">{lead}{col("shape", "shape", SHAPE_ORDER)}{col("style", "ring style", STYLE_ORDER)}{col("metal", "metal", list(_METAL_SW))}</div></div>'
+
 
 
 ICON = {
@@ -499,6 +505,27 @@ def page_home():
           body, f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>', 'home')
 
 
+
+ENG_FAQ = [
+    ('Which diamond shape should I choose?', 'Round is the classic and shows the most sparkle. Princess and cushion are square and modern, oval and pear look longer on the hand, and emerald and Asscher give a clean, glassy look. We are happy to put them side by side for you in the showroom.'),
+    ('What are the ring styles?', 'A solitaire holds one stone. A halo circles it with small diamonds, a hidden halo adds them beneath it, a trilogy has three stones, pavé sets small diamonds along the band, and an accent ring has them as a quiet detail.'),
+    ('Natural or lab-grown diamond?', 'Both are real diamonds. A natural diamond formed in the earth over a very long time. A lab-grown diamond is grown in a laboratory, and usually costs less for the same size and quality. We can show you both.'),
+    ('How do I find my ring size?', 'Visit us and we will measure you, or send us a ring that fits you well. Most rings can also be resized after purchase.'),
+    ('Can you make a ring that is not here?', 'Yes. Send us a photo or a sketch and we design it in 3D, you approve it, and we make it in our own workshop. See how it works on our Customise page.'),
+    ('Can I see the ring before I decide?', 'Yes. Visit our showroom in the Gold Souq, Deira, or message us on WhatsApp and we will show you the options.'),
+]
+
+
+def eng_extra(d):
+    cats = [('Rings', 'rings'), ('Earrings', 'earrings'), ('Necklaces', 'necklaces'), ('Bracelets', 'bracelets')]
+    tiles = ''.join(f'<a class="ex-tile" href="{link(d, "collections/" + sl + "/")}"><img src="{asset(d, "assets/img/categories/" + sl + ".jpg")}" alt="" loading="lazy"><span>{n}</span><em>Shop now</em></a>' for n, sl in cats)
+    faq = ''.join(f'<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>' for q, a in ENG_FAQ)
+    return (f'<section class="section tight ex-sec"><div class="wrap"><p class="eyebrow">Explore by category</p><div class="ex-grid">{tiles}</div></div></section>'
+            f'<section class="ex-custom"><div class="wrap"><p class="eyebrow">Custom jewellery by VLORÁ</p><h2 class="h-md">Can\u2019t find the one? We will design it.</h2>'
+            f'<p>Share your idea and we turn it into a 3D design, then make it by hand.</p><a class="btn btn-gold" href="{link(d, "pages/customise/")}">Start your custom journey</a></div></section>'
+            f'<section class="section tight"><div class="wrap ex-faq"><h2 class="h-md">Engagement ring questions</h2>{faq}</div></section>')
+
+
 def page_collection(slug, title, intro, items, eng=False):
     path = f'collections/{slug}/index.html'
     d = depth_of(path)
@@ -515,6 +542,9 @@ def page_collection(slug, title, intro, items, eng=False):
         chips = f'<a class="chip{" is-on" if slug == "all" else ""}" href="{link(d, "collections/all/")}">All</a>{sub}'
         crumb = [("Shop", "collections/all/"), (title, None)] if slug != "all" else [("Shop", None)]
     facets = facet_panel(d) if eng else ''
+    if eng:
+        chips = ''.join(f'<a class="chip" href="{link(d, "collections/engagement-rings/")}?style={fslug(v)}">{esc(v)}</a>' for v in STYLE_ORDER)
+        crumb = [("Shop", "collections/all/"), ("Diamond", "collections/diamond/"), ("Engagement rings", None)]
     metal_group = '<div class="f-group"><span class="f-label">Metal</span>' + (mf or '<span class="muted">-</span>') + '</div>'
     body = f'''
 <section class="page-head"><div class="wrap">{crumbs(d, crumb)}
@@ -538,6 +568,7 @@ def page_collection(slug, title, intro, items, eng=False):
   <p class="no-results" id="no-results" hidden>No pieces match those filters. <button class="link-btn" id="f-reset2">Clear filters</button></p>
   <div class="more-wrap"><button class="btn" id="load-more" hidden>Show more</button></div>
 </div></section>
+{eng_extra(d) if eng else ""}
 '''
     if not items:
         body = body.replace('<div class="toolbar" id="toolbar"', '<div class="toolbar" id="toolbar" hidden', 1)
@@ -1087,7 +1118,9 @@ def build():
     page_collection('gold', 'Gold', 'Fine jewellery in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])
     page_collection('silver', 'Silver', 'Silver jewellery, crafted and polished by hand.', [p for p in PRODUCTS if 'Silver' in p['metal']])
     page_collection('diamond', 'Diamond', 'Diamond jewellery, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond' or p.get('engagement')])
-    page_collection('engagement-rings', 'Engagement rings', 'Find the ring by style, stone, shape and metal, or have us design it for you.', [p for p in PRODUCTS if p.get('engagement')], eng=True)
+    page_collection('wedding-bands', 'Wedding bands', 'Wedding and anniversary bands. Coming soon.', [])
+    page_collection('eternities', 'Eternities', 'Eternity bands set with diamonds. Coming soon.', [])
+    page_collection('engagement-rings', 'Engagement rings', 'Find the ring by shape, style and metal, or have us design it for you.', [p for p in PRODUCTS if p.get('engagement')], eng=True)
     blurbs = {'Rings': 'Solitaires, bands and statement rings.', 'Earrings': 'Studs, drops and hoops for every day and every occasion.',
               'Necklaces': 'Necklaces, pendants and chains.', 'Bracelets': 'Bracelets and bangles in gold and diamonds.',
               'Accessories': 'Leather bands and finishing touches. Coming soon.',
