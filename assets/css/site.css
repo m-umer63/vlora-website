@@ -924,3 +924,8 @@ a.sv-card:hover{transform:translateY(-4px);border-color:var(--gold-bright);backg
 .sv-cta-h{font-size:clamp(1.7rem,4.6vw,3.4rem)}
 .sv-cta-row{display:flex;gap:26px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:2rem}
 @media(max-width:860px){.sv-pill{grid-template-columns:1fr}.sv-grp{grid-template-columns:1fr;gap:20px}.sv-p small{display:none}}
+
+.sv-p .aed{width:.72em;height:.72em;vertical-align:-.02em;margin:0 .32em 0 .1em}.sv-p small{margin-right:2px}
+@media(max-width:860px){.sv-p small{display:inline}}
+.sv-p{display:inline-flex;align-items:baseline;white-space:nowrap;flex:none}.sv-p small{display:inline;margin-right:6px}.sv-p .aed{align-self:center;margin:0 .3em 0 0}
+@media(max-width:860px){.sv-p small{display:inline}}

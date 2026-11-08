@@ -690,7 +690,7 @@ SERVICE_GROUPS = [
     ('stones', 'Stones and settings', 'Loose, lost or damaged stones, reset securely.', [
         ('Diamond setting', 19, 'Setting of one diamond, coloured diamond, CZ or moissanite, per stone.'),
         ('Gemstone replacement and setting', 19, 'A new stone set into an empty setting.'),
-        ('Prong rebuilding', 35, 'Broken or missing prongs rebuilt so the stone sits securely.'),
+        ('Prong rebuilding', 49, 'Broken or missing prongs rebuilt so the stone sits securely.'),
         ('Prong retipping', 49, 'Worn prong tips built back up before a stone is lost.')]),
     ('chains', 'Chains, clasps and parts', 'The small parts that keep a piece wearable.', [
         ('Chain repair and soldering', 39, 'A broken chain joined and finished invisibly.'),
@@ -699,9 +699,9 @@ SERVICE_GROUPS = [
         ('Clasp repair or replacement', 25, 'Broken or worn clasps and locks fixed or replaced.'),
         ('Jump ring repair or replacement', 25, 'A broken or missing jump ring replaced.'),
         ('Bail repair and replacement', 35, 'The loop that holds a pendant to its chain, repaired or replaced.'),
-        ('Hinge repair', 45, 'Bracelet, anklet and hoop earring hinges repaired.'),
-        ('Earring back conversion', 39, 'Earring backs changed to the style you prefer.'),
-        ('Earring back soldering', 39, 'A lost earring post or back replaced.')]),
+        ('Hinge repair', 49, 'Bracelet, anklet and hoop earring hinges repaired.'),
+        ('Earring back conversion', 49, 'Earring backs changed to the style you prefer.'),
+        ('Earring back soldering', 49, 'A lost earring post or back replaced.')]),
     ('care', 'Cleaning and finishing', 'Bring back the shine, the colour and the finish.', [
         ('Jewellery polishing', 25, 'Scratches and dullness removed for a fresh finish.'),
         ('Jewellery spa service', 59, 'A full refresh: cleaning, stone tightening and polishing.'),
@@ -723,7 +723,7 @@ def page_services():
     chips = ''.join(f'<a href="#sv-{k}">{t}</a>' for k, t, _, _ in SERVICE_GROUPS)
     groups = ''
     for n, (k, t, blurb, rows) in enumerate(SERVICE_GROUPS):
-        li = ''.join(f'<li><div class="sv-t"><div class="sv-r"><span class="sv-n">{esc(nm)}</span><i aria-hidden="true"></i><span class="sv-p"><small>from AED</small> {pr}</span></div><p class="sv-d">{esc(ds)}</p></div></li>' for nm, pr, ds in rows)
+        li = ''.join(f'<li><div class="sv-t"><div class="sv-r"><span class="sv-n">{esc(nm)}</span><i aria-hidden="true"></i><span class="sv-p"><small>from</small><svg class="aed" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="AED"><title>UAE dirham</title><path d="M7 3.5h4.2a8.3 8.5 0 0 1 0 17H7z"/><path d="M3 10h13.5M3 14h13.5"/></svg>{pr}</span></div><p class="sv-d">{esc(ds)}</p></div></li>' for nm, pr, ds in rows)
         groups += (f'<div class="sv-grp reveal" id="sv-{k}"><div class="sv-gh"><span class="sv-no">{n + 1:02d}</span><div><h3>{t}</h3><p>{blurb}</p></div></div>'
                    f'<ul class="sv-list">{li}</ul></div>')
     body = f"""
