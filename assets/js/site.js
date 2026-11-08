@@ -212,7 +212,7 @@
         return a.getAttribute('data-name') < b.getAttribute('data-name') ? -1 : 1;
       });
       orig.forEach(function (c) { c.hidden = true; });
-      list.forEach(function (c, i) { grid.appendChild(c); c.hidden = i >= shown; });
+      list.forEach(function (c, i) { grid.appendChild(c); c.hidden = i >= shown; if (!c.hidden) { c.classList.remove('pop'); void c.offsetWidth; c.style.setProperty('--pi', Math.min(i, 10)); c.classList.add('pop'); } });
       $('#result-count').textContent = list.length + (list.length === 1 ? ' piece' : ' pieces');
       $('#no-results').hidden = list.length > 0;
       var lm = $('#load-more'); lm.hidden = list.length <= shown;
@@ -568,6 +568,17 @@ function heroVideo(){
     requestAnimationFrame(loop);
   }
 
+  function initMega() {
+    $$('.has-mega').forEach(function (m) {
+      var tm, open = function () { clearTimeout(tm); m.classList.add('is-open'); }, close = function (d) { clearTimeout(tm); tm = setTimeout(function () { m.classList.remove('is-open'); }, d); };
+      m.addEventListener('mouseenter', open); m.addEventListener('mouseleave', function () { close(220); });
+      m.addEventListener('focusin', open); m.addEventListener('focusout', function () { close(120); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { m.classList.remove('is-open'); } });
+      var a = m.querySelector(':scope > a');
+      a.addEventListener('click', function (e) { if (window.matchMedia('(hover: none)').matches && !m.classList.contains('is-open')) { e.preventDefault(); open(); } });
+    });
+  }
+
   function initCustomise() {
     var ch = document.querySelector('[data-line]'), par = $$('[data-par]');
     if (!ch && !par.length) return;
@@ -579,5 +590,5 @@ function heroVideo(){
     window.addEventListener('scroll', f, { passive: true }); window.addEventListener('resize', f); f();
   }
 
-  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs(); initOpenNow(); initCustomise();
+  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs(); initOpenNow(); initCustomise(); initMega();
 })();

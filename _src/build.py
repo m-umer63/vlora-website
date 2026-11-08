@@ -130,40 +130,120 @@ def facet_attrs(p):
     return ''.join(f' data-{k}="{esc(fslug(p[f]))}"' for k, f in (('style', 'style'), ('shape', 'shape'), ('stone', 'stone_type'), ('for', 'audience')) if p.get(f))
 
 
+import math
+
+
+def _f(v):
+    return f'{v:.1f}'.rstrip('0').rstrip('.') if '.' in f'{v:.1f}' else f'{v:.1f}'
+
+
+def _poly(pts, close=True):
+    return '<path d="M' + 'L'.join(f'{x:.1f} {y:.1f}' for x, y in pts) + ('z' if close else '') + '"/>'
+
+
+def _lines(pairs):
+    return '<path d="' + ''.join(f'M{a[0]:.1f} {a[1]:.1f}L{b[0]:.1f} {b[1]:.1f}' for a, b in pairs) + '"/>'
+
+
+def _facet(outer, k=0.5, n=16, c=(20, 20)):
+    """Outline + table + radial and zig-zag facet lines for any smooth closed shape."""
+    inner = [(c[0] + (x - c[0]) * k, c[1] + (y - c[1]) * k) for x, y in outer]
+    m = len(outer)
+    idx = [round(i * m / n) % m for i in range(n)]
+    half = max(1, m // n // 2)
+    pairs = [(outer[i], inner[i]) for i in idx] + [(inner[i], outer[(i + half) % m]) for i in idx]
+    return _poly(outer) + _poly(inner) + _lines(pairs)
+
+
+def _round_pts(r, n=64, c=(20, 20)):
+    return [(c[0] + r * math.cos(2 * math.pi * i / n), c[1] + r * math.sin(2 * math.pi * i / n)) for i in range(n)]
+
+
+def _rbc(cx, cy, r):
+    """Round brilliant seen from above: girdle, table octagon and star facets."""
+    t = [(cx + r * .45 * math.cos(math.radians(22.5 + 45 * k)), cy + r * .45 * math.sin(math.radians(22.5 + 45 * k))) for k in range(8)]
+    g = lambda a: (cx + r * math.cos(math.radians(a)), cy + r * math.sin(math.radians(a)))
+    ln = []
+    for k in range(8):
+        a = 22.5 + 45 * k
+        ln += [(t[k], g(a - 22.5)), (t[k], g(a + 22.5))]
+    return f'<circle cx="{cx}" cy="{cy}" r="{r}"/>' + _poly(t) + _lines(ln)
+
+
+def _step(x0, y0, x1, y1, cut, steps, gap):
+    out = ''
+    inner = None
+    for i in range(steps):
+        a, b, c2, d2, ct = x0 + i * gap, y0 + i * gap, x1 - i * gap, y1 - i * gap, max(cut - i * gap * .6, 1)
+        pts = [(a + ct, b), (c2 - ct, b), (c2, b + ct), (c2, d2 - ct), (c2 - ct, d2), (a + ct, d2), (a, d2 - ct), (a, b + ct)]
+        out += _poly(pts)
+        if i == 0: first = pts
+        inner = pts
+    return out + _lines([(first[k], inner[k]) for k in range(8)])
+
+
+def _pear():
+    pts = []
+    def bez(p0, p1, p2, p3, n=14):
+        return [tuple((1 - t) ** 3 * p0[j] + 3 * (1 - t) ** 2 * t * p1[j] + 3 * (1 - t) * t ** 2 * p2[j] + t ** 3 * p3[j] for j in (0, 1)) for t in [i / n for i in range(n)]]
+    pts += bez((20, 4), (20, 4), (8, 17), (8, 26))
+    pts += [(20 + 12 * math.cos(math.radians(180 - a)), 26 + 12 * math.sin(math.radians(a))) for a in range(0, 181, 10)]
+    pts += bez((32, 26), (32, 17), (20, 4), (20, 4))
+    return pts
+
+
+def _heart(n=48):
+    pts = []
+    for i in range(n):
+        t = 2 * math.pi * i / n
+        x = 16 * math.sin(t) ** 3
+        y = 13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t)
+        pts.append((20 + x * .98, 19 - y * .98))
+    return pts
+
+
+def _marquise(n=48):
+    up = [(20 + 9.5 * math.sin(math.pi * i / 24) ** .85, 4 + 32 * i / 24) for i in range(25)]
+    dn = [(40 - x, y) for x, y in reversed(up[1:-1])]
+    return up + dn
+
+
+_oval = [(20 + 11.5 * math.cos(2 * math.pi * i / 48), 20 + 15.5 * math.sin(2 * math.pi * i / 48)) for i in range(48)]
 _SH = {
-    'Round': '<circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="7"/><path d="M20 6v7M20 27v7M6 20h7M27 20h7"/>',
-    'Princess': '<rect x="7" y="7" width="26" height="26"/><rect x="14" y="14" width="12" height="12"/><path d="M7 7l7 7M33 7l-7 7M7 33l7-7M33 33l-7-7"/>',
-    'Emerald': '<path d="M14 5h12l6 6v18l-6 6H14l-6-6V11z"/><path d="M16 11h8l4 4v10l-4 4h-8l-4-4V15z"/>',
-    'Pear': '<path d="M20 5C20 5 8 18 8 25a12 12 0 0 0 24 0C32 18 20 5 20 5z"/><path d="M20 15c-3 4-5 7-5 10a5 5 0 0 0 10 0c0-3-2-6-5-10z"/>',
-    'Oval': '<ellipse cx="20" cy="20" rx="11" ry="15"/><ellipse cx="20" cy="20" rx="5" ry="8"/>',
-    'Cushion': '<rect x="7" y="7" width="26" height="26" rx="9"/><rect x="14" y="14" width="12" height="12" rx="4"/>',
-    'Asscher': '<path d="M13 6h14l7 7v14l-7 7H13l-7-7V13z"/><path d="M16 12h8l4 4v8l-4 4h-8l-4-4v-8z"/>',
-    'Radiant': '<path d="M13 5h14l6 6v18l-6 6H13l-6-6V11z"/><path d="M15 12h10v16H15z"/>',
-    'Marquise': '<path d="M20 4C27 12 29 17 29 20s-2 8-9 16C13 28 11 23 11 20s2-8 9-16z"/><path d="M20 12c3 5 4 7 4 8s-1 4-4 8c-3-4-4-7-4-8s1-3 4-8z"/>',
-    'Heart': '<path d="M20 34S6 25 6 15a7 7 0 0 1 14-2 7 7 0 0 1 14 2c0 10-14 19-14 19z"/><path d="M20 27s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/>',
+    'Round': _facet(_round_pts(15), .46, 16),
+    'Princess': '<rect x="6" y="6" width="28" height="28"/><rect x="13" y="13" width="14" height="14"/>' + _lines([((6, 6), (13, 13)), ((34, 6), (27, 13)), ((6, 34), (13, 27)), ((34, 34), (27, 27)), ((13, 13), (20, 6)), ((27, 13), (20, 6)), ((13, 27), (20, 34)), ((27, 27), (20, 34)), ((13, 13), (6, 20)), ((13, 27), (6, 20)), ((27, 13), (34, 20)), ((27, 27), (34, 20)), ((20, 13), (20, 27)), ((13, 20), (27, 20))]),
+    'Emerald': _step(9, 4, 31, 36, 6, 4, 2.6),
+    'Pear': _facet(_pear(), .5, 14, (20, 21)),
+    'Oval': _facet(_oval, .5, 16),
+    'Cushion': '<rect x="5" y="5" width="30" height="30" rx="10"/><rect x="11" y="11" width="18" height="18" rx="6"/><rect x="16" y="16" width="8" height="8" rx="2"/>' + _lines([((9, 9), (13, 13)), ((31, 9), (27, 13)), ((9, 31), (13, 27)), ((31, 31), (27, 27)), ((20, 5), (20, 11)), ((20, 29), (20, 35)), ((5, 20), (11, 20)), ((29, 20), (35, 20))]),
+    'Asscher': _step(5, 5, 35, 35, 8, 4, 3.2),
+    'Radiant': '<path d="M12 4h16l7 7v18l-7 7H12l-7-7V11z"/><path d="M15 10h10l4 4v12l-4 4H15l-4-4V14z"/>' + _lines([((12, 4), (15, 10)), ((28, 4), (25, 10)), ((35, 11), (29, 14)), ((35, 29), (29, 26)), ((28, 36), (25, 30)), ((12, 36), (15, 30)), ((5, 29), (11, 26)), ((5, 11), (11, 14)), ((15, 10), (25, 30)), ((25, 10), (15, 30)), ((20, 10), (20, 30)), ((11, 20), (29, 20))]),
+    'Marquise': _facet(_marquise(), .5, 14, (20, 20)),
+    'Heart': _facet(_heart(), .5, 16, (20, 19)),
 }
 
 
-def _band(r, y=20):
-    return f'<path d="M3 {y}H{40 - r}M{40 + r} {y}H77"/>'
+def _bandpath(r, y=20, th=3.2):
+    t, b = y - th, y + th
+    return (f'<path d="M5 {t}H{40 - r}M5 {b}H{40 - r}M{40 + r} {t}H75M{40 + r} {b}H75"/>'
+            f'<path d="M5 {t}a{th} {th} 0 0 0 0 {2 * th}M75 {t}a{th} {th} 0 0 1 0 {2 * th}"/>')
 
 
-def _ethereal():
-    import math
-    return ''.join(f'<circle cx="{40 + 11 * math.cos(a * math.pi / 3):.1f}" cy="{20 + 11 * math.sin(a * math.pi / 3):.1f}" r="3.2"/>' for a in range(6))
-
-
-def _dots(xs, y=20, r=1.7):
+def _dots(xs, y=20, r=1.5):
     return ''.join(f'<circle cx="{x}" cy="{y}" r="{r}"/>' for x in xs)
 
 
+def _prongs(cx, cy, r):
+    return ''.join(f'<circle cx="{cx + (r + .2) * math.cos(math.radians(a)):.1f}" cy="{cy + (r + .2) * math.sin(math.radians(a)):.1f}" r="1.2"/>' for a in (45, 135, 225, 315))
+
+
 _ST = {
-    'Solitaire': _band(9) + '<circle cx="40" cy="20" r="9"/><circle cx="40" cy="20" r="4"/>',
-    'Pavé': _band(9) + '<circle cx="40" cy="20" r="9"/><circle cx="40" cy="20" r="4"/>' + _dots([8, 14, 20, 26, 54, 60, 66, 72]),
-    'Halo': _band(13) + '<circle cx="40" cy="20" r="13"/><circle cx="40" cy="20" r="8"/><circle cx="40" cy="20" r="3"/>',
-    'Hidden Halo': _band(10) + '<circle cx="40" cy="18" r="9"/><circle cx="40" cy="18" r="4"/><path d="M33 29q7 5 14 0"/>' + _dots([34, 40, 46], 31, 1.2),
-    'Trilogy': _band(14) + '<circle cx="40" cy="20" r="8"/><circle cx="27" cy="20" r="5"/><circle cx="53" cy="20" r="5"/>',
-    'Accent': '<rect x="3" y="15" width="74" height="10" rx="5"/>' + _dots([12, 20, 28, 36, 44, 52, 60, 68], 20, 2.2),
+    'Solitaire': _bandpath(8) + _rbc(40, 20, 8) + _prongs(40, 20, 8),
+    'Pavé': _bandpath(8) + _rbc(40, 20, 8) + _prongs(40, 20, 8) + _dots([9, 15, 21, 27, 53, 59, 65, 71], 17, 1.1) + _dots([9, 15, 21, 27, 53, 59, 65, 71], 23, 1.1),
+    'Halo': _bandpath(13) + _rbc(40, 20, 7) + '<circle cx="40" cy="20" r="13"/>' + ''.join(f'<circle cx="{40 + 10.4 * math.cos(math.radians(a)):.1f}" cy="{20 + 10.4 * math.sin(math.radians(a)):.1f}" r="1.5"/>' for a in range(0, 360, 30)),
+    'Hidden Halo': _bandpath(9) + _rbc(40, 19, 7.5) + _prongs(40, 19, 7.5) + '<path d="M31 27.5q9 7 18 0"/>' + _dots([33.5, 37, 40, 43, 46.5], 30.2, 1),
+    'Trilogy': _bandpath(15) + _rbc(40, 20, 8) + _rbc(26.5, 20, 5) + _rbc(53.5, 20, 5),
+    'Accent': _bandpath(0, 20, 5.5)[:0] + '<path d="M5 14.5H75M5 25.5H75"/><path d="M5 14.5a5.5 5.5 0 0 0 0 11M75 14.5a5.5 5.5 0 0 1 0 11"/>' + ''.join(f'<circle cx="{x}" cy="20" r="2.6"/>' for x in range(13, 70, 8)) + ''.join(f'<path d="M{x - 1.4} 20h2.8M{x} 18.6v2.8"/>' for x in range(13, 70, 8)),
 }
 _STONE_SW = {'Natural Diamond': 'sw-nat', 'Lab Grown': 'sw-lab', 'Yellow Diamond': 'sw-yel', 'Moissanite': 'sw-moi', 'Black Diamond': 'sw-blk'}
 _METAL_SW = {'White Gold': 'sw-wg', 'Yellow Gold': 'sw-yg', 'Rose Gold': 'sw-rg', 'Platinum': 'sw-pt'}
