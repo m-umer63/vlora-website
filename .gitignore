@@ -1,0 +1,4 @@
+
+# private layout-preview material, never commit or deploy
+_src/data/products_private.json
+_src/private/

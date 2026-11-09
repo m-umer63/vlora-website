@@ -20,6 +20,8 @@ SITE = json.load(open(os.path.join(HERE, 'data', 'site.json'), encoding='utf-8')
 PRODUCTS = json.load(open(os.path.join(HERE, 'data', 'products.json'), encoding='utf-8'))
 PARTNERS = [p for p in (json.load(open(os.path.join(HERE, 'data', 'partners.json'), encoding='utf-8')) if os.path.exists(os.path.join(HERE, 'data', 'partners.json')) else []) if ARGS.preview or not p.get('sample')]
 REVIEWS = json.load(open(os.path.join(HERE, 'data', 'reviews.json'), encoding='utf-8')) if os.path.exists(os.path.join(HERE, 'data', 'reviews.json')) else []
+if ARGS.preview and os.path.exists(os.path.join(HERE, 'data', 'products_private.json')):
+    PRODUCTS += json.load(open(os.path.join(HERE, 'data', 'products_private.json'), encoding='utf-8'))
 CATEGORIES = ['Rings', 'Earrings', 'Necklaces', 'Bracelets', 'Accessories', 'Bullion']
 # Bangles fold into Bracelets, Pendants into Necklaces; watches are added later (sample watches hidden for now)
 _MAP = {'Bangles': 'Bracelets', 'Pendants': 'Necklaces'}
@@ -1221,13 +1223,16 @@ def build():
     # placeholder product pictures (only for sample products)
     for p in PRODUCTS:
         if p.get('sample'):
-            write(f"assets/img/products/{p['sku']}-a.svg", placeholder_svg(p, 'a'))
-            write(f"assets/img/products/{p['sku']}-b.svg", placeholder_svg(p, 'b'))
+            if p['images'][0].endswith('.svg'):
+                write(f"assets/img/products/{p['sku']}-a.svg", placeholder_svg(p, 'a'))
+                write(f"assets/img/products/{p['sku']}-b.svg", placeholder_svg(p, 'b'))
     # data for the browser
     slim = [dict(sku=p['sku'], slug=p['slug'], name=p['name'], cat=p['category'], metal=p['metal'], price=p['price'],
                  sub=sub_line(p), img=p['images'][0], sample=bool(p.get('sample')), **({'g': p['metal_g'], 'cts': p['cts']} if p.get('config') else {})) for p in PRODUCTS]
     write('assets/js/data.js', 'window.VL=' + json.dumps({"products": slim, "whatsapp": SITE['whatsapp'], "email": SITE['email'],
                                                            "currency": "AED", "categories": CATEGORIES, "rates": {str(k): v for k, v in RATES.items()}, "cfg": {"perCt": PER_CT, "fixed": FIXED, "vat": VAT, "f14": F14}}, ensure_ascii=False) + ';')
+    if ARGS.preview and os.path.isdir(os.path.join(HERE, 'private')):
+        for f in os.listdir(os.path.join(HERE, 'private')): shutil.copy(os.path.join(HERE, 'private', f), os.path.join(OUT, 'assets/img/products', f))
     page_home()
     page_collection('all', 'All jewellery & watches', 'Every piece in the VLORÁ collection.', PRODUCTS)
     page_collection('gold', 'Gold', 'Fine jewellery in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])
