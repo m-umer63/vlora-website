@@ -37,8 +37,19 @@ def link(d, path=''): return base(d) + path + SUF
 def asset(d, path): return base(d) + path
 
 
+RATES = {24: 496.75, 22: 460.00, 18: 378.00, 14: 295.00}   # AED/g sample; live values come from gold-rate.php
+PER_CT, FIXED, VAT, F14 = 550, 1345, 0.05, 0.85             # AED per carat, fixed charge, VAT, 14K/18K weight ratio (alloy density)
+def calc_price(g, karat, ct):
+    w = g * (F14 if karat == 14 else 1)
+    return round((w * RATES[karat] + ct * PER_CT + FIXED) * (1 + VAT))
+for _p in PRODUCTS:
+    if _p.get('config'): _p['price'] = calc_price(_p['metal_g'], 18, min(_p['cts']))
+
+
 def sub_line(p):
     bits = []
+    if p.get('config'):
+        return '18K or 14K gold \u00b7 Diamond'
     if p.get('metal'):
         bits.append((f"{p['purity']}K " if p.get('purity') else '') + p['metal'])
     if p.get('stone'):
@@ -108,13 +119,14 @@ def card(d, p):
     href = link(d, f"products/{p['slug']}/")
     two = len(p.get('images', [])) > 1
     sample = '<span class="tag tag-sample">Sample</span>' if p.get('sample') else ''
+    cfa, frm = (' data-cfg="1"', 'From ') if p.get('config') else ('', '')
     newt = '<span class="tag tag-new">New</span>' if p.get('new') and not p.get('sample') else ''
     return (f'<article class="card" data-sku="{esc(p["sku"])}" data-metal="{esc(p["metal"])}" data-price="{p["price"]}" data-name="{esc(p["name"].lower())}" data-new="{1 if p.get("new") else 0}"{facet_attrs(p)}>'
             f'<a class="card-media" href="{href}" aria-label="{esc(p["name"])}">{img_tag(d, p, 0)}{img_tag(d, p, 1, "alt") if two else ""}</a>'
             f'<button class="heart" data-wish="{esc(p["sku"])}" aria-label="Save {esc(p["name"])} to wishlist" aria-pressed="false">'
             '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>'
             f'{sample}{newt}'
-            f'<div class="card-body"><h3><a href="{href}">{esc(p["name"])}</a></h3><p class="sub">{esc(sub_line(p))}</p><p class="price">{money(p["price"])}</p></div>'
+            f'<div class="card-body"><h3><a href="{href}">{esc(p["name"])}</a></h3><p class="sub">{esc(sub_line(p))}</p><p class="price"{cfa}>{frm}{money(p["price"])}</p></div>'
             f'<div class="card-actions"><button class="btn btn-small" data-add="{esc(p["sku"])}">Add to bag</button>'
             f'<button class="btn btn-small btn-ghost" data-quick="{esc(p["sku"])}">Quick view</button></div></article>')
 
@@ -670,27 +682,42 @@ def page_product(p):
     thumbs = ''.join(f'<button class="thumb{" is-on" if i == 0 else ""}" data-thumb="{i}" aria-label="Show picture {i + 1}">{img_tag(d, p, i)}</button>' for i in range(len(p['images'])))
     mains = ''.join(f'<div class="pic{" is-on" if i == 0 else ""}" data-pic="{i}">{img_tag(d, p, i, lazy=(i > 0))}</div>' for i in range(len(p['images'])))
     spec = []
-    if p.get('metal'): spec.append(('Metal', (f"{p['purity']}K " if p.get('purity') else '') + p['metal']))
-    if p.get('stone'): spec.append(('Stone', p['stone'] + (f" ({p['stone_ct']} ct)" if p.get('stone_ct') else '')))
-    if p.get('metal_g'): spec.append(('Metal weight', f"{p['metal_g']} g"))
+    if p.get('metal') and not p.get('config'): spec.append(('Metal', (f"{p['purity']}K " if p.get('purity') else '') + p['metal']))
+    if p.get('stone'): spec.append(('Stone', p['stone'] + (f" ({p['stone_ct']} ct)" if p.get('stone_ct') and not p.get('config') else '')))
+    if p.get('metal_g'): spec.append(('Metal weight', f"about {p['metal_g']} g in 18K" if p.get('config') else f"{p['metal_g']} g"))
     if p.get('collection'): spec.append(('Collection', p['collection']))
     spec.append(('Reference', p['sku']))
     specs = ''.join(f'<div><dt>{k}</dt><dd>{esc(str(v))}</dd></div>' for k, v in spec)
     related = [q for q in PRODUCTS if q['category'] == p['category'] and q['sku'] != p['sku']][:4]
     msg = f"Hello VLORÁ, I am interested in {p['name']} ({p['sku']}), {money(p['price'])}."
     sample = '<p class="sample-note">Sample listing for layout preview. Name, picture and price are placeholders.</p>' if p.get('sample') else ''
+    cfa, frm, vat_note, cfg = '', '', '', ''
+    if p.get('config'):
+        cts = p['cts']; cfa = ' data-cfg="1"'; frm = 'From '
+        vat_note = '<p class="vat-note">Price includes 5% VAT and updates with today&rsquo;s gold rate.</p>'
+        cols = [('w', 'White gold', 'sw-wg'), ('y', 'Yellow gold', 'sw-yg'), ('r', 'Rose gold', 'sw-rg')]
+        cfg = (f'<div class="cfg" id="cfg" data-g="{p["metal_g"]}" data-wa="{esc(wa_link(""))}" data-name="{esc(p["name"])}" data-sku="{esc(p["sku"])}">'
+               '<div class="cfg-row"><p class="cfg-l">Metal colour <b data-out="col">White gold</b></p><div class="cfg-opts">'
+               + ''.join(f'<label class="cfg-sw"><input type="radio" name="col" value="{c}"{" checked" if c == "w" else ""}><span class="sw {sw}"></span><i>{n}</i></label>' for c, n, sw in cols) + '</div></div>'
+               '<div class="cfg-row"><p class="cfg-l">Gold purity</p><div class="cfg-opts">'
+               '<label class="cfg-pill"><input type="radio" name="kt" value="18" checked><span>18K <small>Standard</small></span></label>'
+               '<label class="cfg-pill"><input type="radio" name="kt" value="14"><span>14K</span></label>'
+               '<label class="cfg-pill"><input type="radio" name="kt" value="pt"><span>Platinum <small>On enquiry</small></span></label></div></div>'
+               '<div class="cfg-row"><p class="cfg-l">Diamond size</p><div class="cfg-opts">'
+               + ''.join(f'<label class="cfg-pill"><input type="radio" name="ct" value="{c}"{" checked" if c == cts[0] else ""}><span>{c} ct</span></label>' for c in cts) + '</div></div>'
+               '<p class="cfg-pt" hidden>Platinum is made to order and priced on enquiry. Message us and we will quote you.</p></div>')
     stock = '<p class="stock">Please ask us about availability.</p>' if p.get('stock', 1) > 0 else '<p class="stock">Currently unavailable. Message us to enquire.</p>'
     body = f'''
 <section class="section tight"><div class="wrap">{crumbs(d, [("Shop", "collections/all/"), (p["category"], "collections/" + CAT_SLUG[p["category"]] + "/"), (p["name"], None)])}
  <div class="pdp">
   <div class="gallery"><div class="pics">{mains}</div><div class="thumbs">{thumbs}</div></div>
   <div class="pdp-info"><p class="eyebrow">{esc(p["category"])}</p><h1 class="h-lg">{esc(p["name"])}</h1>
-    <p class="sub big">{esc(sub_line(p))}</p><p class="price big">{money(p["price"])}</p>{sample}
-    <p class="desc">{esc(p["description"])}</p>
+    <p class="sub big">{esc(sub_line(p))}</p><p class="price big" id="pdp-price"{cfa}>{frm}{money(p["price"])}</p>{vat_note}{sample}
+    <p class="desc">{esc(p["description"])}</p>{cfg}
     <div class="buy"><div class="qty" data-qty><button type="button" data-q="-1" aria-label="Decrease quantity">&minus;</button><input id="pdp-qty" value="1" inputmode="numeric" aria-label="Quantity"><button type="button" data-q="1" aria-label="Increase quantity">+</button></div>
-      <button class="btn btn-primary" data-add="{esc(p["sku"])}" data-qty-from="#pdp-qty">Add to bag</button>
+      <button class="btn btn-primary" id="pdp-add" data-add="{esc(p["sku"]) + ("|w-18-" + str(p["cts"][0]) if p.get("config") else "")}" data-qty-from="#pdp-qty">Add to bag</button>
       <button class="btn btn-ghost heart-lg" data-wish="{esc(p["sku"])}" aria-pressed="false">Save</button></div>
-    <a class="btn btn-wa" href="{wa_link(msg)}" rel="noopener">{ICON["wa"]} Enquire on WhatsApp</a>
+    <a class="btn btn-wa" id="pdp-wa" href="{wa_link(msg)}" rel="noopener">{ICON["wa"]} Enquire on WhatsApp</a>
     {stock}
     <dl class="specs">{specs}</dl>
     <p class="fine">Prices are in UAE dirhams. VAT and delivery are confirmed when we confirm your order.</p>
@@ -1198,9 +1225,9 @@ def build():
             write(f"assets/img/products/{p['sku']}-b.svg", placeholder_svg(p, 'b'))
     # data for the browser
     slim = [dict(sku=p['sku'], slug=p['slug'], name=p['name'], cat=p['category'], metal=p['metal'], price=p['price'],
-                 sub=sub_line(p), img=p['images'][0], sample=bool(p.get('sample'))) for p in PRODUCTS]
+                 sub=sub_line(p), img=p['images'][0], sample=bool(p.get('sample')), **({'g': p['metal_g'], 'cts': p['cts']} if p.get('config') else {})) for p in PRODUCTS]
     write('assets/js/data.js', 'window.VL=' + json.dumps({"products": slim, "whatsapp": SITE['whatsapp'], "email": SITE['email'],
-                                                           "currency": "AED", "categories": CATEGORIES}, ensure_ascii=False) + ';')
+                                                           "currency": "AED", "categories": CATEGORIES, "rates": {str(k): v for k, v in RATES.items()}, "cfg": {"perCt": PER_CT, "fixed": FIXED, "vat": VAT, "f14": F14}}, ensure_ascii=False) + ';')
     page_home()
     page_collection('all', 'All jewellery & watches', 'Every piece in the VLORÁ collection.', PRODUCTS)
     page_collection('gold', 'Gold', 'Fine jewellery in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])

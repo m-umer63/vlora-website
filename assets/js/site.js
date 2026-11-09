@@ -7,6 +7,32 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var BY = {}; D.products.forEach(function (p) { BY[p.sku] = p; });
+  /* ---------- configurable pricing (gold rate x weight + diamond + making, plus VAT) ---------- */
+  var CN = D.cfg || { perCt: 0, fixed: 0, vat: 0, f14: 1 };
+  var COLN = { w: 'White gold', y: 'Yellow gold', r: 'Rose gold' };
+  function rates() { return window.VLORA_GOLD || D.rates || {}; }
+  function calc(g, kt, ct) {
+    var r = rates()[kt]; if (!r) return 0;
+    return Math.round((g * (+kt === 14 ? CN.f14 : 1) * r + ct * CN.perCt + CN.fixed) * (1 + CN.vat));
+  }
+  function resolve(key) {
+    if (BY[key] || String(key).indexOf('|') < 0) return BY[key];
+    var a = key.split('|'), b = BY[a[0]], v = (a[1] || '').split('-'); if (!b || !b.g) return null;
+    var o = {}; for (var k in b) o[k] = b[k];
+    o.sku = key; o.ref = b.sku; o.v = { c: v[0], k: +v[1], ct: +v[2] };
+    o.sub = (COLN[v[0]] || '') + ' \u00b7 ' + v[1] + 'K \u00b7 ' + v[2] + ' ct diamond';
+    o.price = calc(b.g, o.v.k, o.v.ct); BY[key] = o; return o;
+  }
+  function reprice() {
+    Object.keys(BY).forEach(function (k) {
+      var p = BY[k]; if (!p.g) return;
+      p.price = p.v ? calc(p.g, p.v.k, p.v.ct) : calc(p.g, 18, p.cts[0]);
+      if (!p.v) $$('.card[data-sku="' + p.sku + '"]').forEach(function (c) {
+        c.setAttribute('data-price', p.price); var e = $('.price', c); if (e) e.textContent = 'From ' + money(p.price);
+      });
+    });
+    if (typeof renderBag === 'function') renderBag(); document.dispatchEvent(new CustomEvent('repriced'));
+  }
   document.documentElement.classList.remove('no-js');
 
   function store(key, val) {
@@ -59,10 +85,10 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openName) setOpen(null); });
 
   /* ---------- bag ---------- */
-  function getBag() { return store('vl_bag') || []; }
+  function getBag() { var b = store('vl_bag') || []; b.forEach(function (i) { resolve(i.sku); }); return b; }
   function setBag(b) { store('vl_bag', b); updateCounts(); renderBag(); renderSummary(); }
   function addToBag(sku, q) {
-    if (!BY[sku]) return;
+    resolve(sku); if (!BY[sku]) return;
     var b = getBag(); var f = b.filter(function (i) { return i.sku === sku; })[0];
     if (f) f.qty += q; else b.push({ sku: sku, qty: q });
     setBag(b); setOpen('bag');
@@ -236,7 +262,7 @@
     var s = $('#summary'); if (!s) return;
     var b = getBag().filter(function (i) { return BY[i.sku]; });
     if (!b.length) { s.innerHTML = '<h2>Your bag</h2><p>Your bag is empty. <a href="' + page('collections/all/') + '">Browse the collection</a>.</p>'; return; }
-    s.innerHTML = '<h2>Your bag</h2>' + b.map(function (i) { var p = BY[i.sku]; return '<div class="sum-row"><span>' + esc(p.name) + ' &times; ' + i.qty + '<br><small class="muted">' + esc(p.sku) + '</small></span><span>' + money(p.price * i.qty) + '</span></div>'; }).join('') +
+    s.innerHTML = '<h2>Your bag</h2>' + b.map(function (i) { var p = BY[i.sku]; return '<div class="sum-row"><span>' + esc(p.name) + ' &times; ' + i.qty + '<br><small class="muted">' + esc(p.ref || p.sku) + (p.v ? ' &middot; ' + esc(p.sub) : '') + '</small></span><span>' + money(p.price * i.qty) + '</span></div>'; }).join('') +
       '<div class="sum-row sum-total"><span>Subtotal</span><span>' + money(bagTotal(b)) + '</span></div><p class="fine" style="margin-top:12px">VAT and delivery are confirmed when we confirm your order.</p>';
   }
   function send(form, text, subject, via) {
@@ -322,7 +348,7 @@
       if (!b.length) { alert('Your bag is empty.'); return; }
       var f = new FormData(ck), note = store('vl_note') || {};
       var ref = 'VL-' + new Date().toISOString().slice(2, 10).replace(/-/g, '') + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-      var lines = b.map(function (i) { var p = BY[i.sku]; return '- ' + p.name + ' (' + p.sku + ') x ' + i.qty + ' = ' + money(p.price * i.qty); }).join('\n');
+      var lines = b.map(function (i) { var p = BY[i.sku]; return '- ' + p.name + (p.v ? ' [' + p.sub + ']' : '') + ' (' + (p.ref || p.sku) + ') x ' + i.qty + ' = ' + money(p.price * i.qty); }).join('\n');
       var text = 'New order request ' + ref + '\n\n' + lines + '\n\nSubtotal: ' + money(bagTotal(b)) + '\n\nName: ' + f.get('name') + '\nPhone: ' + f.get('phone') + '\nEmail: ' + f.get('email') +
         '\nCity: ' + f.get('city') + '\nDelivery: ' + f.get('mode') + '\nAddress: ' + (f.get('address') || '-') + '\nNotes: ' + (f.get('notes') || '-') +
         (note.gift ? '\nGift: yes. Message: ' + (note.msg || '-') : '');
@@ -568,7 +594,29 @@ function heroVideo(){
     requestAnimationFrame(loop);
   }
 
-  function initGold(){
+  function initConfig(){
+  var f=$('#cfg'); if(!f) return;
+  var priceEl=$('#pdp-price'), add=$('#pdp-add'), wa=$('#pdp-wa'), pt=$('.cfg-pt',f), col=$('[data-out="col"]',f);
+  var sku=f.getAttribute('data-sku'), g=+f.getAttribute('data-g'), name=f.getAttribute('data-name');
+  function val(n){var e=$('input[name="'+n+'"]:checked',f);return e?e.value:'';}
+  function upd(){
+    var c=val('col'), kt=val('kt'), ct=+val('ct'), plat=kt==='pt';
+    if(col) col.textContent=COLN[c];
+    pt.hidden=!plat; $$('input[name="col"]',f).forEach(function(i){i.disabled=false;});
+    var msg;
+    if(plat){
+      priceEl.textContent='Price on enquiry'; add.hidden=true;
+      msg='Hello VLOR\u00c1, I would like a quote for '+name+' ('+sku+') in platinum with a '+ct+' ct diamond.';
+    }else{
+      var v=calc(g,+kt,ct); priceEl.textContent=money(v); add.hidden=false;
+      add.setAttribute('data-add',sku+'|'+c+'-'+kt+'-'+ct);
+      msg='Hello VLOR\u00c1, I am interested in '+name+' ('+sku+'), '+COLN[c]+', '+kt+'K, '+ct+' ct diamond, '+money(v)+'.';
+    }
+    if(wa) wa.href=f.getAttribute('data-wa')+'?text='+encodeURIComponent(msg);
+  }
+  f.addEventListener('change',upd); document.addEventListener('repriced',upd); upd();
+}
+function initGold(){
   var bar=document.querySelector('[data-gold]'); if(!bar) return;
   var ep=bar.getAttribute('data-endpoint'), tm=bar.querySelector('[data-gb-time]');
   if(!ep) return; // preview: showing sample values
@@ -578,7 +626,7 @@ function heroVideo(){
       var v=Number(r.rates[k]).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
       if(li.textContent!==v){li.textContent=v;li.classList.remove('flash');void li.offsetWidth;li.classList.add('flash');}
     });
-    window.VLORA_GOLD=r.rates; document.dispatchEvent(new CustomEvent('goldrate',{detail:r.rates}));
+    window.VLORA_GOLD=r.rates; reprice();
     if(tm&&r.fetched){var d=new Date(r.fetched*1000);tm.textContent='Updated '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Dubai'})+' Dubai'+(r.stale?' (last known)':'');}
   }
   function pull(){fetch(ep,{cache:'no-store'}).then(function(x){return x.ok?x.json():null}).then(function(r){if(r&&r.rates)paint(r)}).catch(function(){});}
@@ -607,5 +655,5 @@ function initMega() {
     window.addEventListener('scroll', f, { passive: true }); window.addEventListener('resize', f); f();
   }
 
-  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs(); initOpenNow(); initCustomise(); initMega(); initGold();
+  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs(); initOpenNow(); initCustomise(); initMega(); initGold(); reprice(); initConfig();
 })();
