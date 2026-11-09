@@ -521,6 +521,11 @@ def page_home():
     coll = (f'<section class="coll" data-coll-sec><div class="wrap coll-grid"><div class="coll-list"><p class="eyebrow">Shop by category</p><ul>{lis}</ul></div>'
             f'<div class="coll-stage" aria-hidden="true">{stg}</div></div></section>')
     promise = build_promise(); partners = build_partners(d); visit = build_visit()
+    GOLD = [('24K', 496.75), ('22K', 460.00), ('18K', 378.00), ('14K', 295.00)]
+    goldbar = ('<section class="goldbar" data-gold data-endpoint="' + ('' if ARGS.preview else asset(d, 'gold-rate.php')) + '" aria-label="Today\'s gold rate in Dubai"><div class="wrap goldbar-in">'
+               '<span class="gb-title"><i class="gb-dot" aria-hidden="true"></i>Gold rate today</span><ul class="gb-list">'
+               + ''.join(f'<li data-k="{k[:2]}"><b>{k}</b><span><em class="gb-v">{v:,.2f}</em> <small>AED/g</small></span></li>' for k, v in GOLD)
+               + '</ul><span class="gb-time" data-gb-time>Dubai market rate</span></div></section>')
     star = '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M10 1.5l2.5 5.4 5.9.6-4.4 4 1.3 5.8L10 14.3 4.7 17.3 6 11.5 1.6 7.5l5.9-.6z" fill="currentColor"/></svg>'
     def rcard(r):
         smp = '<span class="rev-sample">Sample</span>' if r.get('sample') else ''
@@ -570,6 +575,8 @@ def page_home():
 {gs}
 
 {coll}
+
+{goldbar}
 
 {promise}
 
@@ -1216,6 +1223,7 @@ def build():
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'<url><loc>{esc(u)}</loc><lastmod>{today}</lastmod></url>\n' for u in sorted(set(PAGES))) + '</urlset>\n'
     write('sitemap.xml', sm)
     write('robots.txt', f"User-agent: *\nAllow: /\nDisallow: /_src/\nDisallow: /checkout/\nSitemap: {SITE['domain']}/sitemap.xml\n")
+    write('gold-rate.php', open(os.path.join(HERE, 'gold-rate.php'), encoding='utf-8').read())
     write('contact-send.php', open(os.path.join(HERE, 'contact-send.php'), encoding='utf-8').read())
     if not ARGS.preview:
         write('.htaccess', open(os.path.join(HERE, 'htaccess.txt')).read())

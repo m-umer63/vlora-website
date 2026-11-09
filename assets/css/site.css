@@ -1060,3 +1060,20 @@ a.sv-card:hover{transform:translateY(-4px);border-color:var(--gold-bright);backg
 .card.pop{animation:cardPop .6s var(--ease) both;animation-delay:calc(var(--pi,0)*45ms)}
 @keyframes cardPop{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.card.pop{animation:none}.mega-d .mg{opacity:1;transform:none}}
+
+/* ---------- gold rate strip ---------- */
+.goldbar{background:var(--navy);color:var(--cream);border-top:1px solid rgba(198,167,94,.35);border-bottom:1px solid rgba(198,167,94,.35)}
+.goldbar-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:12px;padding-bottom:12px;font-family:Montserrat,sans-serif}
+.gb-title{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#C6A75E;white-space:nowrap}
+.gb-dot{width:7px;height:7px;border-radius:50%;background:#C6A75E;box-shadow:0 0 0 0 rgba(198,167,94,.6);animation:gbPulse 2.4s infinite}
+@keyframes gbPulse{70%{box-shadow:0 0 0 7px rgba(198,167,94,0)}100%{box-shadow:0 0 0 0 rgba(198,167,94,0)}}
+.gb-list{display:flex;gap:clamp(18px,3.4vw,46px);list-style:none;margin:0;padding:0}
+.gb-list li{display:flex;align-items:baseline;gap:9px;font-size:13px}
+.gb-list b{font-weight:500;letter-spacing:.08em;color:#C6A75E;font-size:12px}
+.gb-list em{font-style:normal;font-variant-numeric:tabular-nums;font-size:15px}
+.gb-list small{font-size:10px;opacity:.6;letter-spacing:.06em}
+.gb-time{font-size:11px;opacity:.65;white-space:nowrap}
+.gb-v.flash{animation:gbFlash 1.4s}
+@keyframes gbFlash{0%{color:#C6A75E}100%{color:inherit}}
+@media(max-width:760px){.goldbar-in{flex-wrap:wrap;gap:6px 14px;justify-content:center}.gb-list{width:100%;justify-content:space-between;gap:8px}.gb-list li{flex-direction:column;align-items:center;gap:1px}.gb-time{display:none}}
+@media(prefers-reduced-motion:reduce){.gb-dot,.gb-v.flash{animation:none}}

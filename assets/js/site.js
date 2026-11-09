@@ -568,7 +568,24 @@ function heroVideo(){
     requestAnimationFrame(loop);
   }
 
-  function initMega() {
+  function initGold(){
+  var bar=document.querySelector('[data-gold]'); if(!bar) return;
+  var ep=bar.getAttribute('data-endpoint'), tm=bar.querySelector('[data-gb-time]');
+  if(!ep) return; // preview: showing sample values
+  function paint(r){
+    ['24','22','18','14'].forEach(function(k){
+      var li=bar.querySelector('[data-k="'+k+'"] .gb-v'); if(!li||!r.rates||!r.rates[k]) return;
+      var v=Number(r.rates[k]).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+      if(li.textContent!==v){li.textContent=v;li.classList.remove('flash');void li.offsetWidth;li.classList.add('flash');}
+    });
+    window.VLORA_GOLD=r.rates; document.dispatchEvent(new CustomEvent('goldrate',{detail:r.rates}));
+    if(tm&&r.fetched){var d=new Date(r.fetched*1000);tm.textContent='Updated '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Dubai'})+' Dubai'+(r.stale?' (last known)':'');}
+  }
+  function pull(){fetch(ep,{cache:'no-store'}).then(function(x){return x.ok?x.json():null}).then(function(r){if(r&&r.rates)paint(r)}).catch(function(){});}
+  pull(); setInterval(function(){if(!document.hidden)pull()},180000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)pull()});
+}
+function initMega() {
     $$('.has-mega').forEach(function (m) {
       var tm, open = function () { clearTimeout(tm); m.classList.add('is-open'); }, close = function (d) { clearTimeout(tm); tm = setTimeout(function () { m.classList.remove('is-open'); }, d); };
       m.addEventListener('mouseenter', open); m.addEventListener('mouseleave', function () { close(220); });
@@ -590,5 +607,5 @@ function heroVideo(){
     window.addEventListener('scroll', f, { passive: true }); window.addEventListener('resize', f); f();
   }
 
-  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs(); initOpenNow(); initCustomise(); initMega();
+  markWish(); updateCounts(); renderBag(); heroVideo(); initYears(); initCollections(); initGemScene(); initCounts(); initCareTabs(); initOpenNow(); initCustomise(); initMega(); initGold();
 })();
