@@ -23,6 +23,8 @@ def main():
     rows = list(ws.iter_rows(values_only=True)); h = rows[0]
     ov_file = os.path.join(os.path.dirname(a.out), 'catalogue_overrides.json')
     OV = json.load(open(ov_file, encoding='utf-8')) if os.path.exists(ov_file) else {}   # {file name: [colours, shape]} fixes for photos named without colour/shape
+    gf = os.path.join(os.path.dirname(a.out), 'untagged_guess.json')
+    GUESS = json.load(open(gf, encoding='utf-8')) if os.path.exists(gf) else {}   # colour/shape worked out from the photos themselves
     out, review = [], []
     for r in rows[1:]:
         d = dict(zip(h, r)); sku = d['SKU']
@@ -36,6 +38,8 @@ def main():
             if f in OV: cols, shp = OV[f]
             if len(cols) >= 3: cols = 'w'                  # "all colours" overview photo shows the white-gold piece
             cols = cols.replace('s', '')                   # silver is not sold for now
+            if not cols and not shp and f in GUESS and GUESS[f]['margin'] >= 1.1 and GUESS[f]['colvotes'] >= 0.99:
+                cols, shp = GUESS[f]['c'], GUESS[f]['s']
             if not cols and not shp:
                 if first_tag is None or idx < first_tag: cols = 'w'   # untagged leading photos = default white gold
                 else: review.append(f'{sku}: {f} has no colour/shape in its name, left out'); continue

@@ -23,10 +23,10 @@ REVIEWS = json.load(open(os.path.join(HERE, 'data', 'reviews.json'), encoding='u
 if ARGS.preview and os.path.exists(os.path.join(HERE, 'data', 'products_private.json')):
     PRODUCTS += json.load(open(os.path.join(HERE, 'data', 'products_private.json'), encoding='utf-8'))
 CAT_FILE = os.path.join(HERE, 'data', 'catalogue.json')
-CAT_MAP = {'Engagement ring': ('Rings', 'Engagement'), 'Wedding band': ('Rings', 'Wedding bands'), 'Eternity ring': ('Rings', 'Eternity'),
+CAT_MAP = {'Engagement ring': ('Rings', 'Engagement'), 'Wedding band': ('Rings', 'Wedding bands'), 'Eternity ring': ('Rings', 'Eternity'), 'Fashion ring': ('Rings', 'Fashion'),
            'Earrings': ('Earrings', ''), 'Necklace': ('Necklaces', ''), 'Bracelet': ('Bracelets', '')}
 # typical 18K weights (grams) by type; placeholders until real weights are entered
-CAT_WEIGHT = {'Engagement ring': 4.0, 'Wedding band': 2.8, 'Eternity ring': 3.2, 'Earrings': 2.0, 'Necklace': 2.2, 'Bracelet': 4.5}
+CAT_WEIGHT = {'Engagement ring': 4.0, 'Wedding band': 2.8, 'Eternity ring': 3.2, 'Fashion ring': 3.0, 'Earrings': 2.0, 'Necklace': 2.2, 'Bracelet': 4.5}
 PREVIEW_SHAPES = ('Round', 'Pear', 'Cushion')   # the preview holds only a few photos per product
 CATALOGUE_SRC = []                               # (product folder, [files]) copied into the preview
 
@@ -35,6 +35,10 @@ def load_catalogue():
     out = []
     if not os.path.exists(CAT_FILE): return out
     for c in json.load(open(CAT_FILE, encoding='utf-8')):
+        if c['collection'] is None and (c.get('folder') or '').startswith('Diamond_Rings'):
+            nm = c['name'].lower()      # sheet has no type for these: go by the name
+            c['collection'] = ('Engagement ring' if re.search(r'toi et moi|solitaire|halo|engagement|trilogy', nm)
+                               else 'Wedding band' if re.search(r'band|eternity', nm) else 'Fashion ring')
         if c['collection'] not in CAT_MAP: continue
         cat, coll = CAT_MAP[c['collection']]
         shapes = c['shapes'] or ['']
@@ -336,7 +340,7 @@ def mega_diamond(d):
     def col(g, title, vals):
         items = ''.join(f'<li><a href="{base}?{g}={fslug(v)}">{facet_icon(g, v)}<span>{esc(facet_label(g, v))}</span></a></li>' for v in vals)
         return f'<div class="mg mg-{g}"><p class="mega-h">Shop by {title}</p><ul>{items}</ul></div>'
-    cl = [('Engagement rings', 'collections/engagement-rings/'), ('Wedding bands', 'collections/wedding-bands/'), ('Eternities', 'collections/eternities/'),
+    cl = [('Engagement rings', 'collections/engagement-rings/'), ('Wedding bands', 'collections/wedding-bands/'), ('Eternities', 'collections/eternities/'), ('Fashion rings', 'collections/fashion-rings/'),
           ('Earrings', 'collections/earrings/'), ('Necklaces', 'collections/necklaces/'), ('Bracelets', 'collections/bracelets/')]
     lead = '<div class="mg mg-lead"><p class="mega-h">Shop by collection</p><ul>' + ''.join(f'<li><a href="{link(d, h)}">{n}</a></li>' for n, h in cl) + '</ul></div>'
     return f'<div class="mega mega-d"><div class="mega-in mega-wide">{lead}{col("shape", "shape", SHAPE_ORDER)}{col("style", "ring style", STYLE_ORDER)}{col("metal", "metal", list(_METAL_SW))}</div></div>'
@@ -1300,6 +1304,7 @@ def build():
     page_collection('silver', 'Silver', 'Silver jewellery, crafted and polished by hand.', [p for p in PRODUCTS if 'Silver' in p['metal']])
     page_collection('diamond', 'Diamond', 'Diamond jewellery, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond' or p.get('engagement')])
     page_collection('wedding-bands', 'Wedding bands', 'Wedding and anniversary bands.', [p for p in PRODUCTS if p.get('collection') == 'Wedding bands'])
+    page_collection('fashion-rings', 'Fashion rings', 'Everyday diamond rings: initials, toi et moi, signets and more.', [p for p in PRODUCTS if p.get('collection') == 'Fashion'])
     page_collection('eternities', 'Eternities', 'Eternity bands set with diamonds.', [p for p in PRODUCTS if p.get('collection') == 'Eternity'])
     page_collection('engagement-rings', 'Engagement rings', 'Find the ring by shape, style and metal, or have us design it for you.', [p for p in PRODUCTS if p.get('engagement')], eng=True)
     blurbs = {'Rings': 'Solitaires, bands and statement rings.', 'Earrings': 'Studs, drops and hoops for every day and every occasion.',
