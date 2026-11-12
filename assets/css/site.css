@@ -1,4 +1,4 @@
-/* VLORÁ - brand: navy #0c193b, cream #fafbee. Fonts: Cinzel (headings), Garamond (text). */
+/* VLORÁ - brand: navy #0c193b, cream #fdfbf6. Fonts: Cinzel (headings), Garamond (text). */
 @font-face{font-family:"Cinzel";src:url("../fonts/cinzel-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Cinzel";src:url("../fonts/cinzel-latin-600-normal.woff2") format("woff2");font-weight:600;font-display:swap}
 @font-face{font-family:"Cinzel";src:url("../fonts/cinzel-latin-700-normal.woff2") format("woff2");font-weight:700;font-display:swap}
@@ -14,7 +14,7 @@
 
 :root{
   --navy:#0c193b; --navy-2:#0D1E3B; --navy-3:#203565; --mid:#203565;
-  --cream:#fafbee; --cream-2:#F4F0E8; --cream-3:#E8DCC8;
+  --cream:#fdfbf6; --cream-2:#F4F0E8; --cream-3:#E8DCC8;
   --gold:#6b5223; --gold-soft:#E5CCB3; --gold-bright:#C6A75E; --rose:#C5A28C; --blush:#E5CCB3; --ruby:#C5A28C; --ruby-deep:#203565; --sand:#E8DCC8;
   --mute:#203565; --line:rgba(12,25,59,.16);
   --serif:"EB Garamond",Garamond,"Times New Roman",serif;
@@ -201,11 +201,11 @@ p{margin:0 0 1em}
 .card:hover .card-media img.alt{opacity:1}
 .card:hover .card-media img{transform:scale(1.04)}
 .heart{position:absolute;top:8px;right:8px;background:rgba(250,251,238,.85);border:0;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;z-index:2}
-.heart[aria-pressed=true]{color:#fafbee;background:var(--navy)}
+.heart[aria-pressed=true]{color:#fdfbf6;background:var(--navy)}
 .heart[aria-pressed=true] path{fill:currentColor}
 .tag{position:absolute;top:10px;left:10px;font-family:var(--ui);font-size:.58rem;letter-spacing:0.11em;text-transform:uppercase;padding:4px 8px;z-index:2}
-.tag-sample{background:var(--gold);color:#fafbee}
-.tag-new{background:var(--ruby);color:#fafbee}
+.tag-sample{background:var(--gold);color:#fdfbf6}
+.tag-new{background:var(--ruby);color:#fdfbf6}
 .card-body{padding:14px 2px 6px;text-align:center}
 .card-body h3{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .card-body h3 a{text-decoration:none}
@@ -281,7 +281,7 @@ p{margin:0 0 1em}
 .form h2{font-size:1.15rem;margin:0 0 6px}
 .form label{display:grid;gap:6px;font-size:.95rem}
 .form label.chk{display:flex}
-.form input:not([type=checkbox]),.form textarea,.form select{border:1px solid var(--line);background:#fafbee;padding:12px;width:100%}
+.form input:not([type=checkbox]),.form textarea,.form select{border:1px solid var(--line);background:#fdfbf6;padding:12px;width:100%}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .form-actions{display:flex;gap:10px;flex-wrap:wrap}
 .checkout{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,5vw,64px);align-items:start}
@@ -299,7 +299,7 @@ p{margin:0 0 1em}
 .site-footer ul{list-style:none;margin:0;padding:0}
 .site-footer li{margin-bottom:8px}
 .site-footer a{text-decoration:none}
-.site-footer a:hover{color:#fafbee;text-decoration:underline;text-underline-offset:4px}
+.site-footer a:hover{color:#fdfbf6;text-decoration:underline;text-underline-offset:4px}
 .site-footer .wa{display:inline-flex;gap:8px;align-items:center}
 .foot-base{border-top:1px solid rgba(250,251,238,.15);max-width:var(--wrap);margin:0 auto;padding:20px var(--gut);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.9rem;color:var(--cream)}
 
@@ -675,7 +675,7 @@ input,select,textarea,button{font-family:inherit}
 .social{display:flex;justify-content:center;gap:10px;width:210px;max-width:100%;margin:16px 0 0!important;padding:0}
 .site-footer .social li{margin:0}
 .social a{display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(250,251,238,.28);border-radius:50%;color:var(--cream);transition:background .3s,color .3s,border-color .3s}
-.site-footer .social a:hover{background:#fafbee;color:#0c193b;border-color:#fafbee;text-decoration:none}
+.site-footer .social a:hover{background:#fdfbf6;color:#0c193b;border-color:#fdfbf6;text-decoration:none}
 .foot-reg{line-height:1.6;font-size:.6rem;letter-spacing:.05em}
 @media (min-width:900px){.foot-reg{white-space:nowrap}}
 
@@ -1106,17 +1106,4 @@ a.sv-card:hover{transform:translateY(-4px);border-color:var(--gold-bright);backg
 
 /* white studio photos blend into the cream page */
 .card-media,.pdp .gallery .pic,.pdp .gallery .thumb,.modal .pic{background:var(--cream)}
-.card-media img,.pdp .gallery .pic img,.pdp .gallery .thumb img,.sr img,.bag-item img,.pair-row img{mix-blend-mode:multiply}
-
-/* preview-only photo style switch (option B = white tiles) */
-.pv-toggle{position:fixed;left:14px;bottom:14px;z-index:90;display:flex;align-items:center;gap:6px;background:var(--navy);color:var(--cream);padding:8px 10px;font:11px Montserrat,sans-serif;letter-spacing:.06em;box-shadow:0 6px 24px rgba(0,0,0,.25)}
-.pv-toggle span{opacity:.7;margin-right:4px}
-.pv-toggle button{background:transparent;color:inherit;border:1px solid rgba(250,251,238,.35);padding:6px 10px;font:inherit;cursor:pointer}
-.pv-toggle button[aria-pressed=true]{background:var(--cream);color:var(--navy)}
-.photo-b .card-media,.photo-b .pdp .gallery .pic,.photo-b .pdp .gallery .thumb,.photo-b .modal .pic{background:#fff;box-shadow:0 0 0 1px rgba(12,25,59,.08)}
-.photo-b .card-media img,.photo-b .pdp .gallery .pic img,.photo-b .pdp .gallery .thumb img,.photo-b .sr img,.photo-b .bag-item img,.photo-b .pair-row img{mix-blend-mode:normal}
-
-/* C: photo keeps its true white in the middle and melts into the cream at the edges */
-.photo-c .card-media img,.photo-c .pdp .gallery .pic img,.photo-c .pdp .gallery .thumb img,.photo-c .sr img,.photo-c .bag-item img,.photo-c .pair-row img{mix-blend-mode:normal;-webkit-mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 58%,transparent 100%)}
-/* D: same blend as A, with the photo lifted so diamonds stay bright */
-.photo-d .card-media img,.photo-d .pdp .gallery .pic img,.photo-d .pdp .gallery .thumb img,.photo-d .sr img,.photo-d .bag-item img,.photo-d .pair-row img{filter:brightness(1.07) contrast(1.14) saturate(1.05)}
+.card-media img[src*="/products/p/"],.pdp .gallery .pic img[src*="/products/p/"],.pdp .gallery .thumb img[src*="/products/p/"],.sr img[src*="/products/p/"],.bag-item img[src*="/products/p/"],.pair-row img[src*="/products/p/"]{-webkit-mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 58%,transparent 100%)}
