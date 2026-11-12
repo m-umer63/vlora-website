@@ -1,0 +1,47 @@
+[
+ {
+  "category": "Ring",
+  "item": "Swarovski Eternity Solitaire, sterling silver",
+  "carat": 0.25,
+  "competitor_aed": 1900,
+  "max_vlora_aed": 1710,
+  "url": "https://www.swarovski.ae/eternity-solitaire-ring-laboratory-grown-diamonds-0.25-ct-tw-sterling-silver/M5697478.html",
+  "checked": "2026-11-12"
+ },
+ {
+  "category": "Pendant",
+  "item": "Swarovski Eternity Pendant, sterling silver",
+  "carat": 0.23,
+  "competitor_aed": 2100,
+  "max_vlora_aed": 1890,
+  "url": "https://www.swarovski.ae/eternity-pendant-laboratory-grown-diamonds-0.23-ct-tw-sterling-silver/5697105.html",
+  "checked": "2026-11-12"
+ },
+ {
+  "category": "Earrings",
+  "item": "Swarovski Eternity Hoop, sterling silver",
+  "carat": 0.56,
+  "competitor_aed": 2100,
+  "max_vlora_aed": 1890,
+  "url": "https://swarovski.ae/eternity-hoop-earrings-lab-grown-diamonds-0.56-ct-tw-round-shape-sterling-silver/5728556.html",
+  "checked": "2026-11-12"
+ },
+ {
+  "category": "Earrings",
+  "item": "Swarovski Octagon Drop, sterling silver",
+  "carat": 0.6,
+  "competitor_aed": 2500,
+  "max_vlora_aed": 2250,
+  "url": "https://www.swarovski.ae/v/octagon-silver",
+  "checked": "2026-11-12"
+ },
+ {
+  "category": "Bracelet",
+  "item": "Swarovski Octagon Bracelet, sterling silver",
+  "carat": 0.8,
+  "competitor_aed": 3100,
+  "max_vlora_aed": 2790,
+  "url": "https://www.swarovski.ae/v/octagon-silver",
+  "checked": "2026-11-12"
+ }
+]
