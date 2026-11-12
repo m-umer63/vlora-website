@@ -1103,3 +1103,7 @@ a.sv-card:hover{transform:translateY(-4px);border-color:var(--gold-bright);backg
 .cfg-shape input:checked+span{background:var(--navy);color:var(--cream);border-color:var(--navy)}
 .cfg-shape input:checked+span svg{stroke:var(--cream)}
 .cfg-shape input:focus-visible+span{outline:2px solid #C6A75E;outline-offset:2px}
+
+/* white studio photos blend into the cream page */
+.card-media,.pdp .gallery .pic,.pdp .gallery .thumb,.modal .pic{background:var(--cream)}
+.card-media img,.pdp .gallery .pic img,.pdp .gallery .thumb img,.sr img,.bag-item img,.pair-row img{mix-blend-mode:multiply}

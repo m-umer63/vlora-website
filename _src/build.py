@@ -47,13 +47,14 @@ def load_catalogue():
         if not gal: continue
         dflt = gal.get(f'w|{shapes[0]}') or next(iter(gal.values()))
         eng = c['collection'] == 'Engagement ring'
-        try: ct0 = float(re.split(r'[ /]+', (c['carat'] or '').strip())[0])
-        except ValueError: ct0 = 0.3
+        cl = [float(x) for x in re.findall(r'\d+(?:\.\d+)?', c['carat'] or '')] or [0.3]
+        ct0 = cl[0]
+        cl = sorted(set(cl))
         slug = re.sub(r'[^a-z0-9]+', '-', c['name'].lower()).strip('-') + '-' + c['sku'].lower()
         p = dict(sku=c['sku'], name=c['name'], slug=slug, category=cat, collection=coll, metal='White Gold', purity=18, stone='Diamond',
                  stone_ct=ct0, metal_g=CAT_WEIGHT[c['collection']], price=0, stock=1, images=dflt, featured=False, new=False, supplier_code='',
                  description=f"{c['name']}, handmade in 18K or 14K gold with lab-grown diamonds. Choose your metal colour and diamond shape.",
-                 config=True, cts=[1, 2, 3, 4] if eng else [ct0], shapes=shapes, gallery=gal, cat_type=c['collection'], sample=True)
+                 config=True, cts=[1, 2, 3, 4] if eng else cl, shapes=shapes, gallery=gal, cat_type=c['collection'], sample=True)
         if eng:
             p.update(engagement=True, shape=shapes[0], style=c['style'] or '', stone_type='Lab Grown Diamond', audience='her')
         for k, v in gal.items():

@@ -21,6 +21,8 @@ def main():
     a = ap.parse_args(); only = {s for s in a.only.split(',') if s}
     ws = openpyxl.load_workbook(a.xlsx, read_only=True).active
     rows = list(ws.iter_rows(values_only=True)); h = rows[0]
+    ov_file = os.path.join(os.path.dirname(a.out), 'catalogue_overrides.json')
+    OV = json.load(open(ov_file, encoding='utf-8')) if os.path.exists(ov_file) else {}   # {file name: [colours, shape]} fixes for photos named without colour/shape
     out, review = [], []
     for r in rows[1:]:
         d = dict(zip(h, r)); sku = d['SKU']
@@ -31,6 +33,7 @@ def main():
         first_tag = next((p[0] for f, p in parsed if (p[1] and len(p[1]) < 3) or p[2]), None)
         imgs = []
         for f, (idx, cols, shp) in parsed:
+            if f in OV: cols, shp = OV[f]
             if len(cols) >= 3: cols = 'w'                  # "all colours" overview photo shows the white-gold piece
             cols = cols.replace('s', '')                   # silver is not sold for now
             if not cols and not shp:
