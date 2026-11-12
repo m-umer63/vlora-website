@@ -40,9 +40,10 @@ def load_catalogue():
         shapes = c['shapes'] or ['']
         if ARGS.preview: shapes = [x for x in shapes if x in PREVIEW_SHAPES] or shapes[:1]
         gal = {}
+        pdir = c['sku'] if (ARGS.preview and os.path.isdir(os.path.join(HERE, 'private', 'p', c['sku']))) else (c.get('folder') or c['sku'])
         for col in 'wyr':
             for sh in shapes:
-                gal[f'{col}|{sh}'] = [f"p/{c['sku']}/{im['f']}" for im in c['images'] if (not im['c'] or col in im['c']) and (not im['s'] or im['s'] == sh)]
+                gal[f'{col}|{sh}'] = [f"p/{pdir}/{im['f']}" for im in c['images'] if (not im['c'] or col in im['c']) and (not im['s'] or im['s'] == sh)]
         gal = {k: v for k, v in gal.items() if v}
         if not gal: continue
         dflt = gal.get(f'w|{shapes[0]}') or next(iter(gal.values()))
