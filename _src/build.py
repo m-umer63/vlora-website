@@ -22,6 +22,47 @@ PARTNERS = [p for p in (json.load(open(os.path.join(HERE, 'data', 'partners.json
 REVIEWS = json.load(open(os.path.join(HERE, 'data', 'reviews.json'), encoding='utf-8')) if os.path.exists(os.path.join(HERE, 'data', 'reviews.json')) else []
 if ARGS.preview and os.path.exists(os.path.join(HERE, 'data', 'products_private.json')):
     PRODUCTS += json.load(open(os.path.join(HERE, 'data', 'products_private.json'), encoding='utf-8'))
+CAT_FILE = os.path.join(HERE, 'data', 'catalogue.json')
+CAT_MAP = {'Engagement ring': ('Rings', 'Engagement'), 'Wedding band': ('Rings', 'Wedding bands'), 'Eternity ring': ('Rings', 'Eternity'),
+           'Earrings': ('Earrings', ''), 'Necklace': ('Necklaces', ''), 'Bracelet': ('Bracelets', '')}
+# typical 18K weights (grams) by type; placeholders until real weights are entered
+CAT_WEIGHT = {'Engagement ring': 4.0, 'Wedding band': 2.8, 'Eternity ring': 3.2, 'Earrings': 2.0, 'Necklace': 2.2, 'Bracelet': 4.5}
+PREVIEW_SHAPES = ('Round', 'Pear', 'Cushion')   # the preview holds only a few photos per product
+CATALOGUE_SRC = []                               # (product folder, [files]) copied into the preview
+
+
+def load_catalogue():
+    out = []
+    if not os.path.exists(CAT_FILE): return out
+    for c in json.load(open(CAT_FILE, encoding='utf-8')):
+        if c['collection'] not in CAT_MAP: continue
+        cat, coll = CAT_MAP[c['collection']]
+        shapes = c['shapes'] or ['']
+        if ARGS.preview: shapes = [x for x in shapes if x in PREVIEW_SHAPES] or shapes[:1]
+        gal = {}
+        for col in 'wyr':
+            for sh in shapes:
+                gal[f'{col}|{sh}'] = [f"p/{c['sku']}/{im['f']}" for im in c['images'] if (not im['c'] or col in im['c']) and (not im['s'] or im['s'] == sh)]
+        gal = {k: v for k, v in gal.items() if v}
+        if not gal: continue
+        dflt = gal.get(f'w|{shapes[0]}') or next(iter(gal.values()))
+        eng = c['collection'] == 'Engagement ring'
+        try: ct0 = float(re.split(r'[ /]+', (c['carat'] or '').strip())[0])
+        except ValueError: ct0 = 0.3
+        slug = re.sub(r'[^a-z0-9]+', '-', c['name'].lower()).strip('-') + '-' + c['sku'].lower()
+        p = dict(sku=c['sku'], name=c['name'], slug=slug, category=cat, collection=coll, metal='White Gold', purity=18, stone='Diamond',
+                 stone_ct=ct0, metal_g=CAT_WEIGHT[c['collection']], price=0, stock=1, images=dflt, featured=False, new=False, supplier_code='',
+                 description=f"{c['name']}, handmade in 18K or 14K gold with lab-grown diamonds. Choose your metal colour and diamond shape.",
+                 config=True, cts=[1, 2, 3, 4] if eng else [ct0], shapes=shapes, gallery=gal, cat_type=c['collection'], sample=True)
+        if eng:
+            p.update(engagement=True, shape=shapes[0], style=c['style'] or '', stone_type='Lab Grown Diamond', audience='her')
+        for k, v in gal.items():
+            CATALOGUE_SRC.append((c['sku'], v))
+        out.append(p)
+    return out
+
+
+PRODUCTS += load_catalogue()
 CATEGORIES = ['Rings', 'Earrings', 'Necklaces', 'Bracelets', 'Accessories', 'Bullion']
 # Bangles fold into Bracelets, Pendants into Necklaces; watches are added later (sample watches hidden for now)
 _MAP = {'Bangles': 'Bracelets', 'Pendants': 'Necklaces'}
@@ -692,21 +733,28 @@ def page_product(p):
     specs = ''.join(f'<div><dt>{k}</dt><dd>{esc(str(v))}</dd></div>' for k, v in spec)
     related = [q for q in PRODUCTS if q['category'] == p['category'] and q['sku'] != p['sku']][:4]
     msg = f"Hello VLORÁ, I am interested in {p['name']} ({p['sku']}), {money(p['price'])}."
-    sample = '<p class="sample-note">Sample listing for layout preview. Name, picture and price are placeholders.</p>' if p.get('sample') else ''
+    sample = ('<p class="sample-note">Layout preview: prices use estimated metal weights until your real weights are added.</p>' if p.get('cat_type') else '<p class="sample-note">Sample listing for layout preview. Name, picture and price are placeholders.</p>') if p.get('sample') else ''
     cfa, frm, vat_note, cfg = '', '', '', ''
     if p.get('config'):
         cts = p['cts']; cfa = ' data-cfg="1"'; frm = 'From '
         vat_note = '<p class="vat-note">Price includes 5% VAT and updates with today&rsquo;s gold rate.</p>'
         cols = [('w', 'White gold', 'sw-wg'), ('y', 'Yellow gold', 'sw-yg'), ('r', 'Rose gold', 'sw-rg')]
-        cfg = (f'<div class="cfg" id="cfg" data-g="{p["metal_g"]}" data-wa="{esc(wa_link(""))}" data-name="{esc(p["name"])}" data-sku="{esc(p["sku"])}">'
+        shp = ''
+        if len(p.get('shapes', [])) > 1:
+            shp = ('<div class="cfg-row"><p class="cfg-l">Diamond shape <b data-out="shp">' + esc(p['shapes'][0]) + '</b></p><div class="cfg-opts">'
+                   + ''.join(f'<label class="cfg-shape" title="{esc(x)}"><input type="radio" name="shp" value="{esc(x)}"{" checked" if i == 0 else ""}>'
+                             f'<span>{facet_icon("shape", x) if x in _SH else ""}<i>{esc(x)}</i></span></label>' for i, x in enumerate(p['shapes'])) + '</div></div>')
+        ctrow = ('<div class="cfg-row"><p class="cfg-l">Diamond size</p><div class="cfg-opts">'
+                 + ''.join(f'<label class="cfg-pill"><input type="radio" name="ct" value="{c}"{" checked" if c == cts[0] else ""}><span>{c} ct</span></label>' for c in cts) + '</div></div>') if len(cts) > 1 else f'<input type="radio" name="ct" value="{cts[0]}" checked hidden>'
+        gal = esc(json.dumps(p.get('gallery', {}), separators=(',', ':')))
+        cfg = (f'<div class="cfg" id="cfg" data-gal="{gal}" data-g="{p["metal_g"]}" data-wa="{esc(wa_link(""))}" data-name="{esc(p["name"])}" data-sku="{esc(p["sku"])}">'
                '<div class="cfg-row"><p class="cfg-l">Metal colour <b data-out="col">White gold</b></p><div class="cfg-opts">'
                + ''.join(f'<label class="cfg-sw"><input type="radio" name="col" value="{c}"{" checked" if c == "w" else ""}><span class="sw {sw}"></span><i>{n}</i></label>' for c, n, sw in cols) + '</div></div>'
-               '<div class="cfg-row"><p class="cfg-l">Gold purity</p><div class="cfg-opts">'
+               + shp + '<div class="cfg-row"><p class="cfg-l">Gold purity</p><div class="cfg-opts">'
                '<label class="cfg-pill"><input type="radio" name="kt" value="18" checked><span>18K <small>Standard</small></span></label>'
                '<label class="cfg-pill"><input type="radio" name="kt" value="14"><span>14K</span></label>'
                '<label class="cfg-pill"><input type="radio" name="kt" value="pt"><span>Platinum <small>On enquiry</small></span></label></div></div>'
-               '<div class="cfg-row"><p class="cfg-l">Diamond size</p><div class="cfg-opts">'
-               + ''.join(f'<label class="cfg-pill"><input type="radio" name="ct" value="{c}"{" checked" if c == cts[0] else ""}><span>{c} ct</span></label>' for c in cts) + '</div></div>'
+               + ctrow +
                '<p class="cfg-pt" hidden>Platinum is made to order and priced on enquiry. Message us and we will quote you.</p></div>')
     stock = '<p class="stock">Please ask us about availability.</p>' if p.get('stock', 1) > 0 else '<p class="stock">Currently unavailable. Message us to enquire.</p>'
     body = f'''
@@ -1232,14 +1280,23 @@ def build():
     write('assets/js/data.js', 'window.VL=' + json.dumps({"products": slim, "whatsapp": SITE['whatsapp'], "email": SITE['email'],
                                                            "currency": "AED", "categories": CATEGORIES, "rates": {str(k): v for k, v in RATES.items()}, "cfg": {"perCt": PER_CT, "fixed": FIXED, "vat": VAT, "f14": F14}}, ensure_ascii=False) + ';')
     if ARGS.preview and os.path.isdir(os.path.join(HERE, 'private')):
-        for f in os.listdir(os.path.join(HERE, 'private')): shutil.copy(os.path.join(HERE, 'private', f), os.path.join(OUT, 'assets/img/products', f))
+        for f in [x for x in os.listdir(os.path.join(HERE, 'private')) if os.path.isfile(os.path.join(HERE, 'private', x))]: shutil.copy(os.path.join(HERE, 'private', f), os.path.join(OUT, 'assets/img/products', f))
+    if ARGS.preview:
+        done = set()
+        for sku, files in CATALOGUE_SRC:
+            for rel in files:
+                if rel in done: continue
+                done.add(rel); src = os.path.join(HERE, 'private', rel)
+                if os.path.exists(src):
+                    os.makedirs(os.path.join(OUT, 'assets/img/products', os.path.dirname(rel)), exist_ok=True)
+                    shutil.copy(src, os.path.join(OUT, 'assets/img/products', rel))
     page_home()
     page_collection('all', 'All jewellery & watches', 'Every piece in the VLORÁ collection.', PRODUCTS)
     page_collection('gold', 'Gold', 'Fine jewellery in yellow, white and rose gold.', [p for p in PRODUCTS if 'Gold' in p['metal']])
     page_collection('silver', 'Silver', 'Silver jewellery, crafted and polished by hand.', [p for p in PRODUCTS if 'Silver' in p['metal']])
     page_collection('diamond', 'Diamond', 'Diamond jewellery, set and finished by hand.', [p for p in PRODUCTS if p.get('stone') == 'Diamond' or p.get('engagement')])
-    page_collection('wedding-bands', 'Wedding bands', 'Wedding and anniversary bands. Coming soon.', [])
-    page_collection('eternities', 'Eternities', 'Eternity bands set with diamonds. Coming soon.', [])
+    page_collection('wedding-bands', 'Wedding bands', 'Wedding and anniversary bands.', [p for p in PRODUCTS if p.get('collection') == 'Wedding bands'])
+    page_collection('eternities', 'Eternities', 'Eternity bands set with diamonds.', [p for p in PRODUCTS if p.get('collection') == 'Eternity'])
     page_collection('engagement-rings', 'Engagement rings', 'Find the ring by shape, style and metal, or have us design it for you.', [p for p in PRODUCTS if p.get('engagement')], eng=True)
     blurbs = {'Rings': 'Solitaires, bands and statement rings.', 'Earrings': 'Studs, drops and hoops for every day and every occasion.',
               'Necklaces': 'Necklaces, pendants and chains.', 'Bracelets': 'Bracelets and bangles in gold and diamonds.',

@@ -19,8 +19,8 @@
     if (BY[key] || String(key).indexOf('|') < 0) return BY[key];
     var a = key.split('|'), b = BY[a[0]], v = (a[1] || '').split('-'); if (!b || !b.g) return null;
     var o = {}; for (var k in b) o[k] = b[k];
-    o.sku = key; o.ref = b.sku; o.v = { c: v[0], k: +v[1], ct: +v[2] };
-    o.sub = (COLN[v[0]] || '') + ' \u00b7 ' + v[1] + 'K \u00b7 ' + v[2] + ' ct diamond';
+    o.sku = key; o.ref = b.sku; o.v = { c: v[0], k: +v[1], ct: +v[2], sh: v[3] || '' };
+    o.sub = (COLN[v[0]] || '') + ' \u00b7 ' + v[1] + 'K' + (v[3] ? ' \u00b7 ' + v[3] + ' cut' : '') + (b.cts && b.cts.length > 1 ? ' \u00b7 ' + v[2] + ' ct diamond' : '');
     o.price = calc(b.g, o.v.k, o.v.ct); BY[key] = o; return o;
   }
   function reprice() {
@@ -596,21 +596,31 @@ function heroVideo(){
 
   function initConfig(){
   var f=$('#cfg'); if(!f) return;
-  var priceEl=$('#pdp-price'), add=$('#pdp-add'), wa=$('#pdp-wa'), pt=$('.cfg-pt',f), col=$('[data-out="col"]',f);
-  var sku=f.getAttribute('data-sku'), g=+f.getAttribute('data-g'), name=f.getAttribute('data-name');
+  var priceEl=$('#pdp-price'), add=$('#pdp-add'), wa=$('#pdp-wa'), pt=$('.cfg-pt',f), col=$('[data-out="col"]',f), shpOut=$('[data-out="shp"]',f);
+  var sku=f.getAttribute('data-sku'), g=+f.getAttribute('data-g'), name=f.getAttribute('data-name'), gal={}, cur='';
+  try{gal=JSON.parse(f.getAttribute('data-gal')||'{}');}catch(e){}
+  var firstShape=(Object.keys(gal)[0]||'|').split('|')[1];
+  var pics=$('.pics'), thumbs=$('.thumbs'), base=ROOT+'assets/img/products/';
   function val(n){var e=$('input[name="'+n+'"]:checked',f);return e?e.value:'';}
+  function show(list){
+    var key=list.join('|'); if(!pics||key===cur) return; cur=key;
+    pics.innerHTML=list.map(function(u,i){return '<div class="pic'+(i?'':' is-on')+'" data-pic="'+i+'"><img src="'+base+u+'" alt="'+esc(name)+'" width="800" height="800"'+(i?' loading="lazy"':'')+'></div>';}).join('');
+    if(thumbs) thumbs.innerHTML=list.map(function(u,i){return '<button class="thumb'+(i?'':' is-on')+'" data-thumb="'+i+'" aria-label="Show picture '+(i+1)+'"><img src="'+base+u+'" alt="" width="120" height="120" loading="lazy"></button>';}).join('');
+  }
   function upd(){
-    var c=val('col'), kt=val('kt'), ct=+val('ct'), plat=kt==='pt';
-    if(col) col.textContent=COLN[c];
-    pt.hidden=!plat; $$('input[name="col"]',f).forEach(function(i){i.disabled=false;});
-    var msg;
+    var c=val('col'), kt=val('kt'), ct=+val('ct'), sh=val('shp')||firstShape, plat=kt==='pt';
+    if(col) col.textContent=COLN[c]; if(shpOut) shpOut.textContent=sh;
+    var list=gal[c+'|'+sh]; if(!list){var k=Object.keys(gal).filter(function(x){return x.indexOf(c+'|')===0})[0]; list=gal[k||'w|'+firstShape]||[];}
+    if(list.length) show(list);
+    pt.hidden=!plat;
+    var desc=COLN[c]+(sh?', '+sh+' cut':'')+(plat?'':', '+kt+'K')+(+val('ct')&&$$('input[name="ct"]',f).length>1?', '+ct+' ct diamond':''), msg;
     if(plat){
       priceEl.textContent='Price on enquiry'; add.hidden=true;
-      msg='Hello VLOR\u00c1, I would like a quote for '+name+' ('+sku+') in platinum with a '+ct+' ct diamond.';
+      msg='Hello VLOR\u00c1, I would like a quote for '+name+' ('+sku+') in platinum, '+desc.replace(COLN[c],'')+'.';
     }else{
       var v=calc(g,+kt,ct); priceEl.textContent=money(v); add.hidden=false;
-      add.setAttribute('data-add',sku+'|'+c+'-'+kt+'-'+ct);
-      msg='Hello VLOR\u00c1, I am interested in '+name+' ('+sku+'), '+COLN[c]+', '+kt+'K, '+ct+' ct diamond, '+money(v)+'.';
+      add.setAttribute('data-add',sku+'|'+c+'-'+kt+'-'+ct+(sh?'-'+sh:''));
+      msg='Hello VLOR\u00c1, I am interested in '+name+' ('+sku+'), '+desc+', '+money(v)+'.';
     }
     if(wa) wa.href=f.getAttribute('data-wa')+'?text='+encodeURIComponent(msg);
   }
