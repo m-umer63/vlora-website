@@ -1115,3 +1115,8 @@ a.sv-card:hover{transform:translateY(-4px);border-color:var(--gold-bright);backg
 .pv-toggle button[aria-pressed=true]{background:var(--cream);color:var(--navy)}
 .photo-b .card-media,.photo-b .pdp .gallery .pic,.photo-b .pdp .gallery .thumb,.photo-b .modal .pic{background:#fff;box-shadow:0 0 0 1px rgba(12,25,59,.08)}
 .photo-b .card-media img,.photo-b .pdp .gallery .pic img,.photo-b .pdp .gallery .thumb img,.photo-b .sr img,.photo-b .bag-item img,.photo-b .pair-row img{mix-blend-mode:normal}
+
+/* C: photo keeps its true white in the middle and melts into the cream at the edges */
+.photo-c .card-media img,.photo-c .pdp .gallery .pic img,.photo-c .pdp .gallery .thumb img,.photo-c .sr img,.photo-c .bag-item img,.photo-c .pair-row img{mix-blend-mode:normal;-webkit-mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 58%,transparent 100%)}
+/* D: same blend as A, with the photo lifted so diamonds stay bright */
+.photo-d .card-media img,.photo-d .pdp .gallery .pic img,.photo-d .pdp .gallery .thumb img,.photo-d .sr img,.photo-d .bag-item img,.photo-d .pair-row img{filter:brightness(1.07) contrast(1.14) saturate(1.05)}
