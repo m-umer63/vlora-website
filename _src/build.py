@@ -90,6 +90,10 @@ for _p in PRODUCTS:
     if _p.get('config'): _p['price'] = calc_price(_p['metal_g'], 18, min(_p['cts']))
 
 
+PV_TOGGLE = ('<div class="pv-toggle" role="group" aria-label="Photo style preview"><span>Photo style</span><button type="button" data-pv="a">A &middot; Blended</button><button type="button" data-pv="b">B &middot; Boxed</button></div>'
+             '<script>(function(){var h=document.documentElement,k="vl_photo";function g(){try{return localStorage.getItem(k)||"a"}catch(e){return "a"}}function s(v){h.classList.toggle("photo-b",v==="b");[].forEach.call(document.querySelectorAll(".pv-toggle button"),function(b){b.setAttribute("aria-pressed",b.getAttribute("data-pv")===v)})}s(g());document.addEventListener("click",function(e){var b=e.target.closest(".pv-toggle button");if(!b)return;var v=b.getAttribute("data-pv");try{localStorage.setItem(k,v)}catch(x){}s(v)})})()</script>')
+
+
 def sub_line(p):
     bits = []
     if p.get('config'):
@@ -467,6 +471,7 @@ def shell(path, title, desc, body, extra_head='', body_class='', noindex=False, 
 {footer(d)}
 <script src="{asset(d, "assets/js/data.js")}"></script>
 <script src="{asset(d, "assets/js/site.js")}" defer></script>
+{PV_TOGGLE if ARGS.preview else ""}
 </body>
 </html>
 '''

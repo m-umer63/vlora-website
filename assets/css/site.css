@@ -1107,3 +1107,11 @@ a.sv-card:hover{transform:translateY(-4px);border-color:var(--gold-bright);backg
 /* white studio photos blend into the cream page */
 .card-media,.pdp .gallery .pic,.pdp .gallery .thumb,.modal .pic{background:var(--cream)}
 .card-media img,.pdp .gallery .pic img,.pdp .gallery .thumb img,.sr img,.bag-item img,.pair-row img{mix-blend-mode:multiply}
+
+/* preview-only photo style switch (option B = white tiles) */
+.pv-toggle{position:fixed;left:14px;bottom:14px;z-index:90;display:flex;align-items:center;gap:6px;background:var(--navy);color:var(--cream);padding:8px 10px;font:11px Montserrat,sans-serif;letter-spacing:.06em;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.pv-toggle span{opacity:.7;margin-right:4px}
+.pv-toggle button{background:transparent;color:inherit;border:1px solid rgba(250,251,238,.35);padding:6px 10px;font:inherit;cursor:pointer}
+.pv-toggle button[aria-pressed=true]{background:var(--cream);color:var(--navy)}
+.photo-b .card-media,.photo-b .pdp .gallery .pic,.photo-b .pdp .gallery .thumb,.photo-b .modal .pic{background:#fff;box-shadow:0 0 0 1px rgba(12,25,59,.08)}
+.photo-b .card-media img,.photo-b .pdp .gallery .pic img,.photo-b .pdp .gallery .thumb img,.photo-b .sr img,.photo-b .bag-item img,.photo-b .pair-row img{mix-blend-mode:normal}
