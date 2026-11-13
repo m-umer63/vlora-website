@@ -92,7 +92,7 @@ def load_catalogue():
         p = dict(sku=c['sku'], name=c['name'], slug=slug, category=cat, collection=coll, metal='White Gold', purity=18, stone='Diamond',
                  stone_ct=ct0, metal_g=est_weight(c), price=0, stock=1, images=dflt, featured=False, new=False, supplier_code='',
                  description=f"{c['name']}, handmade in 18K or 14K gold with lab-grown diamonds. Choose your metal colour and diamond shape.",
-                 config=True, cts=[1, 2, 3, 4] if eng else cl, shapes=shapes, gallery=gal, cat_type=c['collection'], sample=True)
+                 config=True, cts=[1, 2, 3, 4] if eng else cl, shapes=shapes, gallery=gal, cat_type=c['collection'], sample=False)
         if eng:
             p.update(engagement=True, shape=shapes[0], style=c['style'] or '', stone_type='Lab Grown Diamond', audience='her')
         for k, v in gal.items():
@@ -102,7 +102,8 @@ def load_catalogue():
 
 
 PRODUCTS += load_catalogue()
-CATEGORIES = ['Rings', 'Earrings', 'Necklaces', 'Bracelets', 'Accessories', 'Bullion']
+if not ARGS.preview: PRODUCTS = [p for p in PRODUCTS if not p.get('sample')]   # placeholder pieces are for the layout preview only
+CATEGORIES = ['Rings', 'Earrings', 'Necklaces', 'Bracelets'] + (['Accessories', 'Bullion'] if ARGS.preview else [])   # empty sections stay hidden on the live site
 # Bangles fold into Bracelets, Pendants into Necklaces; watches are added later (sample watches hidden for now)
 _MAP = {'Bangles': 'Bracelets', 'Pendants': 'Necklaces'}
 PRODUCTS = [dict(p, category=_MAP.get(p['category'], p['category'])) for p in PRODUCTS if p['category'] != 'Watches']
@@ -398,6 +399,10 @@ def wa_link(text=''):
 
 
 def header(d, current=''):
+    GS_TABS_D = GS_TABS_M = ''
+    if ARGS.preview:      # Gold and Silver tabs come back once those sections have products
+        GS_TABS_D = f'<a href="{link(d, "collections/gold/")}">Gold</a>\n      <a href="{link(d, "collections/silver/")}">Silver</a>'
+        GS_TABS_M = f'<a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/silver/")}">Silver</a>'
     cats = ''.join(f'<li><a href="{link(d, "collections/" + CAT_SLUG[c] + "/")}">{c}</a></li>' for c in CATEGORIES)
     mobcats = ''.join(f'<a href="{link(d, "collections/" + CAT_SLUG[c] + "/")}">{c}</a>' for c in CATEGORIES)
     return f'''<a class="skip" href="#main">Skip to content</a>
@@ -406,8 +411,7 @@ def header(d, current=''):
   <div class="hdr">
     <div class="hdr-left"><button class="icon-btn menu-btn" data-open="menu" aria-label="Open menu">{ICON["menu"]}</button>
     <nav class="nav nav-left" aria-label="Main">
-      <a href="{link(d, "collections/gold/")}">Gold</a>
-      <a href="{link(d, "collections/silver/")}">Silver</a>
+      {GS_TABS_D}
       <div class="has-mega"><a href="{link(d, "collections/diamond/")}">Diamond</a>{mega_diamond(d)}</div>
       <a href="{link(d, "pages/customise/")}">Customise</a>
     </nav></div>
@@ -425,7 +429,7 @@ def header(d, current=''):
 <div class="scrim" data-close></div>
 <aside class="drawer drawer-left" id="menu-drawer" aria-label="Menu" aria-hidden="true">
   <div class="drawer-head"><span class="eyebrow">Menu</span><button class="icon-btn" data-close aria-label="Close">{ICON["close"]}</button></div>
-  <nav class="mob-nav"><p class="mob-h">Shop</p><a href="{link(d, "collections/gold/")}">Gold</a><a href="{link(d, "collections/silver/")}">Silver</a><a href="{link(d, "collections/diamond/")}">Diamond</a><a class="mob-sub" href="{link(d, "collections/engagement-rings/")}">Engagement rings</a><a href="{link(d, "collections/all/")}">All jewellery</a>{mobcats}
+  <nav class="mob-nav"><p class="mob-h">Shop</p>{GS_TABS_M}<a href="{link(d, "collections/diamond/")}">Diamond</a><a class="mob-sub" href="{link(d, "collections/engagement-rings/")}">Engagement rings</a><a href="{link(d, "collections/all/")}">All jewellery</a>{mobcats}
   <p class="mob-h">Services</p><a href="{link(d, "pages/customise/")}">Customise</a><a href="{link(d, "pages/services/")}">Services</a><a href="{link(d, "pages/care-guide/")}">Care guide</a>
   <p class="mob-h">The house</p><a href="{link(d, "pages/about/")}">About</a><a href="{link(d, "pages/contact/")}">Contact</a><a href="{link(d, "pages/faq/")}">FAQ</a><a href="{link(d, "wishlist/")}">Wishlist</a></nav>
 </aside>
@@ -592,7 +596,7 @@ def story_section(d):
     <div class="yrs-ov">
       <div class="yrs-caps">{yr_caps}</div>
       <div class="yrs-idx" data-yrs-idx aria-hidden="true">01 / 09</div>
-      <div class="yrs-final" data-yrs-final><div><h2>The story continues with you.</h2><a class="btn btn-gold" href="{link(d, "collections/gold/")}">Discover the collections</a></div></div>
+      <div class="yrs-final" data-yrs-final><div><h2>The story continues with you.</h2><a class="btn btn-gold" href="{link(d, "collections/diamond/")}">Discover the collections</a></div></div>
       <div class="yrs-hint" data-yrs-hint aria-hidden="true">Scroll</div>
     </div>
   </div>
@@ -911,7 +915,7 @@ def page_about():
     <div class="reveal" style="--i:1"><b>During</b><h3>One team, start to finish.</h3><p>Your piece is made in our own workshop, by people who work side by side, from the first drawing to the final polish.</p></div>
     <div class="reveal" style="--i:2"><b>After</b><h3>Looked after for life.</h3><p>Complimentary cleaning, polishing and routine checks, for as long as you wear it.</p></div>
   </div>
-  <div class="cta-row reveal"><a class="btn btn-primary" href="{link(d, "pages/contact/")}">Talk to us</a><a class="btn btn-ghost" href="{link(d, "collections/gold/")}">Discover the collections</a></div>
+  <div class="cta-row reveal"><a class="btn btn-primary" href="{link(d, "pages/contact/")}">Talk to us</a><a class="btn btn-ghost" href="{link(d, "collections/diamond/")}">Discover the collections</a></div>
 </div></section>
 
 {build_visit("Hope to see you soon")}
