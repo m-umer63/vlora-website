@@ -27,6 +27,39 @@ CAT_MAP = {'Engagement ring': ('Rings', 'Engagement'), 'Wedding band': ('Rings',
            'Earrings': ('Earrings', ''), 'Necklace': ('Necklaces', ''), 'Bracelet': ('Bracelets', '')}
 # typical 18K weights (grams) by type; placeholders until real weights are entered
 CAT_WEIGHT = {'Engagement ring': 4.0, 'Wedding band': 2.8, 'Eternity ring': 3.2, 'Fashion ring': 3.0, 'Earrings': 2.0, 'Necklace': 2.2, 'Bracelet': 4.5}
+
+def est_weight(c):
+    """Best-estimate 18K gold weight in grams, from the product type and its name (until real weights are supplied)."""
+    n = c['name'].lower(); k = c['collection']; him = 'men' in n or 'signet' in n or c.get('audience') == 'For Him'
+    has = lambda *w: any(x in n for x in w)
+    if k in ('Engagement ring', 'Wedding band', 'Eternity ring', 'Fashion ring'):
+        g = {'Engagement ring': 3.6, 'Wedding band': 3.2, 'Eternity ring': 3.4, 'Fashion ring': 3.2}[k]
+        if has('halo'): g += 0.6
+        if has('trilogy', 'three stone', 'three-stone', 'toi et moi', 'five stone', 'seven stone', 'five-stone', 'seven-stone'): g += 0.8
+        if has('dual shank', 'bypass', 'split', 'cathedral', 'twist', 'cluster', 'floral', 'wrap'): g += 0.6
+        if has('pav'): g += 0.2
+        if has('wide', 'full eternity', 'stackable') and not has('thin'): g += 0.6
+        if has('thin', 'delicate', 'dainty', 'solitaire') and not has('halo'): g -= 0.2
+        if him: g = max(g, 7.0) + (2.0 if has('signet') else 0)
+        return round(max(g, 3.0), 1)
+    if k == 'Earrings':
+        g = 3.0
+        if has('hoop', 'huggie'): g = 4.2
+        if has('drop', 'dangle', 'chandelier', 'threader'): g = 4.0
+        return round(g, 1)
+    if k == 'Necklace':
+        g = 3.5
+        if has('tennis', 'riviera'): g = 11.0
+        elif has('choker', 'collar'): g = 8.0
+        elif has('chain', 'bar', 'station'): g = 4.5
+        return round(g, 1)
+    if k == 'Bracelet':
+        g = 7.0
+        if has('tennis'): g = 12.0
+        elif has('bangle', 'cuff'): g = 14.0
+        elif has('chain', 'link'): g = 8.0
+        return round(g, 1)
+    return CAT_WEIGHT[k]
 PREVIEW_SHAPES = ('Round', 'Pear', 'Cushion')   # the preview holds only a few photos per product
 CATALOGUE_SRC = []                               # (product folder, [files]) copied into the preview
 
@@ -57,7 +90,7 @@ def load_catalogue():
         cl = sorted(set(cl))
         slug = re.sub(r'[^a-z0-9]+', '-', c['name'].lower()).strip('-') + '-' + c['sku'].lower()
         p = dict(sku=c['sku'], name=c['name'], slug=slug, category=cat, collection=coll, metal='White Gold', purity=18, stone='Diamond',
-                 stone_ct=ct0, metal_g=CAT_WEIGHT[c['collection']], price=0, stock=1, images=dflt, featured=False, new=False, supplier_code='',
+                 stone_ct=ct0, metal_g=est_weight(c), price=0, stock=1, images=dflt, featured=False, new=False, supplier_code='',
                  description=f"{c['name']}, handmade in 18K or 14K gold with lab-grown diamonds. Choose your metal colour and diamond shape.",
                  config=True, cts=[1, 2, 3, 4] if eng else cl, shapes=shapes, gallery=gal, cat_type=c['collection'], sample=True)
         if eng:
@@ -87,10 +120,12 @@ def asset(d, path): return base(d) + path
 
 
 RATES = {24: 496.75, 22: 460.00, 18: 378.00, 14: 295.00}   # AED/g sample; live values come from gold-rate.php
+MK_FROM, MK_PCT = 3, 0.10                                     # making charge rises 10% for every gram above 3 g (4 g = +10%)
 PER_CT, FIXED, VAT, F14 = 550, 1345, 0.05, 0.85             # AED per carat, fixed charge, VAT, 14K/18K weight ratio (alloy density)
 def calc_price(g, karat, ct):
     w = g * (F14 if karat == 14 else 1)
-    return round((w * RATES[karat] + ct * PER_CT + FIXED) * (1 + VAT))
+    making = FIXED * (1 + MK_PCT * max(0, w - MK_FROM))
+    return round((w * RATES[karat] + ct * PER_CT + making) * (1 + VAT))
 for _p in PRODUCTS:
     if _p.get('config'): _p['price'] = calc_price(_p['metal_g'], 18, min(_p['cts']))
 
@@ -1286,7 +1321,7 @@ def build():
     slim = [dict(sku=p['sku'], slug=p['slug'], name=p['name'], cat=p['category'], metal=p['metal'], price=p['price'],
                  sub=sub_line(p), img=p['images'][0], sample=bool(p.get('sample')), **({'g': p['metal_g'], 'cts': p['cts']} if p.get('config') else {})) for p in PRODUCTS]
     write('assets/js/data.js', 'window.VL=' + json.dumps({"products": slim, "whatsapp": SITE['whatsapp'], "email": SITE['email'],
-                                                           "currency": "AED", "categories": CATEGORIES, "rates": {str(k): v for k, v in RATES.items()}, "cfg": {"perCt": PER_CT, "fixed": FIXED, "vat": VAT, "f14": F14}}, ensure_ascii=False) + ';')
+                                                           "currency": "AED", "categories": CATEGORIES, "rates": {str(k): v for k, v in RATES.items()}, "cfg": {"perCt": PER_CT, "fixed": FIXED, "vat": VAT, "f14": F14, "mkFrom": MK_FROM, "mkPct": MK_PCT}}, ensure_ascii=False) + ';')
     if ARGS.preview and os.path.isdir(os.path.join(HERE, 'private')):
         for f in [x for x in os.listdir(os.path.join(HERE, 'private')) if os.path.isfile(os.path.join(HERE, 'private', x))]: shutil.copy(os.path.join(HERE, 'private', f), os.path.join(OUT, 'assets/img/products', f))
     if ARGS.preview:

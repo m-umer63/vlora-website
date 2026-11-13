@@ -8,12 +8,13 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var BY = {}; D.products.forEach(function (p) { BY[p.sku] = p; });
   /* ---------- configurable pricing (gold rate x weight + diamond + making, plus VAT) ---------- */
-  var CN = D.cfg || { perCt: 0, fixed: 0, vat: 0, f14: 1 };
+  var CN = D.cfg || { perCt: 0, fixed: 0, vat: 0, f14: 1, mkFrom: 3, mkPct: 0 };
   var COLN = { w: 'White gold', y: 'Yellow gold', r: 'Rose gold' };
   function rates() { return window.VLORA_GOLD || D.rates || {}; }
   function calc(g, kt, ct) {
     var r = rates()[kt]; if (!r) return 0;
-    return Math.round((g * (+kt === 14 ? CN.f14 : 1) * r + ct * CN.perCt + CN.fixed) * (1 + CN.vat));
+    var w = g * (+kt === 14 ? CN.f14 : 1), mk = CN.fixed * (1 + CN.mkPct * Math.max(0, w - CN.mkFrom));
+    return Math.round((w * r + ct * CN.perCt + mk) * (1 + CN.vat));
   }
   function resolve(key) {
     if (BY[key] || String(key).indexOf('|') < 0) return BY[key];
