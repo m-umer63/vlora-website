@@ -611,7 +611,7 @@ function heroVideo(){
   function upd(){
     var c=val('col'), kt=val('kt'), ct=+val('ct'), sh=val('shp')||firstShape, plat=kt==='pt';
     if(col) col.textContent=COLN[c]; if(shpOut) shpOut.textContent=sh;
-    var list=gal[c+'|'+sh]; if(!list){var k=Object.keys(gal).filter(function(x){return x.indexOf(c+'|')===0})[0]; list=gal[k||'w|'+firstShape]||[];}
+    var list=gal[c+'|'+sh]; if(!list){var k=['w','y','r'].map(function(x){return x+'|'+sh}).filter(function(x){return gal[x]})[0]||Object.keys(gal).filter(function(x){return x.indexOf(c+'|')===0})[0]; list=gal[k||'w|'+firstShape]||[];}
     if(list.length) show(list);
     pt.hidden=!plat;
     var desc=COLN[c]+(sh?', '+sh+' cut':'')+(plat?'':', '+kt+'K')+(+val('ct')&&$$('input[name="ct"]',f).length>1?', '+ct+' ct diamond':''), msg;

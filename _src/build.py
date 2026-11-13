@@ -78,12 +78,18 @@ def load_catalogue():
         if ARGS.preview: shapes = [x for x in shapes if x in PREVIEW_SHAPES] or shapes[:1]
         gal = {}
         pdir = c['sku'] if (ARGS.preview and os.path.isdir(os.path.join(HERE, 'private', 'p', c['sku']))) else (c.get('folder') or c['sku'])
+        multi = any(im['s'] for im in c['images'])
         for col in 'wyr':
             for sh in shapes:
-                gal[f'{col}|{sh}'] = [f"p/{pdir}/{im['f']}" for im in c['images'] if (not im['c'] or col in im['c']) and (not im['s'] or im['s'] == sh)]
+                if multi and sh:    # a diamond shape shows only its own photos (no shared overview shots)
+                    gal[f'{col}|{sh}'] = [f"p/{pdir}/{im['f']}" for im in c['images'] if col in im['c'] and im['s'] == sh]
+                else:
+                    gal[f'{col}|{sh}'] = [f"p/{pdir}/{im['f']}" for im in c['images'] if (not im['c'] or col in im['c']) and (not im['s'] or im['s'] == sh)]
         gal = {k: v for k, v in gal.items() if v}
         if not gal: continue
-        dflt = gal.get(f'w|{shapes[0]}') or next(iter(gal.values()))
+        shapes = [s for s in shapes if any(k.endswith('|' + s) for k in gal)] or shapes
+        if 'Round' in shapes: shapes = ['Round'] + [s for s in shapes if s != 'Round']     # Round is always the main picture
+        dflt = gal.get(f'w|{shapes[0]}') or next((v for k, v in gal.items() if k.endswith('|' + shapes[0])), None) or next(iter(gal.values()))
         eng = c['collection'] == 'Engagement ring'
         cl = [float(x) for x in re.findall(r'\d+(?:\.\d+)?', c['carat'] or '')] or [0.3]
         ct0 = cl[0]

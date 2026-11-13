@@ -1,0 +1,744 @@
+Products with several diamond shapes but no Round photos (main picture shows the first available shape)
+VJD-3071	0.20ct. Invisible Setting Diamond Delicate Bracelet	shapes with photos: Princess
+VJD-1880	2.2mm Studded Flat Profile Diamond Shaped Band	shapes with photos: Marquise
+VJD-1891	2.50mm Studded Slight Comfort Fit Diamond Wedding Band	shapes with photos: Princess
+VJD-1873	2.60mm Studded Flat Profile Diamond Shaped Band	shapes with photos: Princess
+VJD-0624	2 Prong Setting Plain Engagement Ring	shapes with photos: Marquise
+VJD-0243	2 Prong Setting Studded Three stone Ring	shapes with photos: Marquise
+VJD-2330	3 Prong Setting Blue Sapphire Halo Earring	shapes with photos: Pear
+VJD-2440	3 Prong Setting Designer Earrings	shapes with photos: Marquise
+VJD-2321	3 Prong Setting Diamond Designer Earrings	shapes with photos: Heart, Pear
+VJD-1627	3 Prong Setting Diamond Fashion Ring	shapes with photos: Pear
+VJD-2299	3 Prong Setting Diamond Stud Earrings	shapes with photos: Pear
+VJD-2688	3 Prong Setting Halo Blue Sapphire Pendant	shapes with photos: Pear
+VJD-2349	3 Prong Setting Halo Earring	shapes with photos: Emerald
+VJD-2465	3 Prong Setting Halo Earrings	shapes with photos: Pear
+VJD-2481	3 Prong Setting Halo Earrings	shapes with photos: Heart
+VJD-2720	3 Prong Setting Halo Pendant	shapes with photos: Emerald
+VJD-2669	3 Prong Setting Halo Ruby Pendant	shapes with photos: Pear
+VJD-0652	3 Prong Setting Plain Engagement Ring	shapes with photos: Heart
+VJD-0662	3 Prong Setting Plain Engagement Ring	shapes with photos: Pear
+VJD-2329	3 Prong Setting Ruby Halo Earring	shapes with photos: Pear
+VJD-0378	3 Prong Setting Studded Three stone Ring	shapes with photos: Pear
+VJD-2818	3 Prong Setting Tennis Necklace	shapes with photos: Pear
+VJD-1882	4.00mm Studded Flat Profile Comfort Fit Diamond Wedding Band	shapes with photos: Princess
+VJD-1568	4.40mm Channel Setting Full Eternity Diamond Ring	shapes with photos: Princess
+VJD-1853	4.50mm Studded Slight Comfort Fit Diamond Wedding Band	shapes with photos: Princess
+VJD-1039	4 Prong Diamond Engagement Ring	shapes with photos: Emerald
+VJD-1407	4 Prong Half Eternity Ring	shapes with photos: Emerald
+VJD-1491	4 Prong Half Eternity Ring	shapes with photos: Emerald
+VJD-2877	4 Prong Setting Amethyst Pendant	shapes with photos: Oval
+VJD-2871	4 Prong Setting Aquamarine Pendant	shapes with photos: Oval
+VJD-1064	4 Prong Setting Blue Sapphire Diamond Ring	shapes with photos: Oval
+VJD-2302	4 Prong Setting Blue Sapphire Halo Earring	shapes with photos: Oval
+VJD-2682	4 Prong Setting Blue Sapphire Pendant	shapes with photos: Emerald
+VJD-2830	4 Prong Setting Blue Sapphire Pendant	shapes with photos: Oval
+VJD-2839	4 Prong Setting Blue Sapphire Pendant	shapes with photos: Oval
+VJD-2327	4 Prong Setting Blue Sapphire Stud Earring	shapes with photos: Oval
+VJD-2339	4 Prong Setting Blue Sapphire Stud Earring	shapes with photos: Oval
+VJD-2470	4 Prong setting Blue Sapphire Stud Earrings	shapes with photos: Oval
+VJD-1121	4 Prong Setting Blue Topaz Diamond Ring	shapes with photos: Oval
+VJD-2477	4 Prong Setting Diamond Halo Earrings	shapes with photos: Emerald, Princess, Radiant
+VJD-2232	4 Prong Setting Diamond Men&#x27;s Single Earring	shapes with photos: Princess
+VJD-2288	4 Prong Setting Diamond Men&#x27;s Single Earring	shapes with photos: Princess
+VJD-0670	4 Prong Setting Diamond Plain Engagement Ring	shapes with photos: Oval
+VJD-0688	4 Prong Setting Diamond Plain Engagement Ring	shapes with photos: Princess
+VJD-1100	4 Prong Setting Diamond Ring	shapes with photos: Emerald
+VJD-0257	4 Prong Setting Diamond Side Stone Engagement Ring	shapes with photos: Asscher, Cushion, Emerald, Marquise, Oval, Pear, Princess, Radiant
+VJD-2293	4 Prong Setting Diamond Stud Earrings	shapes with photos: Princess
+VJD-0636	4 Prong Setting Diamond Three Stone Engagement Ring	shapes with photos: Radiant
+VJD-2957	4 Prong Setting Everyday Bracelet	shapes with photos: Emerald
+VJD-1395	4 Prong Setting Full Eternity Diamond Ring	shapes with photos: Princess
+VJD-2809	4 Prong Setting Garnet Pendant	shapes with photos: Oval
+VJD-3046	4 Prong Setting Gemstone Delicate Bracelet	shapes with photos: Emerald
+VJD-3051	4 Prong Setting Gemstone Delicate Bracelet	shapes with photos: Emerald
+VJD-1412	4 Prong Setting Half Eternity Blue Sapphire Ring	shapes with photos: Marquise
+VJD-1402	4 Prong Setting Half Eternity Diamond Ring	shapes with photos: Princess
+VJD-1384	4 Prong Setting Half Eternity Ring	shapes with photos: Emerald
+VJD-1389	4 Prong Setting Half Eternity Ring	shapes with photos: Emerald
+VJD-1425	4 Prong Setting Half Eternity Ring	shapes with photos: Emerald
+VJD-1446	4 Prong Setting Half Eternity Ring	shapes with photos: Emerald
+VJD-1480	4 Prong Setting Half Eternity Ruby Ring	shapes with photos: Emerald
+VJD-2331	4 Prong Setting Halo Blue Sapphire Earrings	shapes with photos: Oval
+VJD-2718	4 Prong Setting Halo Blue Sapphire Pendant	shapes with photos: Oval
+VJD-2431	4 Prong Setting Halo Earring	shapes with photos: Emerald
+VJD-2408	4 Prong Setting Halo Earrings	shapes with photos: Oval
+VJD-2505	4 Prong Setting Halo Earrings	shapes with photos: Radiant
+VJD-2800	4 Prong Setting Halo Pendant	shapes with photos: Pear
+VJD-2816	4 Prong Setting Halo Pendant	shapes with photos: Emerald
+VJD-2826	4 Prong Setting Halo Pendant	shapes with photos: Emerald
+VJD-2331	4 Prong Setting Halo Ruby Earrings	shapes with photos: Emerald, Oval
+VJD-2780	4 Prong Setting Halo Ruby Pendant	shapes with photos: Oval
+VJD-2644	4 Prong Setting Pendant	shapes with photos: Emerald
+VJD-2742	4 Prong Setting Pendant	shapes with photos: Emerald
+VJD-2786	4 Prong Setting Pendant	shapes with photos: Emerald
+VJD-2842	4 Prong Setting Pendant	shapes with photos: Emerald
+VJD-0070	4 Prong Setting Plain Engagement Ring	shapes with photos: Oval
+VJD-0573	4 Prong Setting Plain Engagement Ring	shapes with photos: Emerald
+VJD-0665	4 Prong Setting Plain Engagement Ring	shapes with photos: Oval
+VJD-0675	4 Prong Setting Plain Engagement Ring	shapes with photos: Oval
+VJD-0335	4 Prong Setting Plain Engagement Ring With Matching Band	shapes with photos: Emerald
+VJD-1492	4 Prong Setting Plain Five Stone Ring	shapes with photos: Emerald
+VJD-1533	4 Prong Setting Plain Five Stone Ring	shapes with photos: Oval
+VJD-1298	4 Prong Setting Plain Seven Stone Ring	shapes with photos: Oval
+VJD-1304	4 Prong Setting Plain Seven Stone Ring	shapes with photos: Oval
+VJD-1305	4 Prong Setting Plain Seven Stone Ring	shapes with photos: Emerald
+VJD-1315	4 Prong Setting Plain Seven Stone Ring	shapes with photos: Oval
+VJD-1427	4 Prong Setting Plain Seven Stone Ring	shapes with photos: Oval
+VJD-0068	4 Prong Setting Plain Three Stone Ring	shapes with photos: Oval
+VJD-0244	4 Prong Setting Plain Three Stone Ring	shapes with photos: Oval
+VJD-0263	4 Prong Setting Plain Three Stone Ring	shapes with photos: Oval
+VJD-0421	4 Prong Setting Plain Three Stone Ring	shapes with photos: Emerald
+VJD-0518	4 Prong Setting Plain Three Stone Ring	shapes with photos: Radiant
+VJD-0998	4 Prong Setting Ruby Diamond Ring	shapes with photos: Oval
+VJD-2361	4 Prong Setting Ruby Halo Earring	shapes with photos: Oval
+VJD-2689	4 Prong Setting Ruby Pendant	shapes with photos: Emerald
+VJD-2736	4 Prong Setting Ruby Pendant	shapes with photos: Oval
+VJD-2827	4 Prong Setting Ruby Pendant	shapes with photos: Oval
+VJD-2461	4 Prong Setting Ruby Stud Earring	shapes with photos: Oval
+VJD-2337	4 Prong setting Ruby Stud Earrings	shapes with photos: Oval
+VJD-1015	4 Prong Setting Side Stone Engagement Ring	shapes with photos: Emerald
+VJD-1177	4 Prong Setting Side Stone Engagement Ring	shapes with photos: Emerald
+VJD-2014	4 Prong Setting Solitaire Pendant	shapes with photos: Princess
+VJD-2018	4 Prong Setting Solitaire Pendant	shapes with photos: Princess
+VJD-2028	4 Prong Setting Solitaire Pendant	shapes with photos: Emerald
+VJD-2046	4 Prong Setting Solitaire Pendant	shapes with photos: Oval
+VJD-2409	4 Prong Setting Stud Earring	shapes with photos: Emerald
+VJD-2318	4 Prong Setting Stud Earrings	shapes with photos: Emerald
+VJD-2371	4 Prong Setting Stud Earrings	shapes with photos: Emerald
+VJD-2398	4 Prong setting Stud Earrings	shapes with photos: Emerald
+VJD-2492	4 Prong Setting Stud Earrings	shapes with photos: Emerald
+VJD-0313	4 Prong Setting Studded Three stone Ring	shapes with photos: Oval
+VJD-3013	4 Prong Setting Tennis Bracelet	shapes with photos: Emerald
+VJD-3068	4 Prong Setting Tennis Bracelet	shapes with photos: Oval
+VJD-0907	4 Prong Setting Three Stone Ring	shapes with photos: Emerald
+VJD-0999	4 Prong Setting Three Stone Ring	shapes with photos: Emerald
+VJD-1051	4 Prong Shaped Blue Sapphire Engagement Ring	shapes with photos: Oval
+VJD-0893	4 Prong Shaped Engagement Ring	shapes with photos: Emerald
+VJD-1012	4 Prong Shaped Ruby Engagement Ring	shapes with photos: Emerald
+VJD-2051	4 Prong Yellow Diamond Solitaire Pendant	shapes with photos: Princess
+VJD-1772	5.50 Studded Flat Profile Mens Diamond Wedding Band	shapes with photos: Princess
+VJD-2743	5 Prong Setting Pendant	shapes with photos: Emerald
+VJD-1847	7.00mm Studded Comfort Fit Mens Wedding Band	shapes with photos: Princess
+VJD-0847	Alternate diamond wavy delicate ring	shapes with photos: Marquise
+VJD-2348	Amethyst drop earrings with shepherd hook	shapes with photos: Pear
+VJD-2249	and diamond cluster stud Earrings	shapes with photos: Emerald
+VJD-2678	and diamond delicate bar chain necklace	shapes with photos: Emerald
+VJD-2557	and Diamond Delicate Everyday Stud Earrings	shapes with photos: Emerald
+VJD-2794	and diamond Evil eye everyday chain necklace	shapes with photos: Emerald
+VJD-1660	and Diamond Prong Set Eternity Ring	shapes with photos: Emerald
+VJD-1658	and Diamond with Shaped Everyday Ring	shapes with photos: Emerald
+VJD-1509	And Half Eternity Ring	shapes with photos: Emerald
+VJD-2110	and Shaped Diamond Hoop Earrings	shapes with photos: Emerald, Oval
+VJD-2350	Aquamarine drop earrings with shepherd hook	shapes with photos: Pear
+VJD-1596	Bar Setting Full Eternity Diamond Ring	shapes with photos: Princess
+VJD-1618	Bar Setting Full Eternity Diamond Ring	shapes with photos: Princess
+VJD-2045	Bar Setting Solitaire Pendant	shapes with photos: Princess
+VJD-2548	bezel set dangling drop Earrings	shapes with photos: Emerald
+VJD-1349	Bezel Set Diamond Wrap Ring	shapes with photos: Pear
+VJD-0074	Bezel Set East West Engagement Ring With Diamond Accented Shank	shapes with photos: Emerald, Marquise, Oval, Radiant
+VJD-2820	bezel set everyday Station necklace	shapes with photos: Emerald
+VJD-0011	Bezel Set Men&#x27;s Diamond Ring	shapes with photos: Cushion
+VJD-1232	Bezel set with twisted rope shank everyday ring	shapes with photos: Emerald
+VJD-3016	bezel setting Delicate Chain Bracelet	shapes with photos: Emerald
+VJD-0214	Bezel Setting Diamond Mens Engagement Ring	shapes with photos: Asscher, Emerald, Radiant
+VJD-3175	Blue Sapphire and Cluster Diamonds Lariate and Earrings Set	shapes with photos: Marquise
+VJD-1248	blue sapphire delicate everyday ring	shapes with photos: Oval
+VJD-2556	Blue Sapphire Delicate Stud Earrings	shapes with photos: Oval
+VJD-2351	Blue Sapphire drop earrings with shepherd hook	shapes with photos: Pear
+VJD-2562	Blue Sapphire Everyday Stud Earrings	shapes with photos: Princess
+VJD-2935	Blue Sapphire Gemstone Tennis Bracelet	shapes with photos: Emerald
+VJD-2555	Blue Sapphire Half Hoop Delicate Earrings	shapes with photos: Princess
+VJD-3182	Blue Sapphire Marquise Dragaonfly Delicate Chain Necklace and Earring Set	shapes with photos: Marquise
+VJD-2144	Blue Sapphire Men&#x27;s Hoop Earring	shapes with photos: Princess
+VJD-0868	Blue Sapphire Men&#x27;s Ring	shapes with photos: Emerald
+VJD-2354	Blue Topaz drop earrings with shepherd hook	shapes with photos: Pear
+VJD-0510	Bridal Set Diamond Engagement Ring	shapes with photos: Princess
+VJD-1938	Celestial Wedding Band	shapes with photos: Emerald
+VJD-1865	Channel Set Diamond Womens Wedding Ring	shapes with photos: Princess
+VJD-0417	Channel Setting Diamond Mens Engagement Ring	shapes with photos: Princess
+VJD-2989	Channel Setting Diamond Tennis Bracelet	shapes with photos: Princess
+VJD-1393	Channel Setting Diamond Three Quarter Eternity Ring	shapes with photos: Princess
+VJD-1447	Channel Setting Diamond Three Quarter Eternity Ring	shapes with photos: Princess
+VJD-1275	Channel Setting Full Eternity Diamond Ring	shapes with photos: Princess
+VJD-1276	Channel Setting Full Eternity Diamond Ring	shapes with photos: Princess
+VJD-1569	Channel Setting Full Eternity Diamond Ring	shapes with photos: Princess
+VJD-1592	Channel Setting Full Eternity Diamond Ring	shapes with photos: Princess
+VJD-1257	Channel Setting Half Eternity Diamond Ring	shapes with photos: Princess
+VJD-1279	Channel Setting Half Eternity Diamond Ring	shapes with photos: Princess
+VJD-1602	Channel Setting Half Eternity Diamond Ring	shapes with photos: Princess
+VJD-1681	Channel Setting Half Eternity Diamond Ring	shapes with photos: Princess
+VJD-1411	Channel Setting Plain Seven Stone Ring	shapes with photos: Princess
+VJD-2362	classic floral dainty Stud earing	shapes with photos: Emerald
+VJD-2982	classic floral delicate chain bracelet	shapes with photos: Emerald
+VJD-2727	classic floral delicate chain necklace	shapes with photos: Emerald
+VJD-3113	Classic Link Men&#x27;s Diamond Bracelet	shapes with photos: Oval
+VJD-3011	Claw Prong Tennis Bracelet	shapes with photos: Emerald
+VJD-2154	Cluster Hoop Earrings Charm	shapes with photos: Emerald
+VJD-0317	Combined Band Look Diamond Engagement Ring	shapes with photos: Marquise, Oval, Pear
+VJD-0757	Contour Diamond Eternity Wedding Band	shapes with photos: Pear
+VJD-0762	Contour Diamond Eternity Wedding Band	shapes with photos: Marquise
+VJD-0796	Contour Diamond Eternity Wedding Band	shapes with photos: Oval
+VJD-2254	Danggling Thread Earrings	shapes with photos: Emerald
+VJD-2566	Delicate Bar Chain Necklace	shapes with photos: Heart
+VJD-2911	Delicate Chain Lariate Necklace	shapes with photos: Emerald
+VJD-2624	Delicate Diamond Necklace	shapes with photos: Heart
+VJD-1266	delicate everyday ring	shapes with photos: Emerald
+VJD-2655	Delicate Shape Diamond Chain Necklace	shapes with photos: Heart
+VJD-0143	Diagonal Bezel Set Diamond Engagement Ring	shapes with photos: Emerald, Marquise, Oval, Pear, Radiant
+VJD-0103	Diagonal Set Diamond Engagement Ring	shapes with photos: Emerald, Marquise, Oval, Pear, Radiant
+VJD-0055	Diagonal Set Hidden Halo Diamond Engagement Ring	shapes with photos: Emerald, Marquise, Oval, Pear, Radiant
+VJD-2611	Diamond Accented Shape Delicate Pendant	shapes with photos: Heart
+VJD-0789	Diamond Bezel Set Everyday Ring	shapes with photos: Marquise
+VJD-1347	Diamond Bypass Wrap Ring	shapes with photos: Pear
+VJD-1348	Diamond Bypass Wrap Ring	shapes with photos: Pear
+VJD-2323	Diamond Classic Prong Stud Earrings	shapes with photos: Princess
+VJD-0260	Diamond Engagement Ring	shapes with photos: Marquise
+VJD-0559	Diamond Engagement Ring	shapes with photos: Heart
+VJD-0639	Diamond Engagement Ring	shapes with photos: Cushion
+VJD-1655	Diamond Full Eternity Ring	shapes with photos: Emerald
+VJD-1652	Diamond Half Eternity Ring	shapes with photos: Emerald
+VJD-2365	Diamond Halo Earrings	shapes with photos: Princess
+VJD-2369	Diamond Halo Earrings	shapes with photos: Emerald
+VJD-2427	Diamond Halo Earrings	shapes with photos: Cushion
+VJD-2499	Diamond Halo Earrings	shapes with photos: Marquise
+VJD-2460	Diamond Hoop Earrings	shapes with photos: Emerald
+VJD-2511	Diamond Hoop Earrings	shapes with photos: Princess
+VJD-2234	Diamond Hoops	shapes with photos: Pear
+VJD-2128	Diamond Men&#x27;s Hoop Earring	shapes with photos: Princess
+VJD-1820	diamond Open Wedding Band	shapes with photos: Marquise
+VJD-1840	diamond Open Wedding Band	shapes with photos: Pear
+VJD-1353	Diamond Open Wrap Ring	shapes with photos: Marquise
+VJD-1237	Diamond Ring With Freshwater Pearl And Shaped Blue Sapphire	shapes with photos: Pear
+VJD-1239	Diamond Ring With Freshwater Pearl And Shaped	shapes with photos: Emerald
+VJD-1352	Diamond Set Open Wrap Ring	shapes with photos: Marquise
+VJD-0889	Diamond Side Stone Shaped Engagement Ring	shapes with photos: Emerald
+VJD-2372	Diamond Stud Earrings	shapes with photos: Princess
+VJD-2147	dragonfly dainty stud Earrings	shapes with photos: Emerald
+VJD-2659	dragonfly delicate chain necklace	shapes with photos: Emerald
+VJD-2355	drop earrings with shepherd hook	shapes with photos: Emerald
+VJD-2179	Dual Pave Set Delicate Stud Earrings	shapes with photos: Heart
+VJD-2096	Dual Wall Bezel Set Solitaire Pendant Earring and Bracelet Set	shapes with photos: Pear
+VJD-2102	Dual Wall Bezel Set Solitaire Pendant Earring and Bracelet Set	shapes with photos: Emerald
+VJD-0168	East West Bypass Shank Diamond Engagement Ring with Pave Accents	shapes with photos: Emerald, Marquise, Oval, Radiant
+VJD-2717	East West Look Halo Pendant	shapes with photos: Emerald, Marquise, Oval, Pear
+VJD-2741	East West Look Halo Pendant	shapes with photos: Emerald, Marquise, Oval, Pear, Radiant
+VJD-3148	Emerald and Cluster Diamonds Lariate and Earrings Set	shapes with photos: Emerald, Marquise
+VJD-0871	Emerald-Cut Ruby Men&#x27;s Ring	shapes with photos: Emerald, Heart
+VJD-3125	Emerald Marquise Dragaonfly Delicate Chain Necklace and Earring Set	shapes with photos: Emerald, Marquise
+VJD-0897	Engagement Ring	shapes with photos: Emerald
+VJD-0902	Engagement Ring	shapes with photos: Emerald
+VJD-0921	Engagement Ring	shapes with photos: Emerald
+VJD-1115	Engagement Ring	shapes with photos: Emerald
+VJD-1139	Engagement Ring	shapes with photos: Emerald
+VJD-2560	Everyday Stud Earrings	shapes with photos: Emerald
+VJD-2927	Fancy cut Bezel set Tennis Bracelet	shapes with photos: Marquise
+VJD-2948	Fancy cut Bezel set Tennis Bracelet	shapes with photos: Princess
+VJD-2965	Fancy cut Bezel set Tennis Bracelet	shapes with photos: Pear
+VJD-2662	Fancy cut Bezel set Tennis Necklace	shapes with photos: Princess
+VJD-2604	Fancy cut Gemstone amp; Tennis Necklace	shapes with photos: Emerald, Marquise, Oval
+VJD-2193	Fancy Cut Marquise Diamond Hoops	shapes with photos: Heart, Marquise
+VJD-2262	Fancy Cut Marquise Diamond Hoops	shapes with photos: Heart, Marquise
+VJD-2135	Fancy Diamond Hoop Earrings	shapes with photos: Emerald
+VJD-2160	Fancy Diamond Hoop Earrings	shapes with photos: Oval
+VJD-1230	floral bubble shank delicate ring	shapes with photos: Emerald
+VJD-2346	Floral Dainty Earrings	shapes with photos: Emerald
+VJD-2928	Floral Delicate Chain Bracelet	shapes with photos: Emerald
+VJD-2671	Floral Delicate chain Necklace	shapes with photos: Emerald
+VJD-1852	Flush Setting Blue Sapphire Mens Wedding Band	shapes with photos: Princess
+VJD-2184	Freshwater Pearl And Shaped Blue Sapphire Halo Earrings	shapes with photos: Pear
+VJD-2625	Freshwater Pearl and Shaped Blue Sapphire Halo Pendant	shapes with photos: Pear
+VJD-2196	Freshwater Pearl And Shaped Halo Earrings	shapes with photos: Emerald
+VJD-2640	Freshwater Pearl and Shaped Halo Pendant	shapes with photos: Emerald
+VJD-3117	Freshwater Pearl and Shaped Halo Pendant	shapes with photos: Emerald
+VJD-2623	Freshwater Pearl and Shaped Ruby Halo Pendant	shapes with photos: Pear
+VJD-1534	Full Bezel Setting Diamond Mens Ring	shapes with photos: Princess
+VJD-0625	Full Bezel Setting Diamond Plain Engagement Ring	shapes with photos: Marquise
+VJD-2997	Full Bezel Setting Everyday Bracelet	shapes with photos: Emerald
+VJD-3032	Full Bezel Setting Everyday Bracelet	shapes with photos: Emerald
+VJD-1512	Full Bezel Setting Half Eternity Diamond Ring	shapes with photos: Princess
+VJD-1458	Full Bezel Setting Plain Five Stone Ring	shapes with photos: Emerald
+VJD-1623	Full Bezel Setting Plain Seven Stone Ring	shapes with photos: Marquise
+VJD-1254	Full Eternity Diamond Cluster Ring	shapes with photos: Emerald
+VJD-2356	Garnet drop earrings with shepherd hook	shapes with photos: Pear
+VJD-0869	Garnet Men&#x27;s Ring	shapes with photos: Emerald
+VJD-1252	Half Eternity Diamond Cluster Ring	shapes with photos: Emerald
+VJD-0287	Halo Blue Sapphire Engagement Ring	shapes with photos: Princess
+VJD-0890	Halo Blue Sapphire Engagement Ring	shapes with photos: Oval, Pear
+VJD-0944	Halo Blue Sapphire Engagement Ring	shapes with photos: Oval
+VJD-0950	Halo Blue Sapphire Engagement Ring	shapes with photos: Oval
+VJD-0957	Halo Blue Sapphire Engagement Ring	shapes with photos: Oval
+VJD-0961	Halo Blue Sapphire Engagement Ring	shapes with photos: Emerald
+VJD-1050	Halo Blue Sapphire Engagement Ring	shapes with photos: Oval
+VJD-1072	Halo Blue Sapphire Engagement Ring	shapes with photos: Princess
+VJD-1132	Halo Blue Sapphire Engagement Ring	shapes with photos: Pear
+VJD-0589	Halo Champagne Diamond Ring	shapes with photos: Cushion, Emerald, Oval, Pear
+VJD-1110	Halo Champagne Diamond Ring	shapes with photos: Cushion, Emerald, Oval, Pear
+VJD-0914	Halo Diamond Blue Sapphire Engagement Ring	shapes with photos: Oval, Pear
+VJD-0884	Halo Diamond Engagement Ring	shapes with photos: Oval, Pear
+VJD-1004	Halo Diamond Ruby Engagement Ring	shapes with photos: Oval, Pear
+VJD-0898	Halo Diamond Shaped Engagement Ring	shapes with photos: Emerald
+VJD-0287	Halo Engagement Ring	shapes with photos: Emerald
+VJD-0894	Halo Engagement Ring	shapes with photos: Emerald
+VJD-0896	Halo Engagement Ring	shapes with photos: Oval, Pear
+VJD-0941	Halo Engagement Ring	shapes with photos: Emerald
+VJD-1018	Halo Engagement Ring	shapes with photos: Emerald
+VJD-1043	Halo Engagement Ring	shapes with photos: Emerald
+VJD-1063	Halo Engagement Ring	shapes with photos: Emerald
+VJD-1080	Halo Engagement Ring	shapes with photos: Emerald
+VJD-1126	Halo Engagement Ring	shapes with photos: Emerald
+VJD-1190	Halo Engagement Ring	shapes with photos: Emerald
+VJD-0933	Halo Ruby Engagement Ring	shapes with photos: Oval, Pear
+VJD-1007	Halo Ruby Engagement Ring	shapes with photos: Pear
+VJD-1041	Halo Ruby Engagement Ring	shapes with photos: Oval
+VJD-1065	Halo Ruby Engagement Ring	shapes with photos: Oval
+VJD-1101	Halo Ruby Engagement Ring	shapes with photos: Oval
+VJD-1108	Halo Ruby Engagement Ring	shapes with photos: Oval
+VJD-1192	Halo Ruby Engagement Ring	shapes with photos: Emerald
+VJD-0026	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Oval
+VJD-0059	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Cushion
+VJD-0121	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Princess
+VJD-0160	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Oval
+VJD-0193	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Emerald
+VJD-0198	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Pear
+VJD-0204	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Marquise
+VJD-0213	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Cushion
+VJD-0228	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Emerald
+VJD-0251	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Princess
+VJD-0258	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Asscher
+VJD-0267	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Asscher
+VJD-0273	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Pear
+VJD-0289	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Radiant
+VJD-0292	Hidden Halo Trilogy Diamond Engagement Ring	shapes with photos: Radiant
+VJD-2269	Hoop Earrings	shapes with photos: Emerald
+VJD-0125	Horizontal East West Side Stones Engagement Ring	shapes with photos: Emerald, Marquise, Oval, Pear, Radiant
+VJD-0040	Horizontal East West Solitaire Engagement Ring	shapes with photos: Emerald, Oval, Pear
+VJD-0720	Horizontal East West Yellow Diamond Engagement Ring	shapes with photos: Oval, Pear, Radiant
+VJD-1201	Horizontal East West Yellow Diamond Engagement Ring	shapes with photos: Oval, Pear, Radiant
+VJD-2223	Illusion Plate Prong Setting Diamond Mens Single Earring	shapes with photos: Princess
+VJD-2869	Invisible Setting Cluster Pendant	shapes with photos: Princess
+VJD-2109	Leaf Stud Earrings	shapes with photos: Heart
+VJD-2114	Men&#x27;s Hoop Earring	shapes with photos: Emerald
+VJD-0872	Men&#x27;s Ring	shapes with photos: Emerald
+VJD-1707	Men&#x27;s Signet Ring With Gemstone	shapes with photos: Emerald
+VJD-1708	Men&#x27;s Signet Ring With Gemstone	shapes with photos: Emerald
+VJD-2882	Micro Pave Diamond Pendant	shapes with photos: Heart
+VJD-2752	Micro Prong Diamond Pendant	shapes with photos: Heart
+VJD-3126	Oval Blue Sapphire Pendant and Earring Set	shapes with photos: Oval
+VJD-2130	Pave Set Hoop Earrings Charm	shapes with photos: Heart
+VJD-2817	Pave Setting Circle Pendant	shapes with photos: Emerald
+VJD-1616	Pave Setting Fashion Ring	shapes with photos: Emerald
+VJD-1594	Pave Setting Half Eternity Black Diamond Ring	shapes with photos: Princess
+VJD-0647	Pave Setting Halo Engagement Ring	shapes with photos: Emerald
+VJD-1167	Pave Setting Halo Engagement Ring	shapes with photos: Emerald
+VJD-0463	Pave Setting Yellow Diamond Cluster Ring	shapes with photos: Oval
+VJD-0996	Pave Setting Yellow Diamond Cluster Ring	shapes with photos: Oval
+VJD-3129	Pear Ruby Pendant and Earring Set	shapes with photos: Pear
+VJD-2357	Peridot drop earrings with shepherd hook	shapes with photos: Pear
+VJD-2663	Playful diamond chain necklace	shapes with photos: Heart
+VJD-3059	Pressure Setting Everyday Bracelet	shapes with photos: Emerald
+VJD-1445	Prong Blue Sapphire Halo Ring	shapes with photos: Oval
+VJD-1077	Prong Halo Ring	shapes with photos: Emerald
+VJD-1054	Prong Ruby Halo Ring	shapes with photos: Oval
+VJD-0574	Prong Set Blue Sapphire Engagement Ring	shapes with photos: Marquise, Pear
+VJD-1094	Prong Set Blue Sapphire Engagement Ring	shapes with photos: Marquise, Pear
+VJD-3053	Prong Set Diamond Tennis Bracelet	shapes with photos: Princess
+VJD-2131	Prong Set Hoop Earrings Charm	shapes with photos: Emerald
+VJD-2756	Prong Setting Amethyst Pendant	shapes with photos: Pear
+VJD-2880	Prong Setting Amethyst Pendant	shapes with photos: Pear
+VJD-1003	Prong Setting Amethyst Side Stone Ring	shapes with photos: Oval
+VJD-1129	Prong Setting Amethyst Side Stone Ring	shapes with photos: Oval
+VJD-1152	Prong Setting Amethyst Side Stone Ring	shapes with photos: Oval
+VJD-1166	Prong Setting Amethyst Side Stone Ring	shapes with photos: Pear
+VJD-1112	Prong Setting Amethyst Three Stone Ring	shapes with photos: Oval
+VJD-1466	Prong Setting Amethyst Three Stone Ring	shapes with photos: Oval
+VJD-0694	Prong Setting and Three Stone Diamond Engagement Ring	shapes with photos: Oval, Pear
+VJD-0019	Prong Setting and Trilogy Diamond Engagement Ring	shapes with photos: Oval, Pear
+VJD-1604	Prong Setting Aquamarine Engagement Ring	shapes with photos: Oval
+VJD-1521	Prong Setting Aquamarine Half Eternity Ring	shapes with photos: Oval
+VJD-2857	Prong Setting Aquamarine Pendant	shapes with photos: Pear
+VJD-0922	Prong Setting Aquamarine Side Stone Ring	shapes with photos: Oval
+VJD-1062	Prong Setting Aquamarine Side Stone Ring	shapes with photos: Oval
+VJD-1084	Prong Setting Aquamarine Side Stone Ring	shapes with photos: Oval
+VJD-0987	Prong Setting Aquamarine Three Stone Ring	shapes with photos: Oval
+VJD-1025	Prong Setting Aquamarine Three Stone Ring	shapes with photos: Oval
+VJD-1461	Prong Setting Aquamarine Three Stone Ring	shapes with photos: Oval
+VJD-2434	Prong Setting Aqumarine Earrings	shapes with photos: Pear
+VJD-2895	Prong Setting Black Diamond Cluster Pendant	shapes with photos: Emerald
+VJD-1067	Prong Setting Blue Sapphire Engagement Ring	shapes with photos: Emerald
+VJD-1090	Prong Setting Blue Sapphire Engagement Ring	shapes with photos: Pear
+VJD-1095	Prong Setting Blue Sapphire Engagement Ring	shapes with photos: Oval
+VJD-1386	Prong Setting Blue Sapphire Half Eternity Ring	shapes with photos: Oval
+VJD-2485	Prong Setting Blue Sapphire Halo Earrings	shapes with photos: Oval
+VJD-0699	Prong Setting Blue Sapphire Halo Engagement Ring	shapes with photos: Oval
+VJD-1196	Prong Setting Blue Sapphire Halo Engagement Ring	shapes with photos: Oval
+VJD-2630	Prong Setting Blue Sapphire Pendant	shapes with photos: Pear
+VJD-2723	Prong Setting Blue Sapphire Pendant	shapes with photos: Pear
+VJD-2726	Prong Setting Blue Sapphire Pendant	shapes with photos: Heart
+VJD-2802	Prong Setting Blue Sapphire Pendant	shapes with photos: Emerald
+VJD-0566	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Emerald
+VJD-0584	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Pear
+VJD-0870	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Oval
+VJD-0923	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Emerald
+VJD-0959	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Oval
+VJD-0964	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Oval
+VJD-1044	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Oval
+VJD-1055	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Emerald
+VJD-1070	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Oval
+VJD-1078	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Emerald
+VJD-1083	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Emerald
+VJD-1086	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Emerald
+VJD-1102	Prong Setting Blue Sapphire Side Stone Ring	shapes with photos: Pear
+VJD-0891	Prong Setting Blue Sapphire Solitaire Ring	shapes with photos: Pear
+VJD-2391	Prong Setting Blue Sapphire Stud Earrings	shapes with photos: Pear, Princess
+VJD-2478	Prong Setting Blue Sapphire Stud Earrings	shapes with photos: Emerald
+VJD-2490	Prong Setting Blue Sapphire Stud Earrings	shapes with photos: Pear
+VJD-3041	Prong Setting Blue Sapphire Tennis Bracelet	shapes with photos: Emerald
+VJD-0887	Prong Setting Blue Sapphire Three Stone Ring	shapes with photos: Oval
+VJD-0927	Prong Setting Blue Sapphire Three Stone Ring	shapes with photos: Oval
+VJD-1066	Prong Setting Blue Sapphire Three Stone Ring	shapes with photos: Pear
+VJD-2510	Prong Setting Blue Topaz Earrings	shapes with photos: Pear
+VJD-2883	Prong Setting Blue Topaz Pendant	shapes with photos: Pear
+VJD-2890	Prong Setting Blue Topaz Pendant	shapes with photos: Pear
+VJD-0970	Prong Setting Blue Topaz Side Stone Ring	shapes with photos: Oval
+VJD-1156	Prong Setting Blue Topaz Side Stone Ring	shapes with photos: Oval
+VJD-1157	Prong Setting Blue Topaz Side Stone Ring	shapes with photos: Oval
+VJD-0512	Prong Setting Bridal Set Engagement Ring	shapes with photos: Emerald
+VJD-1033	Prong Setting Bridal Set Engagement Ring	shapes with photos: Emerald
+VJD-1405	Prong Setting Cluster Ring	shapes with photos: Emerald
+VJD-1688	Prong Setting Diamond Fashion Ring	shapes with photos: Pear
+VJD-1421	Prong Setting Diamond Full Eternity Ring	shapes with photos: Oval
+VJD-0439	Prong Setting Diamond Hidden Halo Rings	shapes with photos: Emerald, Marquise, Oval, Pear
+VJD-2146	Prong Setting Diamond Stud Earrings	shapes with photos: Asscher, Cushion, Emerald, Heart, Marquise, Oval, Pear, Princess, Radiant
+VJD-0278	Prong Setting Diamond Trilogy Engagement Ring	shapes with photos: Oval
+VJD-0279	Prong Setting Diamond Trilogy Engagement Ring	shapes with photos: Emerald
+VJD-0281	Prong Setting Diamond Trilogy Engagement Ring	shapes with photos: Marquise
+VJD-0733	Prong Setting Diamond Trilogy Engagement Ring	shapes with photos: Asscher
+VJD-0734	Prong Setting Diamond Trilogy Engagement Ring	shapes with photos: Princess
+VJD-0735	Prong Setting Diamond Trilogy Engagement Ring	shapes with photos: Pear
+VJD-0736	Prong Setting Diamond Trilogy Engagement Ring	shapes with photos: Cushion
+VJD-0737	Prong Setting Diamond Trilogy Engagement Ring	shapes with photos: Radiant
+VJD-1547	Prong Setting Diamond Wedding Ring	shapes with photos: Oval
+VJD-1552	Prong Setting Diamond Womens Wedding Ring	shapes with photos: Pear
+VJD-1553	Prong Setting Diamond Womens Wedding Ring	shapes with photos: Marquise
+VJD-2456	Prong Setting Drop Earrings	shapes with photos: Emerald
+VJD-0980	Prong Setting Engagement Ring	shapes with photos: Emerald
+VJD-0983	Prong Setting Engagement Ring	shapes with photos: Emerald
+VJD-1075	Prong Setting Engagement Ring	shapes with photos: Emerald
+VJD-1088	Prong Setting Engagement Ring	shapes with photos: Emerald
+VJD-1571	Prong Setting Fashion Ring	shapes with photos: Emerald
+VJD-0600	Prong Setting Five Stone Ring	shapes with photos: Emerald
+VJD-0900	Prong Setting Five Stone Ring	shapes with photos: Emerald
+VJD-1120	Prong Setting Five Stone Ring	shapes with photos: Emerald
+VJD-1287	Prong Setting Five Stone Ring	shapes with photos: Oval
+VJD-2455	Prong Setting Garnet Earrings	shapes with photos: Pear
+VJD-1525	Prong Setting Garnet Engagement Ring	shapes with photos: Oval
+VJD-1631	Prong Setting Garnet Half Eternity Ring	shapes with photos: Oval
+VJD-2885	Prong Setting Garnet Pendant	shapes with photos: Pear
+VJD-1615	Prong Setting Garnet Side Stone Engagement Ring	shapes with photos: Pear
+VJD-1169	Prong Setting Garnet Side Stone Ring	shapes with photos: Oval
+VJD-1178	Prong Setting Garnet Side Stone Ring	shapes with photos: Oval
+VJD-1183	Prong Setting Garnet Side Stone Ring	shapes with photos: Pear
+VJD-0993	Prong Setting Garnet Three Stone Ring	shapes with photos: Oval
+VJD-1022	Prong Setting Garnet Three Stone Ring	shapes with photos: Oval
+VJD-1603	Prong Setting Garnet Three Stone Ring	shapes with photos: Oval
+VJD-1417	Prong Setting Half Eternity Diamond Ring	shapes with photos: Oval
+VJD-1362	Prong Setting Half Eternity Ring	shapes with photos: Emerald
+VJD-1414	Prong Setting Half Eternity Ring	shapes with photos: Emerald
+VJD-1468	Prong Setting Half Eternity Ring	shapes with photos: Emerald
+VJD-1524	Prong Setting Half Eternity Ring	shapes with photos: Emerald
+VJD-1541	Prong Setting Half Eternity Ring	shapes with photos: Emerald
+VJD-2881	Prong Setting Halo Amethyst Pendant	shapes with photos: Pear
+VJD-2837	Prong Setting Halo Aquamarine Pendant	shapes with photos: Pear
+VJD-0874	Prong Setting Halo Blue Sapphire Engagement Ring	shapes with photos: Oval
+VJD-2835	Prong Setting Halo Blue Sapphire Pendant	shapes with photos: Emerald
+VJD-2848	Prong Setting Halo Blue Sapphire Pendant	shapes with photos: Oval
+VJD-2894	Prong Setting Halo Blue Topaz Pendant	shapes with photos: Pear
+VJD-2352	Prong Setting Halo Earrings	shapes with photos: Emerald
+VJD-2506	Prong Setting Halo Earrings	shapes with photos: Emerald
+VJD-2512	Prong Setting Halo Earrings	shapes with photos: Emerald
+VJD-2538	Prong Setting Halo Earrings	shapes with photos: Emerald
+VJD-0899	Prong Setting Halo Engagement Ring	shapes with photos: Emerald
+VJD-1069	Prong Setting Halo Engagement Ring	shapes with photos: Emerald
+VJD-1138	Prong Setting Halo Engagement Ring	shapes with photos: Emerald
+VJD-2829	Prong Setting Halo Pendant	shapes with photos: Emerald
+VJD-2840	Prong Setting Halo Pendant	shapes with photos: Emerald
+VJD-2843	Prong Setting Halo Pendant	shapes with photos: Emerald
+VJD-2845	Prong Setting Halo Pendant	shapes with photos: Emerald
+VJD-2872	Prong Setting Halo Pendant	shapes with photos: Emerald
+VJD-2875	Prong Setting Halo Pendant	shapes with photos: Emerald
+VJD-2540	Prong Setting Halo Peridot Earrings	shapes with photos: Oval
+VJD-0565	Prong Setting Halo Ring	shapes with photos: Emerald
+VJD-1082	Prong Setting Halo Ring	shapes with photos: Emerald
+VJD-0969	Prong Setting Halo Ruby Engagement Ring	shapes with photos: Oval
+VJD-1170	Prong Setting Halo Ruby Engagement Ring	shapes with photos: Oval
+VJD-2745	Prong Setting Halo Ruby Pendant	shapes with photos: Emerald
+VJD-2844	Prong Setting Halo Ruby Pendant	shapes with photos: Oval
+VJD-2846	Prong Setting Halo Ruby Pendant	shapes with photos: Oval
+VJD-2893	Prong Setting Halo Tanzanite Pendant	shapes with photos: Pear
+VJD-2304	Prong Setting Hoop Earring	shapes with photos: Emerald
+VJD-2418	Prong Setting Hoop Earrings	shapes with photos: Emerald
+VJD-2425	Prong Setting Hoop Earrings	shapes with photos: Emerald
+VJD-2476	Prong Setting Hoop Earrings	shapes with photos: Emerald
+VJD-2480	Prong Setting Hoop Earrings	shapes with photos: Emerald
+VJD-2489	Prong Setting Hoop Earrings	shapes with photos: Emerald
+VJD-0561	Prong Setting Moissanite Hidden Halo Rings	shapes with photos: Emerald, Oval, Pear
+VJD-1076	Prong Setting Moissanite Hidden Halo Rings	shapes with photos: Emerald, Oval, Pear
+VJD-1498	Prong Setting Open Ring	shapes with photos: Emerald
+VJD-1548	Prong Setting Open Ring	shapes with photos: Emerald
+VJD-1563	Prong Setting Open Ring	shapes with photos: Emerald
+VJD-1567	Prong Setting Open Ring	shapes with photos: Emerald
+VJD-2641	Prong Setting Pendant	shapes with photos: Emerald
+VJD-2793	Prong Setting Pendant	shapes with photos: Emerald
+VJD-2828	Prong Setting Pendant	shapes with photos: Emerald
+VJD-2753	Prong Setting Peridot Pendant	shapes with photos: Pear
+VJD-2805	Prong Setting Peridot Pendant	shapes with photos: Pear
+VJD-0592	Prong Setting Peridot Three Stone Ring	shapes with photos: Oval
+VJD-1028	Prong Setting Peridot Three Stone Ring	shapes with photos: Oval
+VJD-1113	Prong Setting Peridot Three Stone Ring	shapes with photos: Oval
+VJD-1496	Prong Setting Peridot Three Stone Ring	shapes with photos: Oval
+VJD-1030	Prong Setting Ruby Engagement Ring	shapes with photos: Emerald
+VJD-1133	Prong Setting Ruby Engagement Ring	shapes with photos: Pear
+VJD-1140	Prong Setting Ruby Engagement Ring	shapes with photos: Oval
+VJD-1456	Prong Setting Ruby Fashion Ring	shapes with photos: Marquise
+VJD-1419	Prong Setting Ruby Half Eternity Ring	shapes with photos: Oval
+VJD-2444	Prong Setting Ruby Halo Earrings	shapes with photos: Oval
+VJD-2451	Prong Setting Ruby Halo Earrings	shapes with photos: Pear
+VJD-0648	Prong Setting Ruby Halo Ring	shapes with photos: Oval
+VJD-1168	Prong Setting Ruby Halo Ring	shapes with photos: Oval
+VJD-2613	Prong Setting Ruby Pendant	shapes with photos: Pear
+VJD-2791	Prong Setting Ruby Pendant	shapes with photos: Pear
+VJD-2836	Prong Setting Ruby Pendant	shapes with photos: Emerald
+VJD-0629	Prong Setting Ruby Side Stone Ring	shapes with photos: Oval
+VJD-0918	Prong Setting Ruby Side Stone Ring	shapes with photos: Oval
+VJD-1048	Prong Setting Ruby Side Stone Ring	shapes with photos: Oval
+VJD-1093	Prong Setting Ruby Side Stone Ring	shapes with photos: Oval
+VJD-1135	Prong Setting Ruby Side Stone Ring	shapes with photos: Emerald
+VJD-1145	Prong Setting Ruby Side Stone Ring	shapes with photos: Emerald
+VJD-1146	Prong Setting Ruby Side Stone Ring	shapes with photos: Emerald
+VJD-1147	Prong Setting Ruby Side Stone Ring	shapes with photos: Oval
+VJD-1151	Prong Setting Ruby Side Stone Ring	shapes with photos: Oval
+VJD-1165	Prong Setting Ruby Side Stone Ring	shapes with photos: Emerald
+VJD-0901	Prong Setting Ruby Solitaire Ring	shapes with photos: Pear
+VJD-2441	Prong Setting Ruby Stud Earrings	shapes with photos: Pear
+VJD-2468	Prong Setting Ruby Stud Earrings	shapes with photos: Princess
+VJD-2516	Prong Setting Ruby Stud Earrings	shapes with photos: Pear
+VJD-0936	Prong Setting Ruby Three Stone Ring	shapes with photos: Oval
+VJD-1124	Prong Setting Ruby Three Stone Ring	shapes with photos: Pear
+VJD-1096	Prong Setting Ruby Vintage Ring	shapes with photos: Oval
+VJD-1488	Prong Setting Seven Stone Ring	shapes with photos: Oval
+VJD-1515	Prong Setting Seven Stone Ring	shapes with photos: Oval
+VJD-0886	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-0905	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-0913	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-0916	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-1005	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-1023	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-1032	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-1035	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-1040	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-1060	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-1081	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-1092	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-1184	Prong Setting Side Stone Ring	shapes with photos: Emerald
+VJD-0223	Prong Setting Solitaire Diamond Engagement Ring	shapes with photos: Emerald, Marquise, Oval, Pear, Radiant
+VJD-2021	Prong Setting Solitaire Pendant	shapes with photos: Emerald
+VJD-0306	Prong Setting Solitaire Ring	shapes with photos: Emerald
+VJD-0906	Prong Setting Solitaire Ring	shapes with photos: Emerald
+VJD-0908	Prong Setting Solitaire Ring	shapes with photos: Emerald
+VJD-1098	Prong Setting Solitaire Ring	shapes with photos: Emerald
+VJD-1104	Prong Setting Solitaire Ring	shapes with photos: Emerald
+VJD-2430	Prong Setting Stud Earrings	shapes with photos: Emerald
+VJD-2435	Prong Setting Stud Earrings	shapes with photos: Emerald
+VJD-2446	Prong Setting Stud Earrings	shapes with photos: Emerald
+VJD-2452	Prong Setting Stud Earrings	shapes with photos: Emerald
+VJD-2475	Prong Setting Stud Earrings	shapes with photos: Emerald
+VJD-2359	Prong Setting Tanzanite Earrings	shapes with photos: Pear
+VJD-2419	Prong Setting Tanzanite Earrings	shapes with photos: Pear
+VJD-2755	Prong Setting Tanzanite Pendant	shapes with photos: Pear
+VJD-2853	Prong Setting Tanzanite Pendant	shapes with photos: Pear
+VJD-2892	Prong Setting Tanzanite Pendant	shapes with photos: Pear
+VJD-1179	Prong Setting Tanzanite Side Stone Ring	shapes with photos: Oval
+VJD-1185	Prong Setting Tanzanite Side Stone Ring	shapes with photos: Oval
+VJD-0963	Prong Setting Tanzanite Three Stone Ring	shapes with photos: Oval
+VJD-0611	Prong Setting Three Stone Diamond Engagement Ring	shapes with photos: Oval
+VJD-0739	Prong Setting Three Stone Diamond Engagement Ring	shapes with photos: Radiant
+VJD-0740	Prong Setting Three Stone Diamond Engagement Ring	shapes with photos: Marquise
+VJD-0741	Prong Setting Three Stone Diamond Engagement Ring	shapes with photos: Heart
+VJD-0742	Prong Setting Three Stone Diamond Engagement Ring	shapes with photos: Cushion
+VJD-0939	Prong Setting Three Stone Ring	shapes with photos: Emerald
+VJD-0945	Prong Setting Three Stone Ring	shapes with photos: Emerald
+VJD-1071	Prong Setting Three Stone Ring	shapes with photos: Emerald
+VJD-1123	Prong Setting Three Stone Ring	shapes with photos: Emerald
+VJD-1131	Prong Setting Three Stone Ring	shapes with photos: Emerald
+VJD-1002	Prong Setting Trilogy Ring	shapes with photos: Emerald
+VJD-1097	Prong Setting Trilogy Ring	shapes with photos: Emerald
+VJD-0491	Prong Setting Vintage Ring	shapes with photos: Emerald
+VJD-1017	Prong Setting Vintage Ring	shapes with photos: Emerald
+VJD-1109	Prong Setting Vintage Ring	shapes with photos: Emerald
+VJD-1116	Prong Setting Vintage Ring	shapes with photos: Emerald
+VJD-3183	Ruby and Cluster Diamonds Lariate and Earrings Set	shapes with photos: Marquise
+VJD-1233	ruby delicate everyday ring	shapes with photos: Oval
+VJD-0859	ruby delicate signet ring	shapes with photos: Princess
+VJD-1250	ruby delicate signet ring	shapes with photos: Princess
+VJD-1264	ruby delicate signet ring	shapes with photos: Marquise
+VJD-2358	Ruby drop earrings with shepherd hook	shapes with photos: Pear
+VJD-0962	Ruby Engagement Ring	shapes with photos: Emerald
+VJD-2287	Ruby everyday stud Earrings	shapes with photos: Princess
+VJD-2561	Ruby Everyday Stud Earrings	shapes with photos: Princess
+VJD-3174	Ruby Marquise Dragaonfly Delicate Chain Necklace and Earring Set	shapes with photos: Marquise
+VJD-0748	Scalloped Shaped Diamond Full Eternity Ring	shapes with photos: Pear
+VJD-0782	Scalloped Shaped Diamond Full Eternity Ring	shapes with photos: Emerald
+VJD-0779	Scalloped Shaped Diamond Half Eternity Ring	shapes with photos: Emerald
+VJD-0834	Scalloped Shaped Diamond Half Eternity Ring	shapes with photos: Pear
+VJD-0044	Semi Bezel Bypass Solitaire Engagement Ring	shapes with photos: Marquise, Oval, Pear
+VJD-1620	Setting Half Eternity Diamond Ring	shapes with photos: Marquise
+VJD-2970	shape bubble diamond bracelet	shapes with photos: Heart
+VJD-2149	Shape Delicate Diamond Stud Earrings	shapes with photos: Heart
+VJD-1651	Shape Diamond Full Eternity Wedding Band	shapes with photos: Pear
+VJD-1340	Shape Diamond Half Eternity Wedding Band	shapes with photos: Pear
+VJD-1026	Shaped Engagement Ring	shapes with photos: Emerald
+VJD-2216	Shaped Garnet Diamond Hoops	shapes with photos: Marquise
+VJD-2797	shaped Shared Prong Setting Pendant	shapes with photos: Heart
+VJD-0978	Shaped Vintage Diamond Engagement Ring	shapes with photos: Emerald
+VJD-0915	Side Stone Diamond With Engagement Ring	shapes with photos: Oval, Pear
+VJD-2072	Solitaire Delicate Chain Bracelet	shapes with photos: Emerald
+VJD-2074	Solitaire Delicate Chain Bracelet	shapes with photos: Emerald
+VJD-2081	Solitaire Delicate Chain Bracelet	shapes with photos: Emerald
+VJD-2086	Solitaire Delicate Chain Bracelet	shapes with photos: Emerald
+VJD-2105	Split Half Hoop Earrings	shapes with photos: Heart
+VJD-1295	Split Prong Setting Diamond Womens Wedding Ring	shapes with photos: Oval
+VJD-2466	stone Diamond Hoop Earrings	shapes with photos: Emerald
+VJD-2261	Stud Earrings	shapes with photos: Emerald
+VJD-2307	Stud Earrings	shapes with photos: Emerald
+VJD-0776	Studded Court Profile Comfort Fit Black Diamond Wedding Band	shapes with photos: Cushion
+VJD-1589	Studded Low Dome Standard Fit Black Diamond Wedding Band	shapes with photos: Cushion
+VJD-2258	Tanzanite drop earrings with shepherd hook	shapes with photos: Pear
+VJD-1597	Tanzanite Halo Engagement Ring	shapes with photos: Oval
+VJD-3064	Three Row Prong Set Diamond Tennis Bracelet	shapes with photos: Princess
+VJD-0827	Timeless Diamond Overlay Full Eternity Band	shapes with photos: Pear
+VJD-0843	Timeless Diamond Overlay Half Eternity Band	shapes with photos: Pear
+VJD-2379	Toi Et Moi And Diamond Earrings	shapes with photos: Oval, Pear
+VJD-2389	Toi Et Moi And Diamond Earrings	shapes with photos: Marquise, Pear
+VJD-2396	Toi Et Moi And Diamond Earrings	shapes with photos: Emerald, Pear
+VJD-1388	Toi Et Moi And Diamond Engagement Ring	shapes with photos: Emerald, Pear
+VJD-1696	Toi Et Moi And Diamond Engagement Ring	shapes with photos: Emerald, Marquise
+VJD-1698	Toi Et Moi And Diamond Engagement Ring	shapes with photos: Oval, Pear
+VJD-1699	Toi Et Moi And Diamond Engagement Ring	shapes with photos: Oval, Pear
+VJD-1700	Toi Et Moi And Diamond Engagement Ring	shapes with photos: Oval, Pear
+VJD-1833	Toi Et Moi And Diamond Engagement Ring	shapes with photos: Marquise, Pear
+VJD-2762	Toi Et Moi And Diamond Pendant	shapes with photos: Oval, Pear
+VJD-2773	Toi Et Moi And Diamond Pendant	shapes with photos: Marquise, Pear
+VJD-2783	Toi Et Moi And Diamond Pendant	shapes with photos: Emerald, Pear
+VJD-1356	Toi Et Moi And Diamond Ring	shapes with photos: Oval, Pear
+VJD-1369	Toi Et Moi And Diamond Ring	shapes with photos: Marquise, Pear
+VJD-1697	Toi Et Moi And Diamond Studded Engagement Ring	shapes with photos: Emerald, Pear
+VJD-2592	Toi Et Moi and Shaped Pendant	shapes with photos: Marquise, Pear
+VJD-2380	Toi Et Moi Blue Sapphire Diamond Earrings	shapes with photos: Oval, Pear
+VJD-2392	Toi Et Moi Blue Sapphire Diamond Earrings	shapes with photos: Marquise, Pear
+VJD-2397	Toi Et Moi Blue Sapphire Diamond Earrings	shapes with photos: Emerald, Pear
+VJD-1367	Toi Et Moi Blue Sapphire Diamond Pavé Set Ring	shapes with photos: Oval, Pear
+VJD-1375	Toi Et Moi Blue Sapphire Diamond Pavé Set Ring	shapes with photos: Marquise, Pear
+VJD-1636	Toi Et Moi Blue Sapphire Diamond Pavé Set Ring	shapes with photos: Emerald, Pear
+VJD-2763	Toi Et Moi Blue Sapphire Diamond Pendant	shapes with photos: Oval, Pear
+VJD-2775	Toi Et Moi Blue Sapphire Diamond Pendant	shapes with photos: Marquise, Pear
+VJD-2784	Toi Et Moi Blue Sapphire Diamond Pendant	shapes with photos: Emerald, Pear
+VJD-1357	Toi Et Moi Blue Sapphire Diamond Ring	shapes with photos: Oval, Pear
+VJD-1641	Toi Et Moi Blue Sapphire Diamond Ring	shapes with photos: Emerald, Pear
+VJD-1646	Toi Et Moi Blue Sapphire Diamond Ring	shapes with photos: Marquise, Pear
+VJD-2386	Toi Et Moi Diamond Blue Sapphire Diamond Earrings	shapes with photos: Oval, Pear
+VJD-2394	Toi Et Moi Diamond Blue Sapphire Diamond Earrings	shapes with photos: Marquise, Pear
+VJD-2402	Toi Et Moi Diamond Blue Sapphire Diamond Earrings	shapes with photos: Emerald, Pear
+VJD-2769	Toi Et Moi Diamond Blue Sapphire Diamond Pendant	shapes with photos: Oval, Pear
+VJD-2782	Toi Et Moi Diamond Blue Sapphire Diamond Pendant	shapes with photos: Marquise, Pear
+VJD-2789	Toi Et Moi Diamond Blue Sapphire Diamond Pendant	shapes with photos: Emerald, Pear
+VJD-1364	Toi Et Moi Diamond Blue Sapphire Diamond Ring	shapes with photos: Oval, Pear
+VJD-1371	Toi Et Moi Diamond Blue Sapphire Diamond Ring	shapes with photos: Marquise, Pear
+VJD-1637	Toi Et Moi Diamond Blue Sapphire Diamond Ring	shapes with photos: Emerald, Pear
+VJD-1368	Toi Et Moi Diamond Blue Sapphire Pavé Set Ring	shapes with photos: Oval, Pear
+VJD-1634	Toi Et Moi Diamond Blue Sapphire Pavé Set Ring	shapes with photos: Emerald, Pear
+VJD-1642	Toi Et Moi Diamond Blue Sapphire Pavé Set Ring	shapes with photos: Marquise, Pear
+VJD-2384	Toi Et Moi Diamond Diamond Earrings	shapes with photos: Emerald
+VJD-2395	Toi Et Moi Diamond Diamond Earrings	shapes with photos: Emerald
+VJD-2400	Toi Et Moi Diamond Diamond Earrings	shapes with photos: Emerald
+VJD-2768	Toi Et Moi Diamond Diamond Pendant	shapes with photos: Emerald
+VJD-2779	Toi Et Moi Diamond Diamond Pendant	shapes with photos: Emerald
+VJD-2788	Toi Et Moi Diamond Diamond Pendant	shapes with photos: Emerald
+VJD-1360	Toi Et Moi Diamond Diamond Ring	shapes with photos: Emerald
+VJD-1639	Toi Et Moi Diamond Diamond Ring	shapes with photos: Emerald
+VJD-1645	Toi Et Moi Diamond Diamond Ring	shapes with photos: Emerald
+VJD-2382	Toi Et Moi Diamond Earrings	shapes with photos: Emerald
+VJD-2390	Toi Et Moi Diamond Earrings	shapes with photos: Emerald
+VJD-2399	Toi Et Moi Diamond Earrings	shapes with photos: Emerald
+VJD-1365	Toi Et Moi Diamond Pavé Set Ring	shapes with photos: Oval, Pear
+VJD-1377	Toi Et Moi Diamond Pavé Set Ring	shapes with photos: Emerald
+VJD-1380	Toi Et Moi Diamond Pavé Set Ring	shapes with photos: Emerald, Pear
+VJD-1381	Toi Et Moi Diamond Pavé Set Ring	shapes with photos: Emerald
+VJD-1382	Toi Et Moi Diamond Pavé Set Ring	shapes with photos: Emerald
+VJD-1643	Toi Et Moi Diamond Pavé Set Ring	shapes with photos: Emerald
+VJD-1644	Toi Et Moi Diamond Pavé Set Ring	shapes with photos: Marquise, Pear
+VJD-1648	Toi Et Moi Diamond Pavé Set Ring	shapes with photos: Emerald
+VJD-1650	Toi Et Moi Diamond Pavé Set Ring	shapes with photos: Emerald
+VJD-2764	Toi Et Moi Diamond Pendant	shapes with photos: Emerald
+VJD-2774	Toi Et Moi Diamond Pendant	shapes with photos: Emerald
+VJD-2785	Toi Et Moi Diamond Pendant	shapes with photos: Emerald
+VJD-1359	Toi Et Moi Diamond Ring	shapes with photos: Emerald
+VJD-1370	Toi Et Moi Diamond Ring	shapes with photos: Emerald
+VJD-1640	Toi Et Moi Diamond Ring	shapes with photos: Emerald
+VJD-2388	Toi Et Moi Diamond Ruby Diamond Earrings	shapes with photos: Oval, Pear
+VJD-2404	Toi Et Moi Diamond Ruby Diamond Earrings	shapes with photos: Emerald, Pear
+VJD-2554	Toi Et Moi Diamond Ruby Diamond Earrings	shapes with photos: Marquise, Pear
+VJD-2771	Toi Et Moi Diamond Ruby Diamond Pendant	shapes with photos: Oval, Pear
+VJD-2790	Toi Et Moi Diamond Ruby Diamond Pendant	shapes with photos: Emerald, Pear
+VJD-2907	Toi Et Moi Diamond Ruby Diamond Pendant	shapes with photos: Marquise, Pear
+VJD-1361	Toi Et Moi Diamond Ruby Diamond Ring	shapes with photos: Oval, Pear
+VJD-1372	Toi Et Moi Diamond Ruby Diamond Ring	shapes with photos: Marquise, Pear
+VJD-1638	Toi Et Moi Diamond Ruby Diamond Ring	shapes with photos: Emerald, Pear
+VJD-1378	Toi Et Moi Diamond Ruby Pavé Set Ring	shapes with photos: Marquise, Pear
+VJD-1383	Toi Et Moi Diamond Ruby Pavé Set Ring	shapes with photos: Emerald, Pear
+VJD-1649	Toi Et Moi Diamond Ruby Pavé Set Ring	shapes with photos: Oval, Pear
+VJD-2383	Toi Et Moi Ruby Diamond Earrings	shapes with photos: Oval, Pear
+VJD-2393	Toi Et Moi Ruby Diamond Earrings	shapes with photos: Marquise, Pear
+VJD-2553	Toi Et Moi Ruby Diamond Earrings	shapes with photos: Emerald, Pear
+VJD-1366	Toi Et Moi Ruby Diamond Pavé Set Ring	shapes with photos: Oval, Pear
+VJD-1374	Toi Et Moi Ruby Diamond Pavé Set Ring	shapes with photos: Marquise, Pear
+VJD-1635	Toi Et Moi Ruby Diamond Pavé Set Ring	shapes with photos: Emerald, Pear
+VJD-2767	Toi Et Moi Ruby Diamond Pendant	shapes with photos: Oval, Pear
+VJD-2777	Toi Et Moi Ruby Diamond Pendant	shapes with photos: Marquise, Pear
+VJD-2787	Toi Et Moi Ruby Diamond Pendant	shapes with photos: Emerald, Pear
+VJD-1358	Toi Et Moi Ruby Diamond Ring	shapes with photos: Oval, Pear
+VJD-1379	Toi Et Moi Ruby Diamond Ring	shapes with photos: Emerald, Pear
+VJD-1647	Toi Et Moi Ruby Diamond Ring	shapes with photos: Marquise, Pear
+VJD-0937	Trilogy Blue Sapphire Engagement Ring	shapes with photos: Emerald
+VJD-0249	Trilogy Diamond Engagement Ring	shapes with photos: Princess
+VJD-0250	Trilogy Diamond Engagement Ring	shapes with photos: Princess
+VJD-0358	Trilogy Diamond Engagement Ring	shapes with photos: Emerald
+VJD-0471	Trilogy Diamond Engagement Ring	shapes with photos: Princess
+VJD-0092	Trilogy Diamond Engagement Ring with Bypass Shank	shapes with photos: Emerald
+VJD-0183	Trilogy Diamond Engagement Ring with Bypass Shank	shapes with photos: Cushion
+VJD-0207	Trilogy Diamond Engagement Ring with Bypass Shank	shapes with photos: Princess
+VJD-0219	Trilogy Diamond Engagement Ring with Bypass Shank	shapes with photos: Oval
+VJD-0242	Trilogy Diamond Engagement Ring with Bypass Shank	shapes with photos: Asscher
+VJD-0280	Trilogy Diamond Engagement Ring with Bypass Shank	shapes with photos: Radiant
+VJD-0892	Trilogy Engagement Ring	shapes with photos: Emerald
+VJD-0895	Trilogy Ring	shapes with photos: Emerald
+VJD-0920	Trilogy Ruby Engagement Ring	shapes with photos: Emerald
+VJD-0873	Trilogy Ruby Ring	shapes with photos: Oval
+VJD-3063	Two Row Prong Set Diamond Tennis Bracelet	shapes with photos: Princess
+VJD-2319	V&#x27; shape Dainty Stud Earrings	shapes with photos: Emerald
+VJD-2708	V&#x27; Shape Delicate Chain Necklace	shapes with photos: Emerald
+VJD-0014	Vintage Diamond Engagement Ring	shapes with photos: Asscher, Cushion, Emerald, Marquise, Oval, Radiant
+VJD-0928	Vintage Diamond Engagement Ring	shapes with photos: Oval, Pear
+VJD-0947	Vintage Engagement Ring	shapes with photos: Oval, Pear
+VJD-0965	Vintage Engagement Ring	shapes with photos: Emerald
+VJD-0005	Vintage Shape Trilogy Diamond Engagement Ring	shapes with photos: Oval
+VJD-0039	Vintage Shape Trilogy Diamond Engagement Ring	shapes with photos: Marquise
+VJD-0056	Vintage Shape Trilogy Diamond Engagement Ring	shapes with photos: Emerald
+VJD-0016	Vintage Split Shank Solitaire Diamond Engagement Ring	shapes with photos: Cushion, Emerald, Marquise, Oval, Radiant
+VJD-0760	Wave Shape Diamond Full Eternity Wedding Band	shapes with photos: Pear
+VJD-0788	Wave Shape Diamond Full Eternity Wedding Band	shapes with photos: Marquise
+VJD-1258	wishbone stackable ring	shapes with photos: Emerald
+VJD-0430	Yellow Diamond Floral Halo Engagement Ring	shapes with photos: Oval
+VJD-0968	Yellow Diamond Floral Halo Engagement Ring	shapes with photos: Oval
+VJD-0724	Yellow Diamond Halo Engagement Ring	shapes with photos: Oval, Pear
+VJD-1205	Yellow Diamond Halo Engagement Ring	shapes with photos: Oval, Pear
